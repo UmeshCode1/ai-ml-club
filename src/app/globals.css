@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-display: var(--font-space-grotesk);
+  --color-neon-lime: var(--neon-lime);
+  --color-electric-cyan: var(--electric-cyan);
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+:root {
+  --background: #F3F4F6;
+  /* Vapor Grey - Clean Lab */
+  /* Pure White - Digital Paper (Disabled for Card Contrast) */
+  --foreground: #050505;
+  /* Light Mode Theme: ColorHunt #207DFF (Blue) & #85EF47 (Green) */
+  --neon-lime: #207DFF;
+  --electric-cyan: #85EF47;
+
+  /* Text Contrast Variants */
+  --neon-lime-text: #207DFF;
+  --electric-cyan-text: #00BD56;
+  /* Using Darker Green (#00BD56) for readability */
+
+  /* Semantic Tokens */
+  --card-bg: #FFFFFF;
+  --card-border: #E5E7EB;
+  /* neutral-200 */
+  --card-foreground: #050505;
+}
+
+.dark {
+  --background: #050505;
+  /* Deep Void Black */
+  --foreground: #fafafa;
+  --neon-lime: #D4FF00;
+  --electric-cyan: #00F0FF;
+
+  /* Text Contrast Variants (Same as Neon) */
+  --neon-lime-text: #D4FF00;
+  --electric-cyan-text: #00F0FF;
+
+  /* Semantic Tokens */
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-foreground: #fafafa;
+}
+
+body {
+  background: var(--background);
+  /* Light Mode: Technical Dot Grid */
+  background-image: radial-gradient(#00000010 1px, transparent 1px);
+  background-size: 24px 24px;
+
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+::selection {
+  background-color: var(--neon-lime);
+  color: #000;
+}
+
+.dark ::selection {
+  background-color: var(--electric-cyan);
+  color: #000;
+}
+
+.dark body {
+  /* Dark Mode: Clean Void (handled by global-background or generic bg) */
+  background-image: none;
+}
+
+/* Noise Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 40;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  /* 3% Opacity */
+  mix-blend-mode: overlay;
+}
+
+/* Custom Scrollbar - World Class Polish */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-lime);
+  /* Adapts to Blue (Light) / Neon (Dark) */
+  border-radius: 5px;
+  border: 2px solid var(--background);
+  /* Creates a 'floating' look */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--electric-cyan);
+  /* Interactive feedback */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), var(--font-mono), monospace;
+}
+
+/* Animations */
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}

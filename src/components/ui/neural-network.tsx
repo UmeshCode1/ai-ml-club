@@ -38,15 +38,19 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
         };
 
         const initParticles = () => {
-            const particleCount = Math.min(Math.floor((width * height) / 12000), 150);
+            // Reduce particles on mobile for performance
+            const isMobile = width < 640;
+            const baseCount = isMobile ? 30 : Math.min(Math.floor((width * height) / 12000), 150);
+            const particleCount = baseCount;
+
             particles.current = [];
             for (let i = 0; i < particleCount; i++) {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.3, // Slower, smoother
-                    vy: (Math.random() - 0.5) * 0.3,
-                    size: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.2 : 0.3), // Slower on mobile
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.2 : 0.3),
+                    size: Math.random() * (isMobile ? 1.5 : 2) + 1,
                 });
             }
         };

@@ -15,7 +15,7 @@ const keywords = [
 
 export function FloatingKeywords({ className }: { className?: string }) {
     return (
-        <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
+        <div className={`hidden sm:block absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
             {keywords.map((keyword, index) => (
                 <motion.span
                     key={index}

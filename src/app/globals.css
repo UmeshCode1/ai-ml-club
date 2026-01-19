@@ -185,6 +185,31 @@ h6 {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
+  /* Disable heavy hover effects on touch devices */
+  @media (hover: none) {
+    .group:hover .group-hover\:scale-110 {
+      transform: none;
+    }
+
+    .hover\:shadow-2xl:hover {
+      box-shadow: var(--shadow-md);
+    }
+  }
+
+  /* Reduce animation complexity on mobile */
+  .blur-xl {
+    filter: blur(12px);
+  }
+
+  /* Smaller gaps and padding */
+  .gap-12 {
+    gap: 2rem;
+  }
+
+  .gap-16 {
+    gap: 2.5rem;
+  }
 }
 
 /* Tablet Improvements */
@@ -192,5 +217,33 @@ h6 {
   .container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+}
+
+/* Touch Device Specific */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Larger tap targets */
+  a,
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Disable parallax-like effects */
+  .mix-blend-screen {
+    mix-blend-mode: normal;
+  }
+}
+
+/* High Performance Mode for Low-End Devices */
+@media (prefers-reduced-motion: reduce),
+(max-width: 480px) {
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px);
+  }
+
+  .blur-\[120px\] {
+    filter: blur(60px);
   }
 }

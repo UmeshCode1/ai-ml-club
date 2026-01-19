@@ -10,6 +10,7 @@ import { GlobalBackground } from "@/components/layout/global-background";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { MagneticCursor } from "@/components/ui/magnetic-cursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -79,6 +80,7 @@ export default function RootLayout({
             <GlobalBackground />
             <PreLoader />
             <CommandPalette />
+            <MagneticCursor />
             <Navbar />
             <main className="min-h-screen">
               {children}

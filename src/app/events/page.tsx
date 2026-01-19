@@ -17,7 +17,7 @@ export default function EventsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl w-full z-10 relative pb-20">
                 {MOCK_EVENTS.map((event, index) => (
                     <FloatingCard key={event.id} delay={index * 0.15}>
-                        <div className="group relative h-full rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] overflow-hidden hover:shadow-2xl hover:border-[#00F0FF]/50 transition-all duration-500 flex flex-col">
+                        <div className="group relative h-full rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] overflow-hidden hover:shadow-2xl hover:border-[var(--electric-cyan)]/50 transition-all duration-500 flex flex-col">
                             <div className="aspect-video relative w-full overflow-hidden bg-black/5 dark:bg-white/5">
                                 <div className="absolute inset-0 bg-neutral-200 dark:bg-white/5 animate-pulse" /> {/* Placeholder for image */}
                                 <Image
@@ -35,8 +35,8 @@ export default function EventsPage() {
                                 </div>
                             </div>
                             <div className="p-6 flex-1 flex flex-col">
-                                <span className="text-[#00F0FF] text-xs font-bold tracking-widest uppercase mb-2 block">{new Date(event.date).toLocaleDateString()}</span>
-                                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3 group-hover:text-[#00F0FF] transition-colors">{event.title}</h3>
+                                <span className="text-[var(--electric-cyan-text)] text-xs font-bold tracking-widest uppercase mb-2 block">{new Date(event.date).toLocaleDateString()}</span>
+                                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3 group-hover:text-[var(--electric-cyan-text)] transition-colors">{event.title}</h3>
                                 <p className="text-neutral-600 dark:text-neutral-400 text-sm line-clamp-2">{event.description}</p>
                             </div>
                         </div>

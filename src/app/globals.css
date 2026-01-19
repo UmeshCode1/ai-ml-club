@@ -25,24 +25,38 @@
 }
 
 :root {
-  --background: #F3F4F6;
-  /* Vapor Grey - Clean Lab */
-  /* Pure White - Digital Paper (Disabled for Card Contrast) */
-  --foreground: #050505;
-  /* Light Mode Theme: ColorHunt #207DFF (Blue) & #85EF47 (Green) */
-  --neon-lime: #207DFF;
-  --electric-cyan: #85EF47;
+  --background: #F8FAFC;
+  /* Premium Light Gray - Modern */
+  --foreground: #0F172A;
+  /* Slate-900 for strong contrast */
+
+  /* Light Mode Theme: Vibrant Blue & Teal */
+  --neon-lime: #3B82F6;
+  /* Tailwind Blue-500 - Vibrant */
+  --electric-cyan: #06B6D4;
+  /* Tailwind Cyan-500 - Fresh */
 
   /* Text Contrast Variants */
-  --neon-lime-text: #207DFF;
-  --electric-cyan-text: #00BD56;
-  /* Using Darker Green (#00BD56) for readability */
+  --neon-lime-text: #2563EB;
+  /* Blue-600 for AA contrast */
+  --electric-cyan-text: #0891B2;
+  /* Cyan-600 for AA contrast */
+
+  /* Gradient Accent */
+  --gradient-primary: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+  --gradient-text: linear-gradient(135deg, #2563EB 0%, #0891B2 100%);
 
   /* Semantic Tokens */
   --card-bg: #FFFFFF;
-  --card-border: #E5E7EB;
-  /* neutral-200 */
-  --card-foreground: #050505;
+  --card-border: #E2E8F0;
+  --card-foreground: #0F172A;
+
+  /* Enhanced Shadow Tokens */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.2);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .dark {
@@ -145,5 +159,38 @@ h6 {
 
   to {
     transform: translateX(100%);
+  }
+}
+
+/* Reduced Motion Support - Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile-First Improvements */
+@media (max-width: 640px) {
+  body {
+    background-size: 20px 20px;
+  }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Tablet Improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }

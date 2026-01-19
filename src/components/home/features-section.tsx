@@ -6,31 +6,31 @@ import { GradientBorder } from "@/components/ui/gradient-border";
 
 const features = [
     {
-        title: "Master AI & ML",
-        description: "Deep dive into Neural Networks, NLP, and Computer Vision. Our curriculum is designed to take you from basics to advanced implementation.",
+        title: "Master Cutting-Edge AI",
+        description: "Deep dive into Neural Networks, LLMs, and Computer Vision. Our structured curriculum takes you from fundamentals to production-ready skills.",
         icon: Brain,
-        color: "text-[var(--neon-lime-text)]", // Contrast Aware
+        color: "text-[var(--neon-lime-text)]",
         bg: "bg-[var(--neon-lime)]/10"
     },
     {
-        title: "Real Projects",
-        description: "Don't just learn theory. Build chatbots, prediction models, and automation tools that solve real problems.",
+        title: "Build Real Products",
+        description: "Ship chatbots, prediction engines, and automation tools. Every project solves a real problem and strengthens your portfolio.",
         icon: Code,
-        color: "text-[var(--electric-cyan-text)]", // Contrast Aware
+        color: "text-[var(--electric-cyan-text)]",
         bg: "bg-[var(--electric-cyan)]/10"
     },
     {
-        title: "Elite Network",
-        description: "Connect with like-minded peers, alumni mentors, and industry experts.",
+        title: "Join an Elite Network",
+        description: "Connect with driven peers, alumni mentors, and industry leaders. Your network becomes your net worth.",
         icon: Users,
-        color: "text-[var(--neon-lime-text)]", // Contrast Aware
+        color: "text-[var(--neon-lime-text)]",
         bg: "bg-[var(--neon-lime)]/10"
     },
     {
-        title: "Hackathons & Events",
-        description: "Participate in high-energy hackathons, workshops, and tech talks. Win prizes, gain recognition, and level up your skills.",
+        title: "Compete & Win",
+        description: "Participate in high-stakes hackathons, workshops, and tech summits. Gain recognition, win prizes, and accelerate your career.",
         icon: Trophy,
-        color: "text-[var(--electric-cyan-text)]", // Contrast Aware
+        color: "text-[var(--electric-cyan-text)]",
         bg: "bg-[var(--electric-cyan)]/10"
     }
 ];
@@ -57,12 +57,14 @@ export function FeaturesSection() {
                     {features.map((feature, index) => (
                         <FloatingCard key={index} delay={index * 0.1}>
                             <GradientBorder
-                                containerClassName="h-full rounded-3xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
+                                containerClassName="h-full rounded-3xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_40px_rgba(255,255,255,0.05)] group"
                                 className="bg-white/80 dark:bg-black/40 backdrop-blur-xl p-8 flex flex-col items-start text-left h-full"
                                 duration={index % 2 === 0 ? 8 : 10} // Varied duration for organic feel
                             >
-                                <div className={`w-14 h-14 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                    <feature.icon className="w-7 h-7" />
+                                <div className={`relative w-14 h-14 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                                    {/* Pulse Glow Effect */}
+                                    <div className="absolute inset-0 rounded-2xl bg-current opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500" />
+                                    <feature.icon className="w-7 h-7 relative z-10" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-3">
                                     {feature.title}

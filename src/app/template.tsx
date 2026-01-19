@@ -5,11 +5,10 @@ import { motion } from "framer-motion";
 export default function Template({ children }: { children: React.ReactNode }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -20, filter: "blur(5px)" }}
-            transition={{ ease: [0.22, 1, 0.36, 1], duration: 0.7 }}
-            className="w-full min-h-screen"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ ease: "easeInOut", duration: 0.75 }}
         >
             {children}
         </motion.div>

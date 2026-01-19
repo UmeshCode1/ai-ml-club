@@ -186,7 +186,8 @@ export const Navbar = () => {
                     {/* Mobile Menu Toggle */}
                     <button
                         onClick={() => { setIsOpen(!isOpen); trigger(); }}
-                        className="md:hidden p-2 text-neutral-400 hover:text-white"
+                        className="md:hidden p-2 text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)]"
+                        aria-label="Toggle mobile menu"
                     >
                         {isOpen ? <X size={20} /> : <Menu size={20} />}
                     </button>
@@ -215,7 +216,7 @@ export const Navbar = () => {
                                                         href={child.path}
                                                         target={child.external ? "_blank" : undefined}
                                                         onClick={() => { setIsOpen(false); trigger(); }}
-                                                        className="group flex items-center gap-3 px-4 py-3 text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                                                        className="group flex items-center gap-3 px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
                                                     >
                                                         <child.icon className="w-4 h-4 text-neutral-500 group-hover:text-[var(--neon-lime-text)] transition-colors" />
                                                         {child.name}
@@ -227,7 +228,7 @@ export const Navbar = () => {
                                         <Link
                                             href={item.path}
                                             onClick={() => { setIsOpen(false); trigger(); }}
-                                            className="block px-4 py-3 text-sm font-medium text-neutral-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                                            className="block px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
                                         >
                                             {item.name}
                                         </Link>

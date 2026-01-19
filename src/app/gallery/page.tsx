@@ -23,7 +23,7 @@ export default function GalleryPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed"
+                    className="text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed"
                 >
                     We are currently curating the finest moments from our workshops, hackathons, and community events. Stay tuned for a visual journey.
                 </motion.p>

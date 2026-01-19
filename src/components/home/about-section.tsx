@@ -1,42 +1,54 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FloatingCard } from "@/components/ui/floating-card";
+import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
+
+const tags = [
+    "Workshops",
+    "Hackathons",
+    "Research",
+    "Networking"
+];
 
 export function AboutSection() {
     return (
-        <section className="py-24 bg-white dark:bg-neutral-950 relative overflow-hidden">
+        <section className="py-24 md:py-32 relative z-10 bg-transparent overflow-hidden">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                    {/* Left Column: Text */}
+                    {/* Left Content */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
                         className="flex flex-col items-start"
                     >
-                        <div className="mb-6 inline-flex items-center px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] text-sm font-semibold tracking-widest uppercase font-mono border border-[var(--neon-lime)]/20">
-                            Est. 2025
+                        {/* EST Badge */}
+                        <div className="inline-block px-4 py-1.5 rounded-full border border-[var(--neon-lime)]/40 bg-[var(--neon-lime)]/5 text-[var(--neon-lime-text)] text-xs font-bold uppercase tracking-widest mb-8">
+                            EST. 2025
                         </div>
 
-                        <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 dark:text-white mb-6 leading-tight">
+                        {/* Title */}
+                        <h2 className="text-5xl md:text-7xl font-bold text-neutral-900 dark:text-white mb-8 tracking-tight">
                             About <span className="text-[var(--neon-lime-text)]">AIML Club</span>
                         </h2>
 
-                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
+                        {/* Paragraphs */}
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
                             The AI & Machine Learning Club at Oriental College of Technology is a student-driven ecosystem dedicated to exploring the frontiers of Artificial Intelligence.
-                            <br /><br />
+                        </p>
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 leading-relaxed">
                             We don&apos;t just learn; we build. From workshops and hackathons to real-world projects, we provide the platform for students to turn theoretical knowledge into practical innovation.
                         </p>
 
+                        {/* Tags */}
                         <div className="flex flex-wrap gap-3">
-                            {["Workshops", "Hackathons", "Research", "Networking"].map((tag, i) => (
+                            {tags.map((tag, index) => (
                                 <span
-                                    key={i}
-                                    className="px-6 py-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 font-medium text-sm hover:border-[var(--neon-lime)] transition-colors cursor-default"
+                                    key={index}
+                                    className="px-5 py-2 rounded-full border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 text-sm font-medium hover:border-[var(--neon-lime)] hover:text-[var(--neon-lime-text)] transition-colors cursor-default"
                                 >
                                     {tag}
                                 </span>
@@ -44,48 +56,69 @@ export function AboutSection() {
                         </div>
                     </motion.div>
 
-                    {/* Right Column: Image/Visual */}
-                    <div className="relative">
-                        <FloatingCard delay={0.2}>
-                            <GradientBorder
-                                containerClassName="rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] group"
-                                className="bg-neutral-900"
-                                duration={10}
-                            >
-                                {/* Grid Pattern Overlay */}
-                                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0" />
+                    {/* Right Content - Club Moments Terminal */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="relative w-full aspect-video md:aspect-[4/3] lg:aspect-square max-h-[500px]"
+                    >
+                        <GradientBorder
+                            containerClassName="w-full h-full rounded-3xl"
+                            className="w-full h-full bg-[#050505] p-1 flex flex-col relative overflow-hidden"
+                            borderWidth={1}
+                            duration={10}
+                        >
+                            {/* Top Gradient Line (Progress Bar look) */}
+                            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[var(--neon-lime)] to-transparent opacity-50" />
 
-                                <div className="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/40 group-hover:opacity-0 transition-opacity duration-500 z-10" />
+                            {/* Inner Terminal Content */}
+                            <div className="relative w-full h-full rounded-[20px] bg-neutral-950/50 flex flex-col justify-end p-8 overflow-hidden group">
 
-                                {/* Placeholder Content */}
-                                {/* Animated Data Visual */}
-                                <div className="w-full h-full flex flex-col items-center justify-center relative z-10">
-                                    <div className="flex gap-4 opacity-20">
-                                        {[...Array(3)].map((_, i) => (
-                                            <motion.div
-                                                key={i}
-                                                className="w-px h-32 bg-gradient-to-b from-transparent via-[var(--neon-lime)] to-transparent"
-                                                animate={{ height: ["0%", "100%", "0%"], opacity: [0, 1, 0] }}
-                                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-                                            />
-                                        ))}
-                                    </div>
-                                    <span className="mt-6 text-neutral-500 dark:text-neutral-600 font-mono text-[10px] uppercase tracking-[0.2em] opacity-50">
-                                        Terminals Active
+                                {/* Background Grid */}
+                                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)] pointer-events-none" />
+
+                                {/* Center Placeholder Text - Removed for Image Carousel */}
+                                {/* <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-xs font-mono text-neutral-700 tracking-[0.2em] animate-pulse">
+                                        TERMINALS ACTIVE
                                     </span>
+                                </div> */}
+
+                                {/* Image Carousel Background */}
+                                <div className="absolute inset-0 z-0">
+                                    <div className="relative w-full h-full">
+                                        {/* Overlay Gradient for readability */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent z-10" />
+
+                                        {/* Animated Images */}
+                                        <motion.div
+                                            animate={{ scale: [1, 1.1, 1] }}
+                                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                            className="w-full h-full"
+                                        >
+                                            <Image
+                                                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop"
+                                                alt="Club Moments"
+                                                fill
+                                                className="object-cover opacity-60"
+                                            />
+                                        </motion.div>
+                                    </div>
                                 </div>
 
-                                <div className="absolute bottom-6 left-6 z-20">
-                                    <div className="h-1 w-12 bg-[var(--neon-lime)] mb-2 rounded-full shadow-[0_0_10px_var(--neon-lime)]"></div>
-                                    <h3 className="text-white text-xl font-bold">Club Moments</h3>
-                                    <p className="text-white/80 text-sm">Capturing our journey of innovation</p>
+                                {/* Content Overlay */}
+                                <div className="relative z-10">
+                                    <div className="w-8 h-1 bg-[var(--neon-lime)] mb-4 shadow-[0_0_10px_var(--neon-lime)]" />
+                                    <h3 className="text-2xl font-bold text-white mb-1">Club Moments</h3>
+                                    <p className="text-sm text-neutral-400">Capturing our journey of innovation</p>
                                 </div>
-                            </GradientBorder>
-                        </FloatingCard>
 
-                        {/* Decorative blob behind */}
-                        <div className="absolute -z-10 top-[-10%] right-[-10%] w-[80%] h-[80%] bg-[var(--neon-lime)]/10 rounded-full blur-[80px]" />
-                    </div>
+                            </div>
+                        </GradientBorder>
+                    </motion.div>
+
                 </div>
             </div>
         </section>

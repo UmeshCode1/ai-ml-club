@@ -4,13 +4,21 @@ import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { TextDecode } from "@/components/ui/text-decode";
+import { BlurReveal } from "@/components/ui/blur-reveal";
+import { NeuralNetwork } from "@/components/ui/neural-network";
+import { FloatingKeywords } from "@/components/ui/floating-keywords";
 
 export function HeroSection() {
     return (
         <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-24 pb-20 px-4">
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                {/* Neural Network Particle Animation */}
+                <NeuralNetwork className="opacity-60 dark:opacity-40" />
+
+                {/* Floating AI/ML Keywords */}
+                <FloatingKeywords />
+
                 {/* Micro-Gradient for Header Blending */}
                 <div className="absolute top-0 left-0 w-full h-[250px] bg-gradient-to-b from-[var(--neon-lime)]/5 to-transparent z-0" />
 
@@ -54,7 +62,12 @@ export function HeroSection() {
                     transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     className="max-w-4xl mx-auto text-lg md:text-2xl font-medium tracking-widest text-[var(--neon-lime-text)] uppercase mb-12 font-mono"
                 >
-                    <TextDecode text="Innovate • Implement • Inspire" />
+                    <BlurReveal
+                        text="Innovate • Implement • Inspire"
+                        delay={0.5}
+                        duration={1.2}
+                        className="justify-center text-[var(--neon-lime-text)] tracking-widest font-mono uppercase"
+                    />
                 </motion.div>
 
                 {/* Buttons */}
@@ -80,7 +93,7 @@ export function HeroSection() {
                     <MagneticButton>
                         <Link
                             href="/projects"
-                            className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-white transition-all duration-300 bg-black/10 dark:bg-white/5 backdrop-blur-md border border-neutral-200/50 dark:border-white/10 rounded-full hover:bg-black/20 dark:hover:bg-white/10 hover:border-neutral-300 dark:hover:border-white/20 hover:-translate-y-1"
+                            className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-neutral-700 dark:text-white transition-all duration-300 bg-white/80 dark:bg-white/5 backdrop-blur-md border border-neutral-200 dark:border-white/10 rounded-full hover:bg-neutral-100 dark:hover:bg-white/10 hover:border-neutral-300 dark:hover:border-white/20 hover:-translate-y-1 shadow-[var(--shadow-sm)]"
                         >
                             <Play className="w-4 h-4 mr-2 fill-current" />
                             See Our Work

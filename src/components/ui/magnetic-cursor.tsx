@@ -42,9 +42,9 @@ export const MagneticCursor = () => {
 
     return (
         <>
-            {/* Main Dot */}
+            {/* Main Dot - Hidden on mobile */}
             <motion.div
-                className="fixed top-0 left-0 w-4 h-4 bg-white mix-blend-difference rounded-full pointer-events-none z-[9999]"
+                className="hidden sm:block fixed top-0 left-0 w-4 h-4 bg-white mix-blend-difference rounded-full pointer-events-none z-[9999]"
                 style={{
                     x: cursorXSpring,
                     y: cursorYSpring,

@@ -111,12 +111,12 @@ export const Footer = () => {
                             {[
                                 { name: "LinkedIn", href: siteConfig.links.linkedin, external: true },
                                 { name: "GitHub", href: siteConfig.links.github, external: true },
-                                { name: "Instagram", href: siteConfig.links.instagram, external: true },
-                                { name: "Photopia", href: siteConfig.links.instagramPhotopia, external: true },
+                                { name: "Instagram (Official)", href: siteConfig.links.instagram, external: true },
+                                { name: "Photopia (Media)", href: siteConfig.links.instagramPhotopia, external: true },
                                 { name: "Linktree", href: siteConfig.links.linktree, external: true },
                                 { name: "Commudle", href: siteConfig.links.commudle, external: true },
-                                { name: "WhatsApp", href: siteConfig.links.whatsappChannel, external: true },
-                                { name: "Join Group", href: siteConfig.links.whatsappGroup, external: true },
+                                { name: "WhatsApp Channel", href: siteConfig.links.whatsappChannel, external: true },
+                                { name: "WhatsApp Group", href: siteConfig.links.whatsappGroup, external: true },
                             ].map((link) => (
                                 <li key={link.name}>
                                     <Link

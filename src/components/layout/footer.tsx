@@ -104,53 +104,28 @@ export const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Connect - Social & Community */}
+                    {/* Resources */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6">Connect</h3>
+                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6">Resources</h3>
                         <ul className="space-y-2 sm:space-y-3">
-                            <li>
-                                <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    <Linkedin className="w-4 h-4" /> LinkedIn
-                                </a>
-                            </li>
-                            <li>
-                                <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    <Github className="w-4 h-4" /> GitHub
-                                </a>
-                            </li>
-                            <li>
-                                <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    <Instagram className="w-4 h-4" /> Instagram
-                                </a>
-                            </li>
-                            <li>
-                                <a href={siteConfig.links.instagramPhotopia} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    <Instagram className="w-4 h-4" /> Photopia
-                                </a>
-                            </li>
-                            <li>
-                                <a href={siteConfig.links.linktree} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    <Send className="w-4 h-4" /> Linktree
-                                </a>
-                            </li>
-                            <li>
-                                <a href={siteConfig.links.commudle} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    <Send className="w-4 h-4" /> Commudle
-                                </a>
-                            </li>
+                            {[
+                                { name: "Suggestion Box", href: "/suggestions" },
+                                { name: "Constitution", href: "/constitution" },
+                                { name: "Media Drive", href: siteConfig.links.drive, external: true },
+                                { name: "WhatsApp Channel", href: siteConfig.links.whatsappChannel, external: true },
+                                { name: "Blog", href: "/blog" },
+                            ].map((link) => (
+                                <li key={link.name}>
+                                    <Link
+                                        href={link.href}
+                                        target={link.external ? "_blank" : undefined}
+                                        className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
-                        {/* WhatsApp Section */}
-                        <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-800">
-                            <p className="text-xs text-neutral-500 mb-2">Join WhatsApp</p>
-                            <div className="flex gap-2">
-                                <a href={siteConfig.links.whatsappChannel} target="_blank" rel="noopener noreferrer" className="flex-1 py-2 px-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs text-center text-neutral-600 dark:text-neutral-400 hover:bg-[var(--neon-lime)]/10 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    Channel
-                                </a>
-                                <a href={siteConfig.links.whatsappGroup} target="_blank" rel="noopener noreferrer" className="flex-1 py-2 px-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs text-center text-neutral-600 dark:text-neutral-400 hover:bg-[var(--neon-lime)]/10 hover:text-[var(--neon-lime-text)] transition-colors">
-                                    Group
-                                </a>
-                            </div>
-                        </div>
                     </div>
 
                     {/* Newsletter - Full width on mobile */}
@@ -209,6 +184,45 @@ export const Footer = () => {
                                 </form>
                             )}
                         </GradientBorder>
+                    </div>
+                </div>
+
+                {/* Connect Grid - Social Links */}
+                <div className="mt-10 mb-8 pt-8 border-t border-neutral-200/50 dark:border-white/10">
+                    <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mb-6">Connect with us</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+                        <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Linkedin className="w-4 h-4 text-[#0A66C2] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">LinkedIn</span>
+                        </a>
+                        <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Github className="w-4 h-4 text-neutral-900 dark:text-white group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">GitHub</span>
+                        </a>
+                        <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Instagram className="w-4 h-4 text-[#E4405F] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Instagram</span>
+                        </a>
+                        <a href={siteConfig.links.instagramPhotopia} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Instagram className="w-4 h-4 text-[#833AB4] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Photopia</span>
+                        </a>
+                        <a href={siteConfig.links.linktree} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Send className="w-4 h-4 text-[#43E55E] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Linktree</span>
+                        </a>
+                        <a href={siteConfig.links.commudle} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Send className="w-4 h-4 text-[#6366F1] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Commudle</span>
+                        </a>
+                        <a href={siteConfig.links.whatsappChannel} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Send className="w-4 h-4 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Channel</span>
+                        </a>
+                        <a href={siteConfig.links.whatsappGroup} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Send className="w-4 h-4 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Group</span>
+                        </a>
                     </div>
                 </div>
 

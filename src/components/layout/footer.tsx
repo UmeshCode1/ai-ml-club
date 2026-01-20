@@ -104,15 +104,19 @@ export const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Resources */}
+                    {/* Connect - Social & Community */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6">Resources</h3>
+                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6">Connect</h3>
                         <ul className="space-y-2 sm:space-y-3">
                             {[
-                                { name: "Suggestions", href: "/suggestions" },
-                                { name: "Constitution", href: "/constitution" },
-                                { name: "Media Drive", href: siteConfig.links.drive, external: true },
+                                { name: "LinkedIn", href: siteConfig.links.linkedin, external: true },
+                                { name: "GitHub", href: siteConfig.links.github, external: true },
+                                { name: "Instagram", href: siteConfig.links.instagram, external: true },
+                                { name: "Photopia", href: siteConfig.links.instagramPhotopia, external: true },
+                                { name: "Linktree", href: siteConfig.links.linktree, external: true },
+                                { name: "Commudle", href: siteConfig.links.commudle, external: true },
                                 { name: "WhatsApp", href: siteConfig.links.whatsappChannel, external: true },
+                                { name: "Join Group", href: siteConfig.links.whatsappGroup, external: true },
                             ].map((link) => (
                                 <li key={link.name}>
                                     <Link

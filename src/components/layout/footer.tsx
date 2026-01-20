@@ -179,37 +179,37 @@ export const Footer = () => {
                 <div className="mt-8 mb-6 pt-6 border-t border-neutral-200/50 dark:border-white/10">
                     <p className="text-center text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mb-4 sm:mb-6">Connect with us</p>
                     <div className="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-3">
-                        <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Linkedin className="w-4 h-4 text-[#0A66C2] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">LinkedIn</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">LinkedIn</span>
                         </a>
-                        <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Github className="w-4 h-4 text-neutral-900 dark:text-white group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">GitHub</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">GitHub</span>
                         </a>
-                        <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Instagram className="w-4 h-4 text-[#E4405F] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Instagram</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Official</span>
                         </a>
-                        <a href={siteConfig.links.instagramPhotopia} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.instagramPhotopia} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Instagram className="w-4 h-4 text-[#833AB4] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Photopia</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Photopia</span>
                         </a>
-                        <a href={siteConfig.links.commudle} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.commudle} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Users className="w-4 h-4 text-[#6366F1] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Commudle</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Commudle</span>
                         </a>
-                        <a href={siteConfig.links.whatsappChannel} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.whatsappChannel} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <WhatsAppIcon className="w-4 h-4" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Channel</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Channel</span>
                         </a>
-                        <a href={siteConfig.links.whatsappGroup} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.whatsappGroup} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <WhatsAppIcon className="w-4 h-4" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Group</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Group</span>
                         </a>
-                        <a href={siteConfig.links.social} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                        <a href={siteConfig.links.social} target="_blank" rel="noopener noreferrer" className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Link2 className="w-4 h-4 text-[var(--neon-lime)] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="hidden sm:inline text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">All Links</span>
+                            <span className="text-[9px] sm:text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">All Links</span>
                         </a>
                     </div>
                 </div>

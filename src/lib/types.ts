@@ -2,9 +2,13 @@ export interface Member {
     id: string;
     name: string;
     role: string;
-    image: string; // Changed from imageUrl to match legacy compatible
+    team?: string;
+    image: string;
+    enrollmentNo?: string;
+    contactNo?: string;
+    email?: string;
     bio?: string;
-    techStack?: string[]; // Added
+    techStack?: string[];
     socials?: {
         linkedin?: string;
         github?: string;
@@ -17,11 +21,11 @@ export interface Project {
     title: string;
     description: string;
     technologies: string[];
-    tags?: string[]; // Added alias/support
-    image: string; // Changed from imageUrl
-    link?: string; // Added for generic link
-    demoUrl?: string; // Kept for future
-    repoUrl?: string; // Kept for future
+    tags?: string[];
+    image: string;
+    link?: string;
+    demoUrl?: string;
+    repoUrl?: string;
     authorIds?: string[];
 }
 
@@ -29,16 +33,53 @@ export interface Event {
     id: string;
     title: string;
     description: string;
-    date: string; // ISO String
+    date: string;
     location: string;
-    image: string; // Changed from imageUrl
-    status?: "upcoming" | "past"; // Added
+    venue?: string;
+    image: string;
+    imageId?: string;
+    status?: "upcoming" | "ongoing" | "past" | "completed";
     registrationUrl?: string;
 }
 
 export interface Suggestion {
     id: string;
+    name?: string;
+    email?: string;
+    category: string;
     text: string;
-    createdAt: string;
     isAnonymous: boolean;
+    createdAt: string;
+}
+
+export interface Subscription {
+    id: string;
+    name: string;
+    email: string;
+    createdAt: string;
+}
+
+export interface BlogPost {
+    id: string;
+    title: string;
+    slug: string;
+    excerpt: string;
+    content: string;
+    author: string;
+    image?: string;
+    imageId?: string;
+    tags?: string[];
+    published: boolean;
+    createdAt: string;
+}
+
+export interface GalleryImage {
+    id: string;
+    title: string;
+    description?: string;
+    imageId: string;
+    imageUrl?: string;
+    eventName?: string;
+    category?: string;
+    createdAt: string;
 }

@@ -11,6 +11,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { MagneticCursor } from "@/components/ui/magnetic-cursor";
+import { AppwritePing } from "@/components/layout/appwrite-ping";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -77,6 +78,7 @@ export default function RootLayout({
       <body className={cn(inter.variable, jetbrainsMono.variable, spaceGrotesk.variable, "bg-background text-foreground antialiased selection:bg-[#D4FF00] selection:text-black")}>
         <SmoothScroll>
           <Providers>
+            <AppwritePing />
             <GlobalBackground />
             <PreLoader />
             <CommandPalette />

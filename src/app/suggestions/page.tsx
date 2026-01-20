@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 //
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Mail, MessageSquare, Lock, Globe, Sparkles } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import confetti from "canvas-confetti";
+import { createSuggestion } from "@/lib/database";
 
 export default function SuggestionPage() {
     const [isAnonymous, setIsAnonymous] = useState(false);
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
     const triggerConfetti = () => {
         const duration = 3 * 1000;
@@ -37,11 +40,35 @@ export default function SuggestionPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setLoading(false);
-        setSubmitted(true);
-        triggerConfetti();
+        setError(null);
+
+        const formData = new FormData(formRef.current!);
+        const name = formData.get("name") as string;
+        const email = formData.get("email") as string;
+        const category = formData.get("category") as string;
+        const text = formData.get("suggestion") as string;
+
+        try {
+            const result = await createSuggestion({
+                name: isAnonymous ? undefined : name,
+                email: isAnonymous ? undefined : email,
+                category,
+                text,
+                isAnonymous,
+            });
+
+            if (result) {
+                setSubmitted(true);
+                triggerConfetti();
+            } else {
+                setError("Failed to submit suggestion. Please try again.");
+            }
+        } catch (err) {
+            console.error("Submission error:", err);
+            setError("An error occurred. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -80,6 +107,7 @@ export default function SuggestionPage() {
                         <AnimatePresence mode="wait">
                             {!submitted ? (
                                 <motion.form
+                                    ref={formRef}
                                     key="form"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -87,6 +115,12 @@ export default function SuggestionPage() {
                                     onSubmit={handleSubmit}
                                     className="space-y-8"
                                 >
+                                    {/* Error Message */}
+                                    {error && (
+                                        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-center">
+                                            {error}
+                                        </div>
+                                    )}
                                     {/* Mode Toggle */}
                                     <div className="bg-neutral-100 dark:bg-white/5 rounded-2xl p-4 flex items-center justify-between border border-black/5 dark:border-white/5">
                                         <div className="flex items-center gap-4">
@@ -131,6 +165,7 @@ export default function SuggestionPage() {
                                                             <User className="absolute left-4 top-3.5 w-5 h-5 text-neutral-400 group-focus-within:text-[var(--neon-lime)] transition-colors" />
                                                             <input
                                                                 type="text"
+                                                                name="name"
                                                                 placeholder="Your Name"
                                                                 required={!isAnonymous}
                                                                 className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-neutral-200 dark:border-white/10 focus:border-[var(--neon-lime)] focus:ring-2 focus:ring-[var(--neon-lime)]/20 outline-none transition-all placeholder:text-neutral-400 text-neutral-900 dark:text-white"
@@ -143,6 +178,7 @@ export default function SuggestionPage() {
                                                             <Mail className="absolute left-4 top-3.5 w-5 h-5 text-neutral-400 group-focus-within:text-[var(--neon-lime)] transition-colors" />
                                                             <input
                                                                 type="email"
+                                                                name="email"
                                                                 placeholder="your@email.com"
                                                                 required={!isAnonymous}
                                                                 className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-neutral-200 dark:border-white/10 focus:border-[var(--neon-lime)] focus:ring-2 focus:ring-[var(--neon-lime)]/20 outline-none transition-all placeholder:text-neutral-400 text-neutral-900 dark:text-white"
@@ -158,7 +194,7 @@ export default function SuggestionPage() {
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-neutral-700 dark:text-neutral-300 ml-1">Category</label>
                                         <div className="relative">
-                                            <select className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-neutral-200 dark:border-white/10 focus:border-[var(--electric-cyan)] focus:ring-2 focus:ring-[var(--electric-cyan)]/20 outline-none transition-all text-neutral-900 dark:text-white appearance-none cursor-pointer">
+                                            <select name="category" className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-neutral-200 dark:border-white/10 focus:border-[var(--electric-cyan)] focus:ring-2 focus:ring-[var(--electric-cyan)]/20 outline-none transition-all text-neutral-900 dark:text-white appearance-none cursor-pointer">
                                                 <option>General Feedback</option>
                                                 <option>Event Idea</option>
                                                 <option>Website Issue</option>
@@ -175,6 +211,7 @@ export default function SuggestionPage() {
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-neutral-700 dark:text-neutral-300 ml-1">Your Suggestion <span className="text-red-500">*</span></label>
                                         <textarea
+                                            name="suggestion"
                                             rows={6}
                                             placeholder="I think it would be great if..."
                                             required

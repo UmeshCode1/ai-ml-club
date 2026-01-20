@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, User, Send, Loader2, Navigation, Linkedin, Github, Instagram, MessageCircle, Link2, Users } from "lucide-react";
+import { Mail, MapPin, Phone, User, Send, Loader2, Navigation } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { useState } from "react";
 import { createContact } from "@/lib/database";
@@ -320,62 +320,6 @@ export default function ContactPage() {
                         </GradientBorder>
                     </motion.div>
                 </div>
-
-                {/* Social Links */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    className="mt-12"
-                >
-                    <GradientBorder
-                        containerClassName="rounded-2xl"
-                        className="p-6 bg-[var(--card-bg)] backdrop-blur-xl"
-                        duration={15}
-                    >
-                        <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mb-6">Connect with us on social media</p>
-
-                        {/* Professional Platforms */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                            <a href="https://www.linkedin.com/company/aimlcluboct" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <Linkedin className="w-5 h-5 text-[#0A66C2] group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">LinkedIn</span>
-                            </a>
-                            <a href="https://github.com/aimlcluboct" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <Github className="w-5 h-5 text-neutral-900 dark:text-white group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">GitHub</span>
-                            </a>
-                            <a href="https://www.instagram.com/aimlcluboct" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <Instagram className="w-5 h-5 text-[#E4405F] group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Instagram</span>
-                            </a>
-                            <a href="https://www.instagram.com/photopia_" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <Instagram className="w-5 h-5 text-[#833AB4] group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Photopia</span>
-                            </a>
-                        </div>
-
-                        {/* Community Platforms */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                            <a href="https://linktr.ee/aimlcluboct" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <Link2 className="w-5 h-5 text-[#43E55E] group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Linktree</span>
-                            </a>
-                            <a href="https://www.commudle.com/communities/ai-ml-club" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <Users className="w-5 h-5 text-[#6366F1] group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Commudle</span>
-                            </a>
-                            <a href="https://whatsapp.com/channel/0029VbAthv38V0tfulumuV1D" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <MessageCircle className="w-5 h-5 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Channel</span>
-                            </a>
-                            <a href="https://chat.whatsapp.com/ITBTDOgerQVLnw9dq7jxN6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                                <MessageCircle className="w-5 h-5 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
-                                <span className="text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Join Group</span>
-                            </a>
-                        </div>
-                    </GradientBorder>
-                </motion.div>
             </div>
         </div>
     );

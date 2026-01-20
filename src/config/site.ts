@@ -1,10 +1,49 @@
 export const siteConfig = {
-    name: "AI & ML Club OCT",
-    description: "The AI & Machine Learning Club at Oriental College of Technology is a student-driven ecosystem defining the future of AI. We Innovate, Implement, and Inspire through workshops, hackathons, and real-world projects.",
+    name: "AIML Club - AI & Machine Learning Club OCT",
+    shortName: "AIML Club",
+    description: "AIML Club (AI & Machine Learning Club) at Oriental College of Technology, Bhopal is a student-driven ecosystem dedicated to exploring Artificial Intelligence and Machine Learning. Join India's leading AIML Club for workshops, hackathons, and real-world AI projects.",
     tagline: "Innovate • Implement • Inspire",
     url: "https://aimlclub.tech",
     ogImage: "https://aimlclub.tech/og.jpg",
-    keywords: ["AI Club", "Machine Learning", "OCT Bhopal", "Student Community", "Tech Club", "Generative AI", "Computer Vision"],
+    keywords: [
+        // Primary keywords for ranking
+        "AIML Club",
+        "AI ML Club",
+        "aiml club",
+        "AI & Machine Learning Club",
+        "AIML Club OCT",
+        "AIML Club Bhopal",
+
+        // Secondary keywords
+        "AI Club India",
+        "Machine Learning Club",
+        "Artificial Intelligence Club",
+        "AI Club OCT",
+        "ML Club Bhopal",
+
+        // Location-based
+        "Oriental College of Technology AI Club",
+        "OCT Bhopal Tech Club",
+        "Bhopal AI Club",
+        "MP AI Club",
+
+        // Tech keywords
+        "Generative AI",
+        "Computer Vision",
+        "Deep Learning",
+        "Neural Networks",
+        "ChatGPT",
+        "LLM",
+        "AI Workshops",
+        "ML Projects",
+        "AI Hackathon",
+
+        // Student/Community
+        "Student AI Community",
+        "Tech Club India",
+        "AI Student Club",
+        "College AI Club"
+    ],
     authors: [
         {
             name: "AIML Club Team",

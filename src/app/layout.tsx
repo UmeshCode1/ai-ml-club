@@ -30,42 +30,64 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    default: "AIML Club - AI & Machine Learning Club | OCT Bhopal",
+    template: `%s | AIML Club`,
   },
-  description: siteConfig.description,
+  description: "AIML Club (AI & Machine Learning Club) at Oriental College of Technology, Bhopal. India's leading student-driven AI ecosystem for workshops, hackathons, and real-world AI/ML projects. Join the AIML Club community today!",
   keywords: siteConfig.keywords,
   authors: siteConfig.authors,
   creator: "AIML Club OCT",
+  publisher: "AIML Club",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_IN",
     url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
+    title: "AIML Club - AI & Machine Learning Club | OCT Bhopal",
+    description: "AIML Club - India's leading student-driven AI & Machine Learning ecosystem at Oriental College of Technology, Bhopal. Join workshops, hackathons, and real-world AI projects.",
+    siteName: "AIML Club",
     images: [
       {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: siteConfig.name,
+        alt: "AIML Club - AI & Machine Learning Club OCT Bhopal",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
+    title: "AIML Club - AI & Machine Learning Club",
+    description: "AIML Club at OCT Bhopal - India's leading student AI community",
     images: [siteConfig.ogImage],
     creator: "@aimlcluboct",
   },
   icons: {
-    icon: "/aiml-club-logo-new.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/aiml-club-logo-new.png", type: "image/png" },
+    ],
     shortcut: "/aiml-club-logo-new.png",
     apple: "/aiml-club-logo-new.png",
   },
+  manifest: "/site.webmanifest",
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  verification: {
+    google: "your-google-verification-code", // Add your Google Search Console verification code
+  },
 };
 
 export default function RootLayout({

@@ -6,8 +6,15 @@ import { HeroSection } from "@/components/home/hero-section";
 import { ImpactStatsSection } from "@/components/home/impact-stats-section";
 import { TeamSection } from "@/components/home/team-section";
 import { getMembers } from "@/lib/database";
+import { unstable_noStore as noStore } from "next/cache";
+
+// Force dynamic rendering - fetch fresh data on each request
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
+  // Disable caching
+  noStore();
+
   // Fetch all members from Appwrite
   const allMembers = await getMembers();
 

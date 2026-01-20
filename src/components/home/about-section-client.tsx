@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const tags = [
     "Workshops",
@@ -18,17 +18,35 @@ interface AboutSectionClientProps {
 
 export function AboutSectionClient({ images }: AboutSectionClientProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    // Auto-rotate images every 5 seconds
+    // Preload next image
+    const preloadImage = useCallback((index: number) => {
+        if (images.length === 0) return;
+        const nextIndex = (index + 1) % images.length;
+        const img = new window.Image();
+        img.src = images[nextIndex].url;
+    }, [images]);
+
+    // Auto-rotate images every 3 seconds with smooth transition
     useEffect(() => {
         if (images.length <= 1) return;
-        const timer = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length);
-        }, 5000);
-        return () => clearInterval(timer);
-    }, [images.length]);
 
-    // Use current image or fallback
+        // Preload first few images on mount
+        images.slice(0, 3).forEach((_, idx) => preloadImage(idx));
+
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => {
+                const next = (prev + 1) % images.length;
+                preloadImage(next); // Preload next image
+                return next;
+            });
+        }, 3000); // 3 seconds per image
+
+        return () => clearInterval(timer);
+    }, [images.length, images, preloadImage]);
+
+    // Current image URL
     const currentImage = images.length > 0
         ? images[currentImageIndex].url
         : "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop";
@@ -100,29 +118,41 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                 {/* Background Grid */}
                                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)] pointer-events-none" />
 
-                                {/* Image Carousel Background */}
+                                {/* Image Carousel with Smooth Crossfade */}
                                 <div className="absolute inset-0 z-0">
                                     <div className="relative w-full h-full">
                                         {/* Overlay Gradient for readability */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent z-10" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent z-10" />
 
-                                        {/* Animated Images */}
-                                        <motion.div
-                                            key={currentImageIndex}
-                                            initial={{ opacity: 0, scale: 1.1 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 1 }}
-                                            className="w-full h-full"
-                                        >
-                                            <Image
-                                                src={currentImage}
-                                                alt="Club Moments"
-                                                fill
-                                                className="object-cover opacity-60"
-                                                unoptimized
-                                            />
-                                        </motion.div>
+                                        {/* Loading Placeholder */}
+                                        {!isLoaded && (
+                                            <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
+                                                <div className="w-8 h-8 border-2 border-[var(--neon-lime)] border-t-transparent rounded-full animate-spin" />
+                                            </div>
+                                        )}
+
+                                        {/* Smooth Crossfade Images */}
+                                        <AnimatePresence mode="sync">
+                                            <motion.div
+                                                key={currentImageIndex}
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                                className="absolute inset-0"
+                                            >
+                                                <Image
+                                                    src={currentImage}
+                                                    alt="Club Moments"
+                                                    fill
+                                                    className="object-cover opacity-70"
+                                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                                    priority={currentImageIndex === 0}
+                                                    onLoad={() => setIsLoaded(true)}
+                                                    unoptimized
+                                                />
+                                            </motion.div>
+                                        </AnimatePresence>
                                     </div>
                                 </div>
 

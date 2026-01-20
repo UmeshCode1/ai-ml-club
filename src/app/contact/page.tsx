@@ -114,7 +114,7 @@ export default function ContactPage() {
 
                     {/* Address */}
                     <motion.a
-                        href="https://maps.app.goo.gl/6nrnUhcLDKs3A7Uy5"
+                        href="https://maps.app.goo.gl/xbRP8VJEeKLRoJAP8"
                         target="_blank"
                         rel="noopener noreferrer"
                         initial={{ opacity: 0, y: 20 }}
@@ -299,7 +299,7 @@ export default function ContactPage() {
                             {/* Map Actions */}
                             <div className="p-4 flex flex-col sm:flex-row gap-3">
                                 <a
-                                    href="https://maps.app.goo.gl/6nrnUhcLDKs3A7Uy5"
+                                    href="https://maps.app.goo.gl/xbRP8VJEeKLRoJAP8"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex-1 py-3 px-4 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-900 dark:text-white font-medium flex items-center justify-center gap-2 transition-colors text-sm"

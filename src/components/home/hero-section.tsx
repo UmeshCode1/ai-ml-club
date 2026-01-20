@@ -34,28 +34,48 @@ export function HeroSection() {
             <div className="container relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
 
                 {/* Logos - X Pattern (Mobile Only) */}
-                <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="flex md:hidden items-center justify-center gap-4 mb-6"
-                >
-                    <Image
-                        src="/aiml-club-logo-new.png"
-                        alt="AIML Club"
-                        width={48}
-                        height={48}
-                        className="object-contain drop-shadow-lg"
-                    />
-                    <span className="text-neutral-500 text-base font-light">×</span>
-                    <Image
-                        src="/college-logo-new.png"
-                        alt="OCT"
-                        width={48}
-                        height={48}
-                        className="object-contain drop-shadow-lg"
-                    />
-                </motion.div>
+                <div className="flex md:hidden items-center justify-center gap-5 mb-8">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5, x: -20 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                        className="relative"
+                    >
+                        <div className="absolute inset-0 bg-[var(--neon-lime)]/20 rounded-full blur-xl animate-pulse" />
+                        <Image
+                            src="/aiml-club-logo-new.png"
+                            alt="AIML Club"
+                            width={64}
+                            height={64}
+                            className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(163,230,53,0.3)]"
+                        />
+                    </motion.div>
+
+                    <motion.span
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        className="text-neutral-400 dark:text-neutral-500 text-2xl font-extralight"
+                    >
+                        ×
+                    </motion.span>
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5, x: 20 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="relative"
+                    >
+                        <div className="absolute inset-0 bg-[var(--electric-cyan)]/20 rounded-full blur-xl animate-pulse" />
+                        <Image
+                            src="/college-logo-new.png"
+                            alt="OCT"
+                            width={64}
+                            height={64}
+                            className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]"
+                        />
+                    </motion.div>
+                </div>
 
                 {/* Badge */}
                 <motion.div

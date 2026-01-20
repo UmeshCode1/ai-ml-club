@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -22,24 +23,43 @@ export function HeroSection() {
                 {/* Micro-Gradient for Header Blending */}
                 <div className="absolute top-0 left-0 w-full h-[250px] bg-gradient-to-b from-[var(--neon-lime)]/5 to-transparent z-0" />
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1.5 }}
-                    className="absolute top-[-40%] left-[-20%] w-[140%] h-[80%] bg-[var(--neon-lime)]/15 dark:bg-[var(--neon-lime)]/10 rounded-full blur-[120px] mix-blend-screen dark:mix-blend-normal"
-                />
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1.5, delay: 0.5 }}
-                    className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[60%] bg-[var(--electric-cyan)]/15 dark:bg-[var(--electric-cyan)]/10 rounded-full blur-[120px] mix-blend-screen dark:mix-blend-normal"
-                />
+                {/* Background glow - stable opacity to prevent flicker */}
+                <div className="absolute top-[-40%] left-[-20%] w-[140%] h-[80%] bg-[var(--neon-lime)]/10 dark:bg-[var(--neon-lime)]/8 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[60%] bg-[var(--electric-cyan)]/10 dark:bg-[var(--electric-cyan)]/8 rounded-full blur-[120px]" />
 
                 {/* Gradient Mask to blend with next section */}
                 <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[var(--background)] to-transparent" />
             </div>
 
             <div className="container relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
+
+                {/* Logos - X Pattern for Mobile */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="flex items-center justify-center gap-3 mb-8"
+                >
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-black/80 dark:bg-neutral-900 border border-neutral-700 flex items-center justify-center overflow-hidden">
+                        <Image
+                            src="/logo.png"
+                            alt="AIML Club"
+                            width={40}
+                            height={40}
+                            className="object-contain"
+                        />
+                    </div>
+                    <span className="text-neutral-400 text-xl font-light">×</span>
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-black/80 dark:bg-neutral-900 border border-neutral-700 flex items-center justify-center overflow-hidden">
+                        <Image
+                            src="/oct-logo.png"
+                            alt="OCT"
+                            width={40}
+                            height={40}
+                            className="object-contain"
+                        />
+                    </div>
+                </motion.div>
 
                 {/* Badge */}
                 <motion.div

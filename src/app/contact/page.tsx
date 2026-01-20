@@ -285,7 +285,7 @@ export default function ContactPage() {
                             {/* Map iframe */}
                             <div className="flex-1 min-h-[350px] rounded-b-2xl overflow-hidden">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d58870.00738582834!2d78.35008690000001!3d22.7514434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x397c41b9eec40a7d%3A0x2e6d6c5bfa0e56d7!2soriental%20camps%2C%20Patel%20Nagar%2C%20Bhopal%2C%20Madhya%20Pradesh%20462022!3m2!1d23.246292699999998!2d77.50193829999999!5e0!3m2!1sen!2sin!4v1768947839005!5m2!1sen!2sin"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.548!2d77.4988!3d23.2463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c69b2d9c7d3c9%3A0x7c3e7a5e4c3b2a1d!2sOriental%20College%20of%20Technology!5e0!3m2!1sen!2sin!4v1705760000000!5m2!1sen!2sin"
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0, minHeight: "350px" }}

@@ -65,19 +65,6 @@ export const Footer = () => {
                         <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-sm">
                             Empowering students to innovate, implement, and inspire through AI & Machine Learning.
                         </p>
-
-                        {/* Social Icons - Mobile visible */}
-                        <div className="flex items-center gap-3 pt-2">
-                            <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-[var(--neon-lime)]/10 hover:text-[var(--neon-lime-text)] transition-all">
-                                <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
-                            </a>
-                            <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-[var(--neon-lime)]/10 hover:text-[var(--neon-lime-text)] transition-all">
-                                <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
-                            </a>
-                            <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-[var(--neon-lime)]/10 hover:text-[var(--neon-lime-text)] transition-all">
-                                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                            </a>
-                        </div>
                     </div>
 
                     {/* Quick Links */}

@@ -57,6 +57,9 @@ export const siteConfig = {
         linkedin: "https://www.linkedin.com/company/aimlcluboct",
         github: "https://github.com/aimlcluboct",
         drive: "https://drive.google.com/drive/folders/1-_byssQsFS1pw02iDxyt40_n2CdCBaOk",
+        email: "aimlcluboct@gmail.com",
+        phone1: "+91 6299200082",
+        phone2: "+91 7974389476",
     },
     nav: [
         { name: "Home", path: "/" },

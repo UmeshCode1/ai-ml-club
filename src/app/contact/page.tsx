@@ -24,8 +24,8 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
-                        { icon: Mail, title: "Email", info: "aimlclub@oriental.ac.in" },
-                        { icon: Phone, title: "Phone", info: "+91 123 456 7890" },
+                        { icon: Mail, title: "Email", info: "aimlcluboct@gmail.com" },
+                        { icon: Phone, title: "Phone", info: "+91 6299200082, +91 7974389476" },
                         { icon: MapPin, title: "Address", info: "Oriental College of Technology, Bhopal" },
                     ].map((item, i) => (
                         <motion.div

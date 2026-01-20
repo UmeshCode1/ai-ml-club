@@ -35,30 +35,26 @@ export function HeroSection() {
 
                 {/* Logos - X Pattern (Mobile Only) */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6 }}
-                    className="flex md:hidden items-center justify-center gap-3 mb-6"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="flex md:hidden items-center justify-center gap-4 mb-6"
                 >
-                    <div className="w-11 h-11 rounded-xl bg-black/90 border border-neutral-700/50 flex items-center justify-center overflow-hidden shadow-lg">
-                        <Image
-                            src="/logo-club.png"
-                            alt="AIML Club"
-                            width={36}
-                            height={36}
-                            className="object-contain"
-                        />
-                    </div>
-                    <span className="text-neutral-500 text-lg font-light">×</span>
-                    <div className="w-11 h-11 rounded-xl bg-black/90 border border-neutral-700/50 flex items-center justify-center overflow-hidden shadow-lg">
-                        <Image
-                            src="/oct-logo.png"
-                            alt="OCT"
-                            width={36}
-                            height={36}
-                            className="object-contain"
-                        />
-                    </div>
+                    <Image
+                        src="/aiml-club-logo-new.png"
+                        alt="AIML Club"
+                        width={48}
+                        height={48}
+                        className="object-contain drop-shadow-lg"
+                    />
+                    <span className="text-neutral-500 text-base font-light">×</span>
+                    <Image
+                        src="/college-logo-new.png"
+                        alt="OCT"
+                        width={48}
+                        height={48}
+                        className="object-contain drop-shadow-lg"
+                    />
                 </motion.div>
 
                 {/* Badge */}

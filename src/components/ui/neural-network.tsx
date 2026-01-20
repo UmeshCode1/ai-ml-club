@@ -18,6 +18,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
     const particles = useRef<Particle[]>([]);
     const mouse = useRef({ x: 0, y: 0 });
     const isMouseIn = useRef(false);
+    const isMobileRef = useRef(false);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -39,8 +40,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
         const initParticles = () => {
             // Reduce particles on mobile for performance
-            const isMobile = width < 640;
-            const baseCount = isMobile ? 30 : Math.min(Math.floor((width * height) / 12000), 150);
+            const isMobile = width < 768;
+            isMobileRef.current = isMobile;
+            const baseCount = isMobile ? 20 : Math.min(Math.floor((width * height) / 15000), 100);
             const particleCount = baseCount;
 
             particles.current = [];
@@ -48,9 +50,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * (isMobile ? 0.2 : 0.3), // Slower on mobile
-                    vy: (Math.random() - 0.5) * (isMobile ? 0.2 : 0.3),
-                    size: Math.random() * (isMobile ? 1.5 : 2) + 1,
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.15 : 0.25),
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.15 : 0.25),
+                    size: Math.random() * (isMobile ? 1.2 : 1.8) + 0.8,
                 });
             }
         };
@@ -93,22 +95,24 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 ctx.fillStyle = particleFill;
                 ctx.fill();
 
-                // Connections
-                for (let j = i + 1; j < particles.current.length; j++) {
-                    const p2 = particles.current[j];
-                    const dx = p.x - p2.x;
-                    const dy = p.y - p2.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    const connectDistance = 120;
+                // Connections - Skip on mobile for performance
+                if (!isMobileRef.current) {
+                    for (let j = i + 1; j < particles.current.length; j++) {
+                        const p2 = particles.current[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        const connectDistance = 100;
 
-                    if (dist < connectDistance) {
-                        const opacity = 1 - dist / connectDistance;
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `${lineStroke} ${opacity * 0.15})`; // Very subtle
-                        ctx.lineWidth = 0.8;
-                        ctx.stroke();
+                        if (dist < connectDistance) {
+                            const opacity = 1 - dist / connectDistance;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `${lineStroke} ${opacity * 0.12})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
                     }
                 }
             });

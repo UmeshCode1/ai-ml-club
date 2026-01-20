@@ -33,29 +33,29 @@ export function HeroSection() {
 
             <div className="container relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
 
-                {/* Logos - X Pattern for Mobile */}
+                {/* Logos - X Pattern (Mobile Only) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6 }}
-                    className="flex items-center justify-center gap-3 mb-8"
+                    className="flex md:hidden items-center justify-center gap-3 mb-6"
                 >
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-black/80 dark:bg-neutral-900 border border-neutral-700 flex items-center justify-center overflow-hidden">
+                    <div className="w-11 h-11 rounded-xl bg-black/90 border border-neutral-700/50 flex items-center justify-center overflow-hidden shadow-lg">
                         <Image
-                            src="/logo.png"
+                            src="/logo-club.png"
                             alt="AIML Club"
-                            width={40}
-                            height={40}
+                            width={36}
+                            height={36}
                             className="object-contain"
                         />
                     </div>
-                    <span className="text-neutral-400 text-xl font-light">×</span>
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-black/80 dark:bg-neutral-900 border border-neutral-700 flex items-center justify-center overflow-hidden">
+                    <span className="text-neutral-500 text-lg font-light">×</span>
+                    <div className="w-11 h-11 rounded-xl bg-black/90 border border-neutral-700/50 flex items-center justify-center overflow-hidden shadow-lg">
                         <Image
                             src="/oct-logo.png"
                             alt="OCT"
-                            width={40}
-                            height={40}
+                            width={36}
+                            height={36}
                             className="object-contain"
                         />
                     </div>

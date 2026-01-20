@@ -3,7 +3,7 @@ import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { Send, Instagram, Linkedin, Github, Check, Loader2 } from "lucide-react";
+import { Send, Instagram, Linkedin, Github, Check, Loader2, MessageSquare, Users, Link2 } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { createSubscription } from "@/lib/database";
 
@@ -190,7 +190,7 @@ export const Footer = () => {
                 {/* Connect Grid - Social Links */}
                 <div className="mt-10 mb-8 pt-8 border-t border-neutral-200/50 dark:border-white/10">
                     <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mb-6">Connect with us</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                         <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Linkedin className="w-4 h-4 text-[#0A66C2] group-hover:text-[var(--neon-lime-text)]" />
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">LinkedIn</span>
@@ -203,25 +203,17 @@ export const Footer = () => {
                             <Instagram className="w-4 h-4 text-[#E4405F] group-hover:text-[var(--neon-lime-text)]" />
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Instagram</span>
                         </a>
-                        <a href={siteConfig.links.instagramPhotopia} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                            <Instagram className="w-4 h-4 text-[#833AB4] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Photopia</span>
-                        </a>
-                        <a href={siteConfig.links.linktree} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                            <Send className="w-4 h-4 text-[#43E55E] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Linktree</span>
-                        </a>
                         <a href={siteConfig.links.commudle} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                            <Send className="w-4 h-4 text-[#6366F1] group-hover:text-[var(--neon-lime-text)]" />
+                            <Users className="w-4 h-4 text-[#6366F1] group-hover:text-[var(--neon-lime-text)]" />
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Commudle</span>
                         </a>
                         <a href={siteConfig.links.whatsappChannel} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                            <Send className="w-4 h-4 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Channel</span>
+                            <MessageSquare className="w-4 h-4 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">WhatsApp</span>
                         </a>
-                        <a href={siteConfig.links.whatsappGroup} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                            <Send className="w-4 h-4 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
-                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Group</span>
+                        <a href={siteConfig.links.social} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Link2 className="w-4 h-4 text-[var(--neon-lime)] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">All Links</span>
                         </a>
                     </div>
                 </div>

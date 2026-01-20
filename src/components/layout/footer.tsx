@@ -178,7 +178,7 @@ export const Footer = () => {
                 {/* Connect Grid - Social Links */}
                 <div className="mt-10 mb-8 pt-8 border-t border-neutral-200/50 dark:border-white/10">
                     <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mb-6">Connect with us</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
                         <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Linkedin className="w-4 h-4 text-[#0A66C2] group-hover:text-[var(--neon-lime-text)]" />
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">LinkedIn</span>
@@ -190,6 +190,10 @@ export const Footer = () => {
                         <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Instagram className="w-4 h-4 text-[#E4405F] group-hover:text-[var(--neon-lime-text)]" />
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Instagram</span>
+                        </a>
+                        <a href={siteConfig.links.instagramPhotopia} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
+                            <Instagram className="w-4 h-4 text-[#833AB4] group-hover:text-[var(--neon-lime-text)]" />
+                            <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Photopia</span>
                         </a>
                         <a href={siteConfig.links.commudle} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
                             <Users className="w-4 h-4 text-[#6366F1] group-hover:text-[var(--neon-lime-text)]" />

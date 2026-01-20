@@ -95,8 +95,47 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // JSON-LD Organization Schema for SEO
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://aimlclub.tech/#organization",
+    "name": "AI & Machine Learning Club - OCT",
+    "alternateName": ["AIML Club", "AIML Club OCT", "AI ML Club", "AIML Club Bhopal"],
+    "url": "https://aimlclub.tech",
+    "logo": "https://aimlclub.tech/aiml-club-logo-new.png",
+    "description": "AIML Club OCT - India's leading student-driven AI ecosystem at Oriental College of Technology, Bhopal.",
+    "email": "aimlcluboct@gmail.com",
+    "telephone": "+91-6299200082",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Oriental College of Technology",
+      "addressLocality": "Bhopal",
+      "addressRegion": "Madhya Pradesh",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/aimlcluboct",
+      "https://github.com/aimlcluboct",
+      "https://www.instagram.com/aimlcluboct",
+      "https://www.instagram.com/photopia_",
+      "https://www.commudle.com/communities/ai-ml-club",
+      "https://linktr.ee/aimlcluboct",
+      "https://whatsapp.com/channel/0029VbAthv38V0tfulumuV1D",
+      "https://info.aimlclub.tech",
+      "https://codify.aimlclub.tech",
+      "https://social.aimlclub.tech"
+    ]
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className={cn(inter.variable, jetbrainsMono.variable, spaceGrotesk.variable, "bg-background text-foreground antialiased selection:bg-[#D4FF00] selection:text-black")}>
         <SmoothScroll>
           <Providers>

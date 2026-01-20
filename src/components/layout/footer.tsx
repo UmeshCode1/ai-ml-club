@@ -112,7 +112,7 @@ export const Footer = () => {
                                 { name: "Suggestions", href: "/suggestions" },
                                 { name: "Constitution", href: "/constitution" },
                                 { name: "Media Drive", href: siteConfig.links.drive, external: true },
-                                { name: "WhatsApp", href: siteConfig.links.whatsapp, external: true },
+                                { name: "WhatsApp", href: siteConfig.links.whatsappChannel, external: true },
                             ].map((link) => (
                                 <li key={link.name}>
                                     <Link

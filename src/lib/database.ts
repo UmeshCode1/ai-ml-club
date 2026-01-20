@@ -32,6 +32,7 @@ const COLLECTIONS = {
     BLOG: "blog",
     GALLERY: "gallery",
     SUBSCRIPTIONS: "subscriptions",
+    CONTACTS: "contacts",
 };
 
 // ==================== STORAGE ====================
@@ -262,4 +263,39 @@ export async function getGalleryByEvent(eventName: string) {
         [Query.equal("eventName", eventName), Query.limit(50)]
     );
     return response.documents as unknown as GalleryImage[];
+}
+
+// ==================== CONTACTS ====================
+export interface Contact {
+    $id?: string;
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+    $createdAt?: string;
+}
+
+export async function createContact(data: Omit<Contact, "$id" | "$createdAt">) {
+    const databases = getDatabases();
+    try {
+        return await databases.createDocument(
+            DATABASE_ID,
+            COLLECTIONS.CONTACTS,
+            ID.unique(),
+            data
+        );
+    } catch (error) {
+        console.error("Failed to create contact:", error);
+        throw error;
+    }
+}
+
+export async function getContacts() {
+    const databases = getDatabases();
+    const response = await databases.listDocuments(
+        DATABASE_ID,
+        COLLECTIONS.CONTACTS,
+        [Query.orderDesc("$createdAt"), Query.limit(100)]
+    );
+    return response.documents as unknown as Contact[];
 }

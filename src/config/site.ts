@@ -51,12 +51,32 @@ export const siteConfig = {
         }
     ],
     links: {
-        commudle: "https://www.commudle.com/communities/ai-ml-club",
-        whatsapp: "https://www.whatsapp.com/channel/0029VbAthv38V0tfulumuV1D",
-        instagram: "https://www.instagram.com/aimlcluboct",
+        // Primary
+        website: "https://aimlclub.tech",
+
+        // Subdomains
+        info: "https://info.aimlclub.tech",
+        codify: "https://codify.aimlclub.tech",
+        social: "https://social.aimlclub.tech",
+
+        // Professional & Developer
         linkedin: "https://www.linkedin.com/company/aimlcluboct",
         github: "https://github.com/aimlcluboct",
+
+        // Social & Community
+        instagram: "https://www.instagram.com/aimlcluboct",
+        instagramPhotopia: "https://www.instagram.com/photopia_",
+        linktree: "https://linktr.ee/aimlcluboct",
+        commudle: "https://www.commudle.com/communities/ai-ml-club",
+
+        // WhatsApp
+        whatsappChannel: "https://whatsapp.com/channel/0029VbAthv38V0tfulumuV1D",
+        whatsappGroup: "https://chat.whatsapp.com/ITBTDOgerQVLnw9dq7jxN6",
+
+        // Other
         drive: "https://drive.google.com/drive/folders/1-_byssQsFS1pw02iDxyt40_n2CdCBaOk",
+
+        // Contact
         email: "aimlcluboct@gmail.com",
         phone1: "+91 6299200082",
         phone2: "+91 7974389476",

@@ -57,7 +57,7 @@ export default async function Home() {
       <ImpactStatsSection />
       <FeaturesSection />
       <ClubActivitiesSection />
-      <TeamSection members={teamMembers} autoSlideInterval={500} />
+      <TeamSection members={teamMembers} autoSlideInterval={1000} />
       <CTASection />
     </main>
   );

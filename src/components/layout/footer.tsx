@@ -3,8 +3,9 @@ import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { Send, Instagram, Linkedin, Github, Check, Loader2, MessageSquare, Users, Link2 } from "lucide-react";
+import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2 } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { createSubscription } from "@/lib/database";
 
 export const Footer = () => {
@@ -195,11 +196,11 @@ export const Footer = () => {
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Commudle</span>
                         </a>
                         <a href={siteConfig.links.whatsappChannel} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                            <MessageSquare className="w-4 h-4 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
+                            <WhatsAppIcon className="w-4 h-4" />
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Channel</span>
                         </a>
                         <a href={siteConfig.links.whatsappGroup} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">
-                            <MessageSquare className="w-4 h-4 text-[#25D366] group-hover:text-[var(--neon-lime-text)]" />
+                            <WhatsAppIcon className="w-4 h-4" />
                             <span className="text-xs text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Group</span>
                         </a>
                         <a href={siteConfig.links.social} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50 transition-all group">

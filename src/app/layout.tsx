@@ -30,10 +30,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "AIML Club - AI & Machine Learning Club | OCT Bhopal",
-    template: `%s | AIML Club`,
+    default: "AIML Club OCT - AI & Machine Learning Club | Bhopal",
+    template: `%s | AIML Club OCT`,
   },
-  description: "AIML Club (AI & Machine Learning Club) at Oriental College of Technology, Bhopal. India's leading student-driven AI ecosystem for workshops, hackathons, and real-world AI/ML projects. Join the AIML Club community today!",
+  description: "AIML Club OCT (AI & Machine Learning Club) at Oriental College of Technology, Bhopal. India's leading student-driven AI ecosystem for workshops, hackathons, and real-world AI/ML projects. Join AIML Club OCT community today!",
   keywords: siteConfig.keywords,
   authors: siteConfig.authors,
   creator: "AIML Club OCT",

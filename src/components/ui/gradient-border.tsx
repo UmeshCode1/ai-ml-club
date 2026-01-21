@@ -56,7 +56,7 @@ export function GradientBorder({
             />
 
             {/* Inner Content Background */}
-            <div className={cn("relative z-10 bg-white dark:bg-neutral-950 rounded-[inherit] w-full h-full", className)}>
+            <div className={cn("relative z-10 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-2xl rounded-[inherit] w-full h-full", className)}>
                 {children}
             </div>
         </motion.div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const CardSpotlight = ({
@@ -17,11 +17,12 @@ export const CardSpotlight = ({
     const divRef = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [opacity, setOpacity] = useState(0);
-    const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-    useEffect(() => {
-        setIsTouchDevice(window.matchMedia("(hover: none)").matches);
-    }, []);
+    const [isTouchDevice, setIsTouchDevice] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return window.matchMedia("(hover: none)").matches;
+        }
+        return false;
+    });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!divRef.current || isTouchDevice) return;
@@ -58,7 +59,7 @@ export const CardSpotlight = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             className={cn(
-                "relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-neutral-200 dark:border-white/10 bg-[var(--card-bg)] text-neutral-900 dark:text-white shadow-sm",
+                "relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-neutral-200 dark:border-white/10 bg-[var(--card-bg)] backdrop-blur-2xl text-neutral-900 dark:text-white shadow-sm dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]",
                 containerClassName
             )}
         >

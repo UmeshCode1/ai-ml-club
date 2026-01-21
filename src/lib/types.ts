@@ -39,7 +39,10 @@ export interface Event {
     image: string;
     imageId?: string;
     status?: "upcoming" | "ongoing" | "past" | "completed";
+    category?: string;
+    duration?: string;
     registrationUrl?: string;
+    registrationLink?: string;
 }
 
 export interface Suggestion {

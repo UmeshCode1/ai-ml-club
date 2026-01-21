@@ -443,23 +443,109 @@ export const MOCK_PROJECTS: Project[] = [
 ];
 
 export const MOCK_EVENTS: Event[] = [
+    // 2025 Events
     {
         id: "e1",
-        title: "AI Hackathon 2024",
-        description: "48-Hour non-stop innovation marathon.",
-        date: "2024-10-15T09:00:00.000Z",
-        location: "Auditorium",
-        image: "/images/hackathon.jpg",
-        status: "upcoming"
+        title: "Expert Talk by Coding Thinker",
+        description: "An insightful expert session on coding practices and tech industry insights by Coding Thinker. Learn from experienced professionals and enhance your programming skills.",
+        date: "2025-08-26T10:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/expert-talk.jpg",
+        status: "upcoming",
+        category: "Expert Talk",
+        duration: "1.5 hours"
     },
     {
         id: "e2",
+        title: "DSPL Session",
+        description: "Data Structures and Programming Logic session - A comprehensive learning experience to strengthen your fundamentals in DSA and logical programming.",
+        date: "2025-09-10T10:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/dspl-session.jpg",
+        status: "upcoming",
+        category: "Session",
+        duration: "2 hours",
+        registrationLink: "https://drive.google.com/file/d/1xv3a9iCzqhP2mRNXrXFPtc2MdO4triam/view?usp=sharing"
+    },
+    {
+        id: "e3",
+        title: "DSPL Workshop",
+        description: "Two-day intensive hands-on workshop on Data Structures and Programming Logic. Dive deep into algorithms, problem-solving techniques, and competitive programming.",
+        date: "2025-09-11T09:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/dspl-workshop.jpg",
+        status: "upcoming",
+        category: "Workshop",
+        duration: "2 days",
+        registrationLink: "https://drive.google.com/file/d/1xv3a9iCzqhP2mRNXrXFPtc2MdO4triam/view?usp=sharing"
+    },
+    {
+        id: "e4",
+        title: "Apfity Competition",
+        description: "Apfity - The ultimate aptitude and coding competition to test your logical reasoning and programming skills. Compete with the best minds!",
+        date: "2025-10-13T10:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/apfity.jpg",
+        status: "upcoming",
+        category: "Competition",
+        duration: "1 hour",
+        registrationLink: "https://drive.google.com/file/d/1yEwEA1owqbw1So4HH01FjJaeSejo5XMo/view?usp=drive_link"
+    },
+    {
+        id: "e5",
+        title: "Codify - Coding Competition",
+        description: "Codify - AIML Club's flagship coding competition. Test your programming prowess, solve challenging problems, and win exciting prizes!",
+        date: "2025-11-10T10:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/codify.jpg",
+        status: "upcoming",
+        category: "Competition",
+        duration: "1 hour"
+    },
+    {
+        id: "e6",
+        title: "Expert Talk on Reinforcement Learning",
+        description: "Deep dive into Reinforcement Learning with industry experts. Learn about RL algorithms, applications in robotics, gaming, and autonomous systems.",
+        date: "2025-11-29T10:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/rl-talk.jpg",
+        status: "upcoming",
+        category: "Expert Talk",
+        duration: "1.5 hours"
+    },
+    {
+        id: "e7",
+        title: "WordPress Tour Workshop",
+        description: "Complete WordPress workshop covering website creation, themes, plugins, and deployment. Build your own professional website from scratch!",
+        date: "2026-02-13T10:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/wordpress.jpg",
+        status: "upcoming",
+        category: "Workshop",
+        duration: "3 hours"
+    },
+    // Past Events
+    {
+        id: "e8",
+        title: "AI Hackathon 2024",
+        description: "48-Hour non-stop innovation marathon. Build AI-powered solutions to real-world problems.",
+        date: "2024-10-15T09:00:00.000Z",
+        location: "Auditorium",
+        image: "/images/events/hackathon.jpg",
+        status: "past",
+        category: "Hackathon",
+        duration: "48 hours"
+    },
+    {
+        id: "e9",
         title: "GenAI Workshop",
-        description: "Hands-on session with LLMs.",
+        description: "Hands-on session with Large Language Models and Generative AI technologies.",
         date: "2024-09-20T14:00:00.000Z",
         location: "Lab 2",
-        image: "/images/workshop.jpg",
-        status: "past"
+        image: "/images/events/genai-workshop.jpg",
+        status: "past",
+        category: "Workshop",
+        duration: "3 hours"
     }
 ];
 

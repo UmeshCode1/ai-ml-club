@@ -8,6 +8,8 @@ import { BlurReveal } from "@/components/ui/blur-reveal";
 import { NeuralNetwork } from "@/components/ui/neural-network";
 import { useState, useEffect } from "react";
 import { createContact } from "@/lib/database";
+import { useDeviceType } from "@/hooks/use-device-type";
+import { createScrollVariants, getViewportConfig } from "@/lib/animation-variants";
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -19,6 +21,9 @@ export default function ContactPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
     const [scrollProgress, setScrollProgress] = useState(0);
+    const { device, prefersReducedMotion } = useDeviceType();
+    const variants = createScrollVariants(device, prefersReducedMotion);
+    const viewportConfig = getViewportConfig(device);
 
     useEffect(() => {
         const handleScroll = () => {

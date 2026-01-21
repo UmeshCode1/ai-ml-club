@@ -9,6 +9,8 @@ import { BlurReveal } from "@/components/ui/blur-reveal";
 import { NeuralNetwork } from "@/components/ui/neural-network";
 import confetti from "canvas-confetti";
 import { createSuggestion } from "@/lib/database";
+import { useDeviceType } from "@/hooks/use-device-type";
+import { createScrollVariants, getViewportConfig } from "@/lib/animation-variants";
 
 export default function SuggestionPage() {
     const [isAnonymous, setIsAnonymous] = useState(false);
@@ -17,6 +19,9 @@ export default function SuggestionPage() {
     const [error, setError] = useState<string | null>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
     const formRef = useRef<HTMLFormElement>(null);
+    const { device, prefersReducedMotion } = useDeviceType();
+    const variants = createScrollVariants(device, prefersReducedMotion);
+    const viewportConfig = getViewportConfig(device);
 
     useEffect(() => {
         const handleScroll = () => {

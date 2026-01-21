@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { MOCK_EVENTS } from "@/lib/data";
-import { FloatingCard } from "@/components/ui/floating-card";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Calendar, Clock, MapPin, Filter, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar, Clock, MapPin, Filter } from "lucide-react";
 
 type FilterType = "all" | "completed" | "upcoming" | "ongoing";
 
@@ -106,8 +105,8 @@ export default function EventsPage() {
                         key={btn.key}
                         onClick={() => setFilter(btn.key)}
                         className={`relative px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 border ${filter === btn.key
-                                ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent shadow-lg"
-                                : "bg-white/80 dark:bg-neutral-900/80 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50"
+                            ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent shadow-lg"
+                            : "bg-white/80 dark:bg-neutral-900/80 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:border-[var(--neon-lime)]/50"
                             }`}
                     >
                         <span className="flex items-center gap-2">

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool } from "lucide-react";
+import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -29,6 +29,7 @@ export const Navbar = () => {
             children: [
                 { name: "Suggestion Box", path: "/suggestions", icon: MessageSquare },
                 { name: "Constitution", path: "/constitution", icon: Book },
+                { name: "Notion Workspace", path: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061", external: true, icon: NotebookText },
                 { name: "Media Drive", path: "https://drive.google.com/drive/folders/1-_byssQsFS1pw02iDxyt40_n2CdCBaOk?usp=sharing", external: true, icon: HardDrive },
                 { name: "WhatsApp Channel", path: "https://whatsapp.com/channel/0029VbAthv38V0tfulumuV1D", external: true, icon: MessageCircle },
                 { name: "Blog", path: "/blog", icon: PenTool }

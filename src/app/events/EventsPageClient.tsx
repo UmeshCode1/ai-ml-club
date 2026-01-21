@@ -1,9 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { Calendar, Clock, MapPin, Filter, ExternalLink, Sparkles, ChevronDown } from "lucide-react";
+import {
+    Calendar, Clock, MapPin, Filter, ExternalLink,
+    Sparkles, ChevronRight, ChevronLeft, ArrowRight,
+    Circle, CheckCircle2, PlayCircle, Loader2
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { BlurReveal } from "@/components/ui/blur-reveal";
 
 interface Event {
     $id: string;
@@ -27,45 +33,63 @@ interface EventsPageClientProps {
 
 export default function EventsPageClient({ events }: EventsPageClientProps) {
     const [filter, setFilter] = useState<FilterType>("all");
-    const [showAllTimeline, setShowAllTimeline] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [activeIdx, setActiveIdx] = useState(0);
     const prefersReducedMotion = useReducedMotion();
 
     // Detect device type
     useEffect(() => {
-        const checkDevice = () => setIsMobile(window.innerWidth < 640);
+        const checkDevice = () => setIsMobile(window.innerWidth < 768);
         checkDevice();
         window.addEventListener('resize', checkDevice);
         return () => window.removeEventListener('resize', checkDevice);
     }, []);
 
-    const animSettings = {
-        duration: prefersReducedMotion ? 0 : (isMobile ? 0.3 : 0.5),
-        delay: prefersReducedMotion ? 0 : (isMobile ? 0.05 : 0.08),
+    // Process Timeline Data
+    // Group 1: Completed, Group 2: Ongoing, Group 3: Upcoming
+    const timelineData = [...events].sort((a, b) =>
+        new Date(a.date).getTime() - new Date(b.date).getTime()
+    ).map(e => {
+        let status = e.status?.toLowerCase() || "upcoming";
+        if (e.isUpcoming) status = "upcoming";
+        return { ...e, status };
+    });
+
+    // Find the center point (Ongoing or first Upcoming)
+    const findCenterIdx = () => {
+        const ongoingIdx = timelineData.findIndex(e => e.status === "ongoing");
+        if (ongoingIdx !== -1) return ongoingIdx;
+        const upcomingIdx = timelineData.findIndex(e => e.status === "upcoming");
+        if (upcomingIdx !== -1) return upcomingIdx;
+        return timelineData.length - 1; // Default to last if all completed
     };
 
-    // Filter events
+    useEffect(() => {
+        const centerIdx = findCenterIdx();
+        setActiveIdx(centerIdx);
+
+        // Auto scroll to center on mount
+        setTimeout(() => {
+            if (scrollRef.current) {
+                const item = scrollRef.current.children[centerIdx] as HTMLElement;
+                if (item) {
+                    const scrollAmount = item.offsetLeft - (scrollRef.current.offsetWidth / 2) + (item.offsetWidth / 2);
+                    scrollRef.current.scrollTo({ left: scrollAmount, behavior: "smooth" });
+                }
+            }
+        }, 800);
+    }, []);
+
+    // Filtered events for the grid below timeline
     const filteredEvents = events.filter(event => {
         if (filter === "all") return true;
-        if (filter === "upcoming") return event.isUpcoming || event.status === "upcoming";
-        if (filter === "completed") return event.status === "completed" || event.status === "past";
-        return event.status === filter;
-    });
+        const s = event.status?.toLowerCase();
+        if (filter === "upcoming") return event.isUpcoming || s === "upcoming";
+        if (filter === "completed") return s === "completed" || s === "past";
+        return s === filter;
+    }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-    // Sort events by date (newest first)
-    const sortedEvents = [...filteredEvents].sort((a, b) => {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return dateB - dateA;
-    });
-
-    // Timeline events (sorted chronologically for timeline)
-    const timelineEvents = [...events].sort((a, b) =>
-        new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
-    const displayedTimelineEvents = showAllTimeline ? timelineEvents : timelineEvents.slice(0, 5);
-
-    // Stats
     const stats = {
         all: events.length,
         completed: events.filter(e => e.status === "completed" || e.status === "past").length,
@@ -73,308 +97,322 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
         ongoing: events.filter(e => e.status === "ongoing").length,
     };
 
-    const filterButtons: { key: FilterType; label: string; mobileLabel: string; bgColor: string }[] = [
-        { key: "all", label: "All Events", mobileLabel: "All", bgColor: "bg-neutral-500" },
-        { key: "completed", label: "Completed", mobileLabel: "Done", bgColor: "bg-green-500" },
-        { key: "upcoming", label: "Upcoming", mobileLabel: "Soon", bgColor: "bg-[var(--neon-lime)]" },
-        { key: "ongoing", label: "Ongoing", mobileLabel: "Live", bgColor: "bg-[var(--electric-cyan)]" },
-    ];
-
-    const getStatusColor = (status: string | undefined) => {
-        switch (status) {
-            case "completed":
-            case "past":
-                return "bg-green-500/20 border-green-500 text-green-600 dark:text-green-400";
-            case "upcoming":
-                return "bg-[var(--neon-lime)]/20 border-[var(--neon-lime)] text-[var(--neon-lime-text)]";
-            case "ongoing":
-                return "bg-[var(--electric-cyan)]/20 border-[var(--electric-cyan)] text-[var(--electric-cyan-text)]";
-            default:
-                return "bg-neutral-500/20 border-neutral-500 text-neutral-600 dark:text-neutral-400";
-        }
-    };
-
-    const getNodeColor = (status: string | undefined) => {
-        switch (status) {
-            case "completed":
-            case "past":
-                return "bg-green-500";
-            case "upcoming":
-                return "bg-[var(--neon-lime)]";
-            case "ongoing":
-                return "bg-[var(--electric-cyan)]";
-            default:
-                return "bg-neutral-500";
+    const scrollTimeline = (direction: 'left' | 'right') => {
+        if (scrollRef.current) {
+            const amount = direction === 'left' ? -300 : 300;
+            scrollRef.current.scrollBy({ left: amount, behavior: 'smooth' });
         }
     };
 
     return (
-        <div className="min-h-screen relative w-full flex flex-col items-center pt-16 sm:pt-20 md:pt-24 px-3 sm:px-4 md:px-6">
-            {/* Header */}
-            <motion.div
-                initial={{ opacity: 0, y: -15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: animSettings.duration }}
-                className="text-center mb-6 sm:mb-8 md:mb-10"
-            >
-                <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.1, type: "spring" }}
-                    className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/30 rounded-full mb-3 sm:mb-4"
-                >
-                    <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--neon-lime-text)]" />
-                    <span className="text-[10px] sm:text-xs font-semibold text-[var(--neon-lime-text)]">{events.length} Events & Counting</span>
-                </motion.div>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-neutral-50 dark:to-neutral-500 mb-2 sm:mb-3">
-                    Our Events
-                </h1>
-                <p className="text-xs sm:text-sm md:text-base text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto">
-                    Workshops • Hackathons • Expert Talks • Competitions
-                </p>
-            </motion.div>
+        <div className="min-h-screen relative w-full overflow-hidden bg-neutral-50 dark:bg-black">
+            {/* 1. FUTURISTIC HERO SECTION */}
+            <div className="relative pt-24 pb-16 md:pt-32 md:pb-24 px-6 overflow-hidden">
+                {/* Background Decor */}
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--neon-lime)]/5 rounded-full blur-[120px] -z-10 animate-pulse" />
+                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[var(--electric-cyan)]/5 rounded-full blur-[100px] -z-10" />
 
-            {/* Vertical Timeline Section */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: animSettings.duration, delay: 0.2 }}
-                className="w-full max-w-4xl mb-8 sm:mb-10 md:mb-12"
-            >
-                <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white mb-4 sm:mb-6 text-center">
-                    Event Timeline
-                </h2>
-
-                {/* Vertical Timeline */}
-                <div className="relative">
-                    {/* Vertical Line */}
-                    <div className="absolute left-4 sm:left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-neutral-200 dark:bg-neutral-800 md:-translate-x-px">
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="flex flex-col items-center text-center"
+                    >
                         <motion.div
-                            initial={{ height: 0 }}
-                            animate={{ height: `${(stats.completed / Math.max(stats.all, 1)) * 100}%` }}
-                            transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-                            className="absolute top-0 left-0 w-full bg-gradient-to-b from-green-500 via-[var(--neon-lime)] to-[var(--electric-cyan)]"
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 dark:bg-white/5 border border-white/20 backdrop-blur-md mb-6 shadow-2xl"
+                            whileHover={{ scale: 1.05 }}
+                        >
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--neon-lime)] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--neon-lime)]"></span>
+                            </span>
+                            <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-neutral-600 dark:text-neutral-400">
+                                {stats.ongoing > 0 ? `${stats.ongoing} LIVE EVENT NOW` : "EVOLUTION IN PROGRESS"}
+                            </span>
+                        </motion.div>
+
+                        <div className="mb-6">
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-white leading-[1.1]">
+                                Engineering <br />
+                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--neon-lime-text)] via-[var(--electric-cyan-text)] to-[var(--neon-lime-text)] bg-[length:200%_auto] animate-gradient-flow font-black italic">
+                                    MEMORIES
+                                </span>
+                            </h1>
+                        </div>
+
+                        <div className="max-w-2xl">
+                            <BlurReveal
+                                text="Explore the nexus of AI innovation at Oriental College of Technology. From high-stakes hackathons to expert deep-dives, witness our journey through time."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base lg:text-lg leading-relaxed justify-center"
+                                delay={0.4}
+                            />
+                        </div>
+
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1, duration: 1 }}
+                            className="mt-8 flex items-center gap-8 text-[10px] md:text-xs font-mono text-neutral-500"
+                        >
+                            <div className="flex flex-col items-center">
+                                <span className="text-lg md:text-xl font-bold text-neutral-900 dark:text-white">{stats.completed}</span>
+                                <span>COMPLETED</span>
+                            </div>
+                            <div className="w-px h-8 bg-neutral-200 dark:bg-neutral-800" />
+                            <div className="flex flex-col items-center">
+                                <span className="text-lg md:text-xl font-bold text-[var(--neon-lime-text)]">{stats.upcoming}</span>
+                                <span>UPCOMING</span>
+                            </div>
+                            <div className="w-px h-8 bg-neutral-200 dark:bg-neutral-800" />
+                            <div className="flex flex-col items-center">
+                                <span className="text-lg md:text-xl font-bold text-neutral-900 dark:text-white">{stats.all}</span>
+                                <span>TOTAL</span>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* 2. COMPREHENSIVE HORIZONTAL TIMELINE */}
+            <div className="w-full relative py-12 bg-neutral-100/50 dark:bg-neutral-900/30 backdrop-blur-3xl border-y border-neutral-200 dark:border-neutral-800/50">
+                <div className="max-w-7xl mx-auto px-6 mb-8 flex items-center justify-between">
+                    <div>
+                        <h2 className="text-xl md:text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter flex items-center gap-2">
+                            The Timeline
+                            <Circle className="w-2 h-2 fill-[var(--neon-lime)] text-[var(--neon-lime)] animate-pulse" />
+                        </h2>
+                        <p className="text-xs text-neutral-500 font-mono">SCROLL HORIZONTALLY TO NAVIGATE HISTORY</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => scrollTimeline('left')}
+                            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)] transition-colors"
+                        >
+                            <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <button
+                            onClick={() => scrollTimeline('right')}
+                            className="p-2 rounded-full border border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)] transition-colors"
+                        >
+                            <ChevronRight className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Timeline Container */}
+                <div
+                    ref={scrollRef}
+                    className="flex overflow-x-auto overflow-y-hidden gap-8 px-[10vw] pb-12 cursor-grab active:cursor-grabbing hide-scrollbar snap-x no-scrollbar"
+                    style={{ scrollBehavior: 'smooth' }}
+                >
+                    {/* Connecting Line */}
+                    <div className="absolute top-[calc(50%+4rem)] sm:top-[calc(50%+2rem)] left-0 right-0 h-px bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent z-0 overflow-hidden">
+                        <motion.div
+                            className="absolute inset-0 bg-[var(--neon-lime)]"
+                            initial={{ x: "-100%" }}
+                            animate={{ x: "0%" }}
+                            transition={{ duration: 2, ease: "easeInOut" }}
+                            style={{ width: `${(stats.completed / stats.all) * 100}%` }}
                         />
                     </div>
 
-                    {/* Timeline Events */}
-                    <div className="space-y-4 sm:space-y-6">
-                        {displayedTimelineEvents.map((event, index) => (
+                    {timelineData.map((event, idx) => {
+                        const isPast = event.status === "completed" || event.status === "past";
+                        const isOngoing = event.status === "ongoing";
+                        const isUpcoming = event.status === "upcoming";
+
+                        return (
                             <motion.div
                                 key={event.$id}
-                                initial={{ opacity: 0, x: isMobile ? -20 : (index % 2 === 0 ? -30 : 30) }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: animSettings.duration, delay: 0.3 + index * 0.1 }}
-                                className={`relative flex items-start gap-3 sm:gap-4 md:gap-6 ${index % 2 === 0
-                                        ? 'md:flex-row'
-                                        : 'md:flex-row-reverse'
-                                    }`}
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className={cn(
+                                    "flex-shrink-0 w-72 sm:w-80 relative z-10 flex flex-col snap-center",
+                                    isOngoing ? "scale-105" : "scale-95"
+                                )}
                             >
-                                {/* Node */}
-                                <div className="absolute left-4 sm:left-6 md:left-1/2 md:-translate-x-1/2 z-10">
-                                    <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 sm:border-4 border-white dark:border-neutral-900 shadow-lg ${getNodeColor(event.status)}`}>
-                                        {(event.status === "upcoming" || event.isUpcoming) && !prefersReducedMotion && (
-                                            <span className="absolute inset-0 rounded-full bg-[var(--neon-lime)] animate-ping opacity-40" />
-                                        )}
+                                {/* Event Node */}
+                                <div className="mx-auto mb-10 flex flex-col items-center">
+                                    <div className={cn(
+                                        "w-4 h-4 rounded-full border-4 relative mb-4 transition-all duration-500",
+                                        isPast ? "bg-green-500 border-green-500/30" :
+                                            isOngoing ? "bg-[var(--neon-lime)] border-[var(--neon-lime)]/50 scale-125" :
+                                                "bg-neutral-300 dark:bg-neutral-800 border-transparent"
+                                    )}>
+                                        {isOngoing && <span className="absolute inset-0 animate-ping bg-[var(--neon-lime)] rounded-full opacity-40" />}
+                                        {isUpcoming && <div className="absolute top-10 w-px h-12 bg-dashed border-l border-dashed border-neutral-300 dark:border-neutral-700" />}
                                     </div>
+                                    <span className={cn(
+                                        "text-[10px] font-mono tracking-tighter uppercase",
+                                        isPast ? "text-green-500" : isOngoing ? "text-[var(--neon-lime-text)]" : "text-neutral-500"
+                                    )}>
+                                        {new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                    </span>
                                 </div>
 
-                                {/* Content Card */}
-                                <div className={`ml-10 sm:ml-14 md:ml-0 md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'
-                                    }`}>
-                                    <motion.div
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/80 dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-800 backdrop-blur-sm hover:border-[var(--neon-lime)]/50 hover:shadow-lg transition-all duration-300 cursor-pointer group"
-                                    >
-                                        {/* Date & Status */}
-                                        <div className="flex items-center justify-between gap-2 mb-2">
-                                            <span className="text-[10px] sm:text-xs font-bold text-[var(--electric-cyan-text)]">
-                                                {new Date(event.date).toLocaleDateString("en-IN", {
-                                                    day: "numeric",
-                                                    month: "short",
-                                                    year: "numeric"
-                                                })}
-                                            </span>
-                                            <span className={`px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold border ${getStatusColor(event.status)}`}>
-                                                {(event.status || "Event").toUpperCase()}
-                                            </span>
+                                {/* Event Card */}
+                                <motion.div
+                                    whileHover={{ y: -5 }}
+                                    className={cn(
+                                        "p-5 rounded-2xl border backdrop-blur-xl transition-all duration-300 group cursor-pointer h-full flex flex-col",
+                                        isOngoing ? "bg-white dark:bg-neutral-900 border-[var(--neon-lime)] shadow-[0_0_20px_rgba(212,255,0,0.15)] ring-1 ring-[var(--neon-lime)]" :
+                                            isPast ? "bg-neutral-50 dark:bg-neutral-900/40 border-neutral-200 dark:border-neutral-800 opacity-80" :
+                                                "bg-white dark:bg-neutral-950 border-neutral-200 dark:border-neutral-800"
+                                    )}
+                                >
+                                    <div className="flex items-center justify-between mb-4">
+                                        <div className={cn(
+                                            "px-2 py-0.5 rounded-full text-[8px] font-black tracking-widest uppercase flex items-center gap-1",
+                                            isOngoing ? "bg-[var(--neon-lime)] text-black" :
+                                                isPast ? "bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400" :
+                                                    "bg-neutral-100 dark:bg-neutral-800 text-neutral-500"
+                                        )}>
+                                            {isOngoing ? <PlayCircle className="w-2 h-2" /> : isPast ? <CheckCircle2 className="w-2 h-2" /> : <Circle className="w-2 h-2" />}
+                                            {event.status}
                                         </div>
+                                        <div className="text-[10px] font-bold text-neutral-400">{event.category}</div>
+                                    </div>
 
-                                        {/* Title */}
-                                        <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white mb-1 group-hover:text-[var(--neon-lime-text)] transition-colors line-clamp-1">
-                                            {event.title}
-                                        </h3>
+                                    <h3 className="text-base font-bold text-neutral-900 dark:text-white mb-2 leading-tight group-hover:text-[var(--neon-lime-text)] transition-colors">
+                                        {event.title}
+                                    </h3>
 
-                                        {/* Category & Duration */}
-                                        <div className="flex items-center gap-2 text-[10px] sm:text-xs text-neutral-500">
-                                            {event.category && (
-                                                <span className="px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800">
-                                                    {event.category}
-                                                </span>
-                                            )}
-                                            {event.duration && (
-                                                <span className="flex items-center gap-1">
-                                                    <Clock className="w-3 h-3" />
-                                                    {event.duration}
-                                                </span>
-                                            )}
+                                    <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-3 mb-4 flex-1">
+                                        {event.description}
+                                    </p>
+
+                                    <div className="mt-auto flex items-center gap-3 pt-4 border-t border-neutral-100 dark:border-neutral-800/50">
+                                        <div className="flex items-center gap-1 text-[10px] font-medium text-neutral-400">
+                                            <Clock className="w-3 h-3" /> {event.duration || "N/A"}
                                         </div>
-                                    </motion.div>
-                                </div>
+                                        <div className="flex items-center gap-1 text-[10px] font-medium text-neutral-400 truncate max-w-[120px]">
+                                            <MapPin className="w-3 h-3" /> {event.location}
+                                        </div>
+                                    </div>
+                                </motion.div>
                             </motion.div>
+                        );
+                    })}
+
+                    {/* Padding so it can center properly */}
+                    <div className="flex-shrink-0 w-[30vw]" />
+                </div>
+            </div>
+
+            {/* 3. EVENT GRID & FILTERING */}
+            <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                    <div>
+                        <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                            Discovery <br /> Board
+                        </h2>
+                        <div className="w-12 h-1 bg-[var(--neon-lime)] mt-2" />
+                    </div>
+
+                    <div className="flex overflow-x-auto pb-2 md:pb-0 gap-2 no-scrollbar">
+                        {(["all", "completed", "ongoing", "upcoming"] as FilterType[]).map((f) => (
+                            <button
+                                key={f}
+                                onClick={() => setFilter(f)}
+                                className={cn(
+                                    "px-5 py-2 rounded-full text-xs font-bold uppercase transition-all whitespace-nowrap",
+                                    filter === f
+                                        ? "bg-neutral-900 dark:bg-white text-white dark:text-black"
+                                        : "bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-500 hover:border-[var(--neon-lime)]"
+                                )}
+                            >
+                                {f} <span className="opacity-40 ml-1">{(stats as any)[f]}</span>
+                            </button>
                         ))}
                     </div>
-
-                    {/* Show More Button */}
-                    {timelineEvents.length > 5 && (
-                        <motion.button
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.8 }}
-                            onClick={() => setShowAllTimeline(!showAllTimeline)}
-                            className="mt-6 mx-auto flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 text-sm font-medium hover:bg-[var(--neon-lime)]/10 hover:text-[var(--neon-lime-text)] transition-all"
-                        >
-                            {showAllTimeline ? 'Show Less' : `Show All ${timelineEvents.length} Events`}
-                            <ChevronDown className={`w-4 h-4 transition-transform ${showAllTimeline ? 'rotate-180' : ''}`} />
-                        </motion.button>
-                    )}
                 </div>
 
-                {/* Timeline Legend */}
-                <div className="flex justify-center gap-4 sm:gap-6 mt-6 text-[10px] sm:text-xs text-neutral-500">
-                    <div className="flex items-center gap-1.5 sm:gap-2">
-                        <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500" />
-                        <span>Completed ({stats.completed})</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 sm:gap-2">
-                        <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-[var(--neon-lime)] ${!prefersReducedMotion ? 'animate-pulse' : ''}`} />
-                        <span>Upcoming ({stats.upcoming})</span>
-                    </div>
-                </div>
-            </motion.div>
-
-            {/* Filter Buttons */}
-            <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: animSettings.duration, delay: 0.3 }}
-                className="flex flex-wrap justify-center gap-1.5 sm:gap-2 md:gap-3 mb-6 sm:mb-8 md:mb-10"
-            >
-                {filterButtons.map((btn) => (
-                    <motion.button
-                        key={btn.key}
-                        whileHover={!isMobile ? { scale: 1.05 } : {}}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => setFilter(btn.key)}
-                        className={`relative px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 rounded-full text-[10px] sm:text-xs md:text-sm font-semibold transition-all duration-200 border ${filter === btn.key
-                                ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent shadow-lg"
-                                : "bg-white/80 dark:bg-neutral-900/80 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700"
-                            }`}
-                    >
-                        <span className="flex items-center gap-1 sm:gap-2">
-                            <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${btn.bgColor}`} />
-                            <span className="sm:hidden">{btn.mobileLabel}</span>
-                            <span className="hidden sm:inline">{btn.label}</span>
-                            <span className="text-[8px] sm:text-xs opacity-60">({stats[btn.key]})</span>
-                        </span>
-                    </motion.button>
-                ))}
-            </motion.div>
-
-            {/* Events Grid */}
-            <div className="w-full max-w-7xl z-10 relative pb-24 sm:pb-20 md:pb-24">
                 <AnimatePresence mode="popLayout">
-                    {sortedEvents.length > 0 ? (
+                    {filteredEvents.length > 0 ? (
                         <motion.div
                             layout
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6"
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                         >
-                            {sortedEvents.map((event, index) => (
+                            {filteredEvents.map((event, index) => (
                                 <motion.div
                                     key={event.$id}
                                     layout
-                                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: animSettings.duration, delay: Math.min(index * animSettings.delay, 0.3) }}
-                                    whileHover={!isMobile ? { y: -6 } : {}}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="group"
+                                    transition={{ duration: 0.5, delay: Math.min(index * 0.05, 0.3) }}
+                                    className="group relative"
                                 >
-                                    <div className="relative h-full rounded-xl sm:rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] overflow-hidden hover:shadow-xl hover:border-[var(--neon-lime)]/40 transition-all duration-300 flex flex-col">
-                                        {/* Image */}
-                                        <div className="aspect-[16/9] relative w-full overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900">
-                                            {event.imageUrl && (
+                                    <div className="bg-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800/80 rounded-3xl overflow-hidden hover:shadow-[0_0_30px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_30px_rgba(212,255,0,0.05)] transition-all duration-500 h-full flex flex-col group/card">
+                                        {/* Image Section */}
+                                        <div className="aspect-[16/10] relative w-full overflow-hidden">
+                                            {event.imageUrl ? (
                                                 <Image
                                                     src={event.imageUrl}
                                                     alt={event.title}
                                                     fill
-                                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                    className="object-cover transition-transform duration-700 group-hover/card:scale-110"
                                                 />
-                                            )}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                                            {/* Badges */}
-                                            <div className="absolute top-2 right-2 sm:top-3 sm:right-3">
-                                                <span className={`px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold backdrop-blur-md border ${getStatusColor(event.status)}`}>
-                                                    {(event.status || "Event").toUpperCase()}
-                                                </span>
-                                            </div>
-                                            {event.category && (
-                                                <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
-                                                    <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-medium bg-black/50 backdrop-blur-md text-white">
-                                                        {event.category}
-                                                    </span>
+                                            ) : (
+                                                <div className="absolute inset-0 bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+                                                    <Loader2 className="w-8 h-8 animate-spin text-neutral-300 dark:text-neutral-700" />
                                                 </div>
                                             )}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                                            {/* Title on Image */}
-                                            <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3">
-                                                <h3 className="text-sm sm:text-base md:text-lg font-bold text-white line-clamp-2 group-hover:text-[var(--neon-lime)] transition-colors">
+                                            <div className="absolute top-4 left-4 flex gap-2">
+                                                <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-tight">
+                                                    {event.category}
+                                                </span>
+                                            </div>
+
+                                            <div className="absolute bottom-4 left-4 right-4">
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <span className="text-[var(--neon-lime)] text-[10px] font-mono">
+                                                        {new Date(event.date).getFullYear()}
+                                                    </span>
+                                                    <div className="h-px w-4 bg-[var(--neon-lime)]" />
+                                                </div>
+                                                <h3 className="text-lg font-black text-white leading-tight uppercase group-hover/card:text-[var(--neon-lime)] transition-colors">
                                                     {event.title}
                                                 </h3>
                                             </div>
                                         </div>
 
-                                        {/* Content */}
-                                        <div className="p-3 sm:p-4 flex-1 flex flex-col">
-                                            <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
-                                                <span className="flex items-center gap-1 text-[var(--electric-cyan-text)] text-[9px] sm:text-[10px] font-bold">
-                                                    <Calendar className="w-3 h-3" />
-                                                    {new Date(event.date).toLocaleDateString("en-IN", {
-                                                        day: "numeric",
-                                                        month: "short",
-                                                        year: "numeric"
-                                                    })}
-                                                </span>
-                                                {event.duration && (
-                                                    <span className="flex items-center gap-1 text-neutral-500 text-[9px] sm:text-[10px]">
-                                                        <Clock className="w-3 h-3" />
-                                                        {event.duration}
-                                                    </span>
-                                                )}
-                                            </div>
-
-                                            <p className="text-neutral-600 dark:text-neutral-400 text-[10px] sm:text-xs line-clamp-2 mb-2 sm:mb-3 flex-1">
+                                        {/* Info Section */}
+                                        <div className="p-6 flex-1 flex flex-col">
+                                            <p className="text-neutral-500 dark:text-neutral-400 text-xs mb-6 line-clamp-2">
                                                 {event.description}
                                             </p>
 
-                                            <div className="flex items-center justify-between gap-2 mt-auto">
-                                                <div className="flex items-center gap-1 text-neutral-500 text-[9px] sm:text-[10px] min-w-0 flex-1">
-                                                    <MapPin className="w-3 h-3 flex-shrink-0" />
-                                                    <span className="truncate">{event.location}</span>
+                                            <div className="mt-auto space-y-3">
+                                                <div className="flex items-center gap-4 text-[10px] font-bold text-neutral-400 dark:text-neutral-500 overflow-hidden">
+                                                    <div className="flex items-center gap-1.5 shrink-0">
+                                                        <Calendar className="w-3.5 h-3.5 text-[var(--neon-lime)]" />
+                                                        {new Date(event.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+                                                    </div>
+                                                    <div className="flex items-center gap-1.5 truncate">
+                                                        <MapPin className="w-3.5 h-3.5 text-[var(--electric-cyan)]" />
+                                                        {event.location}
+                                                    </div>
                                                 </div>
+
                                                 {event.registrationLink && (
                                                     <a
                                                         href={event.registrationLink}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center gap-1 px-2 py-1 rounded-full bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] text-[9px] font-semibold hover:bg-[var(--neon-lime)]/20 transition-colors"
+                                                        className="group/btn flex items-center justify-between w-full p-1 pl-4 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-[var(--neon-lime)] transition-all"
                                                     >
-                                                        <ExternalLink className="w-2.5 h-2.5" />
-                                                        View
+                                                        <span className="text-[10px] font-black uppercase text-neutral-600 dark:text-neutral-300 group-hover/btn:text-black">
+                                                            View Insights
+                                                        </span>
+                                                        <div className="p-2 rounded-lg bg-white dark:bg-neutral-700 text-black dark:text-white group-hover/btn:bg-black group-hover/btn:text-[var(--neon-lime)]">
+                                                            <ArrowRight className="w-3 h-3" />
+                                                        </div>
                                                     </a>
                                                 )}
                                             </div>
@@ -384,52 +422,22 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
                             ))}
                         </motion.div>
                     ) : (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="flex flex-col items-center justify-center py-16 text-center"
-                        >
-                            <Filter className="w-12 h-12 text-neutral-300 dark:text-neutral-700 mb-4" />
-                            <h3 className="text-lg font-semibold text-neutral-600 dark:text-neutral-400 mb-2">
-                                No {filter} events found
-                            </h3>
+                        <div className="text-center py-20 bg-neutral-100 dark:bg-neutral-900/40 rounded-[2rem] border-2 border-dashed border-neutral-200 dark:border-neutral-800">
+                            <div className="inline-flex p-4 rounded-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 mb-4">
+                                <Filter className="w-8 h-8 text-neutral-300 dark:text-neutral-700" />
+                            </div>
+                            <h3 className="text-xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">No Events Found</h3>
+                            <p className="text-xs text-neutral-500 mb-6">Try adjusting your filters to find what you're looking for.</p>
                             <button
-                                onClick={() => setFilter("all")}
-                                className="px-5 py-2 bg-[var(--neon-lime)] text-black rounded-full text-sm font-semibold"
+                                onClick={() => setFilter('all')}
+                                className="px-6 py-2 bg-[var(--neon-lime)] text-black rounded-full text-xs font-bold uppercase"
                             >
-                                View All
+                                Reset Filter
                             </button>
-                        </motion.div>
+                        </div>
                     )}
                 </AnimatePresence>
             </div>
-
-            {/* Mobile Stats Bar */}
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.5 }}
-                className="md:hidden fixed bottom-3 left-3 right-3 z-50"
-            >
-                <div className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl rounded-xl p-3 border border-neutral-200 dark:border-neutral-800 shadow-2xl">
-                    <div className="flex justify-around text-center">
-                        <div>
-                            <div className="text-lg font-bold text-green-500">{stats.completed}</div>
-                            <div className="text-[9px] text-neutral-500">Done</div>
-                        </div>
-                        <div className="w-px bg-neutral-200 dark:bg-neutral-700" />
-                        <div>
-                            <div className="text-lg font-bold text-[var(--neon-lime-text)]">{stats.upcoming}</div>
-                            <div className="text-[9px] text-neutral-500">Soon</div>
-                        </div>
-                        <div className="w-px bg-neutral-200 dark:bg-neutral-700" />
-                        <div>
-                            <div className="text-lg font-bold text-neutral-900 dark:text-white">{stats.all}</div>
-                            <div className="text-[9px] text-neutral-500">Total</div>
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
         </div>
     );
 }

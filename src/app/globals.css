@@ -267,3 +267,15 @@ html.no-transitions body,
 html.no-transitions .dark body {
   background-color: var(--background) !important;
 }
+
+/* Utility classes */
+.no-scrollbar::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar,
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

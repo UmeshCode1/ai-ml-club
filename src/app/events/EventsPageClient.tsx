@@ -192,8 +192,8 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
                 </div>
 
                 <div className="relative w-full">
-                    {/* The horizontal line aligned with dots at 8px (center of 16px dot) */}
-                    <div className="absolute top-[8px] left-0 right-0 h-[2px] bg-neutral-200 dark:bg-neutral-800/50 z-0" />
+                    {/* The horizontal line aligned with dots at 12px (center of 24px dot container) */}
+                    <div className="absolute top-[12px] left-0 right-0 h-[2px] bg-neutral-200 dark:bg-neutral-800/50 z-0" />
 
                     <div
                         ref={scrollRef}
@@ -218,13 +218,13 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
                                     {/* Dot & Date */}
                                     <div className="flex flex-col items-center mb-10">
                                         <div className={cn(
-                                            "w-4 h-4 rounded-full transition-all duration-500 relative flex items-center justify-center bg-white dark:bg-black border-[3px]",
+                                            "w-6 h-6 rounded-full transition-all duration-500 relative flex items-center justify-center bg-white dark:bg-black border-[3px]",
                                             isPast ? "border-green-500" :
-                                                isOngoing ? "border-[var(--neon-lime)] scale-125" :
+                                                isOngoing ? "border-[var(--neon-lime)] scale-110" :
                                                     "border-neutral-300 dark:border-neutral-800"
                                         )}>
                                             <div className={cn(
-                                                "w-1 h-1 rounded-full",
+                                                "w-1.5 h-1.5 rounded-full",
                                                 isPast ? "bg-green-500" :
                                                     isOngoing ? "bg-[var(--neon-lime)]" :
                                                         "bg-neutral-400 dark:bg-neutral-800"
@@ -300,13 +300,13 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
                         <div className="w-16 h-1.5 bg-[var(--neon-lime)] mt-4" />
                     </div>
 
-                    <div className="flex overflow-x-auto pb-4 gap-2 no-scrollbar px-6 -mx-6 md:px-0 md:mx-0">
+                    <div className="flex overflow-x-auto pb-4 gap-4 no-scrollbar px-6 -mx-6 md:px-0 md:mx-0 flex-nowrap items-center min-w-full">
                         {(["all", "completed", "ongoing", "upcoming"] as FilterType[]).map((f) => (
                             <button
                                 key={f}
                                 onClick={() => setFilter(f)}
                                 className={cn(
-                                    "px-6 py-2.5 rounded-full text-xs font-black uppercase transition-all whitespace-nowrap border-2",
+                                    "px-6 py-2.5 rounded-full text-xs font-black uppercase transition-all whitespace-nowrap border-2 flex-shrink-0 min-w-fit",
                                     filter === f
                                         ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent"
                                         : "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-neutral-500 hover:border-[var(--neon-lime)]"

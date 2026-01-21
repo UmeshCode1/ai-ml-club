@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 
 const tags = [
     "Workshops",
@@ -18,40 +18,85 @@ interface AboutSectionClientProps {
 
 export function AboutSectionClient({ images }: AboutSectionClientProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [imagesLoaded, setImagesLoaded] = useState<Set<number>>(new Set([0]));
-
-    // Preload images
-    const preloadImage = useCallback((index: number) => {
-        if (images.length === 0 || imagesLoaded.has(index)) return;
-        const img = new window.Image();
-        img.src = images[index].url;
-        img.onload = () => {
-            setImagesLoaded(prev => new Set([...prev, index]));
-        };
-    }, [images, imagesLoaded]);
-
-    // Auto-rotate images every 3 seconds
-    useEffect(() => {
-        if (images.length <= 1) return;
-
-        // Preload first few images on mount
-        images.slice(0, Math.min(3, images.length)).forEach((_, idx) => preloadImage(idx));
-
-        const timer = setInterval(() => {
-            setCurrentImageIndex((prev) => {
-                const next = (prev + 1) % images.length;
-                preloadImage((next + 1) % images.length); // Preload next
-                return next;
-            });
-        }, 3000);
-
-        return () => clearInterval(timer);
-    }, [images.length, images, preloadImage]);
+    const [nextImageIndex, setNextImageIndex] = useState(1);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+    const loadedImagesRef = useRef<Set<number>>(new Set([0]));
 
     // Memoize image list to prevent unnecessary re-renders
     const imageList = useMemo(() => images.length > 0 ? images : [
         { $id: 'fallback', name: 'Club Moments', url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop' }
     ], [images]);
+
+    // Preload all images on mount
+    useEffect(() => {
+        if (imageList.length <= 1) {
+            setAllImagesLoaded(true);
+            return;
+        }
+
+        let loadedCount = 0;
+        const totalImages = Math.min(imageList.length, 10); // Limit to first 10
+
+        imageList.slice(0, totalImages).forEach((img, idx) => {
+            const image = new window.Image();
+            image.src = img.url;
+            image.onload = () => {
+                loadedImagesRef.current.add(idx);
+                loadedCount++;
+                if (loadedCount >= Math.min(3, totalImages)) {
+                    setAllImagesLoaded(true);
+                }
+            };
+            image.onerror = () => {
+                loadedCount++;
+                if (loadedCount >= Math.min(3, totalImages)) {
+                    setAllImagesLoaded(true);
+                }
+            };
+        });
+
+        // Fallback timeout
+        const timeout = setTimeout(() => setAllImagesLoaded(true), 3000);
+        return () => clearTimeout(timeout);
+    }, [imageList]);
+
+    // Auto-rotate images with smooth crossfade
+    useEffect(() => {
+        if (imageList.length <= 1 || !allImagesLoaded) return;
+
+        const timer = setInterval(() => {
+            setIsTransitioning(true);
+            const next = (currentImageIndex + 1) % imageList.length;
+            setNextImageIndex(next);
+
+            // Wait for transition before updating current
+            setTimeout(() => {
+                setCurrentImageIndex(next);
+                setIsTransitioning(false);
+            }, 800); // Match transition duration
+        }, 4000); // Slower rotation for less jarring experience
+
+        return () => clearInterval(timer);
+    }, [imageList.length, currentImageIndex, allImagesLoaded]);
+
+    // Stable crossfade without flicker
+    const CrossfadeImage = useCallback(({ src, alt, isActive }: { src: string; alt: string; isActive: boolean }) => (
+        <div
+            className="absolute inset-0 transition-opacity duration-[800ms] ease-in-out will-change-opacity"
+            style={{ opacity: isActive ? 1 : 0 }}
+        >
+            <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                unoptimized
+            />
+        </div>
+    ), []);
 
     return (
         <section className="py-24 md:py-32 relative z-10 bg-transparent overflow-hidden">
@@ -107,70 +152,64 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                     >
                         <GradientBorder
                             containerClassName="w-full h-full rounded-3xl"
-                            className="w-full h-full bg-[#050505] p-1 flex flex-col relative overflow-hidden"
+                            className="w-full h-full bg-neutral-950 p-1 flex flex-col relative overflow-hidden"
                             borderWidth={1}
                             duration={10}
                         >
-                            {/* Top Gradient Line (Progress Bar look) */}
-                            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[var(--neon-lime)] to-transparent opacity-50" />
-
                             {/* Inner Terminal Content */}
-                            <div className="relative w-full h-full rounded-[20px] bg-neutral-950/50 flex flex-col justify-end p-8 overflow-hidden group">
+                            <div className="relative w-full h-full rounded-[20px] bg-neutral-950 overflow-hidden">
+
+                                {/* Solid background - prevents any bleed-through */}
+                                <div className="absolute inset-0 bg-neutral-950 z-0" />
 
                                 {/* Background Grid */}
-                                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)] pointer-events-none" />
+                                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)] pointer-events-none z-[1]" />
 
-                                {/* Image Carousel - Crossfade with stable base layer to prevent flicker */}
-                                <div className="absolute inset-0 z-0">
-                                    {/* Solid background to prevent bleed-through */}
-                                    <div className="absolute inset-0 bg-neutral-950" />
+                                {/* Image Container with stable layers */}
+                                <div className="absolute inset-0 z-[2]">
+                                    {/* Current Image (always visible) */}
+                                    <CrossfadeImage
+                                        src={imageList[currentImageIndex]?.url || imageList[0]?.url}
+                                        alt={imageList[currentImageIndex]?.name || "Club Moments"}
+                                        isActive={!isTransitioning}
+                                    />
 
-                                    <div className="relative w-full h-full">
-                                        {/* Overlay Gradient for readability */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent z-10" />
+                                    {/* Next Image (fades in during transition) */}
+                                    {isTransitioning && (
+                                        <CrossfadeImage
+                                            src={imageList[nextImageIndex]?.url || imageList[0]?.url}
+                                            alt={imageList[nextImageIndex]?.name || "Club Moments"}
+                                            isActive={true}
+                                        />
+                                    )}
 
-                                        {/* Base layer - always shows current image at full opacity */}
-                                        <div className="absolute inset-0">
-                                            <Image
-                                                src={imageList[currentImageIndex]?.url || imageList[0]?.url}
-                                                alt={imageList[currentImageIndex]?.name || "Club Moments"}
-                                                fill
-                                                className="object-cover opacity-70"
-                                                sizes="(max-width: 768px) 100vw, 50vw"
-                                                priority
-                                                unoptimized
-                                            />
-                                        </div>
-
-                                        {/* Transition layer - fades in/out on top of base */}
-                                        {imageList.map((img, idx) => (
-                                            <div
-                                                key={img.$id}
-                                                className="absolute inset-0 transition-opacity duration-700 ease-in-out"
-                                                style={{
-                                                    opacity: idx === currentImageIndex ? 1 : 0,
-                                                    zIndex: idx === currentImageIndex ? 2 : 1,
-                                                }}
-                                            >
-                                                <Image
-                                                    src={img.url}
-                                                    alt={img.name || "Club Moments"}
-                                                    fill
-                                                    className="object-cover opacity-70"
-                                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                                    priority={idx === 0}
-                                                    unoptimized
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
+                                    {/* Dim overlay - reduces brightness and prevents flash */}
+                                    <div className="absolute inset-0 bg-neutral-950/40 z-[3]" />
                                 </div>
 
+                                {/* Gradient Overlay for text readability */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent z-[4]" />
+
                                 {/* Content Overlay */}
-                                <div className="relative z-10">
+                                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-[5]">
                                     <div className="w-8 h-1 bg-[var(--neon-lime)] mb-4 shadow-[0_0_10px_var(--neon-lime)]" />
-                                    <h3 className="text-2xl font-bold text-white mb-1">Club Moments</h3>
-                                    <p className="text-sm text-neutral-400">Capturing our journey of innovation</p>
+                                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">Club Moments</h3>
+                                    <p className="text-xs sm:text-sm text-neutral-400">Capturing our journey of innovation</p>
+
+                                    {/* Image indicator dots */}
+                                    {imageList.length > 1 && (
+                                        <div className="flex gap-1.5 mt-4">
+                                            {imageList.slice(0, 6).map((_, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === currentImageIndex
+                                                        ? 'bg-[var(--neon-lime)] w-4'
+                                                        : 'bg-neutral-600'
+                                                        }`}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
 
                             </div>
@@ -182,3 +221,4 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
         </section>
     );
 }
+

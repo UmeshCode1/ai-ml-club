@@ -11,6 +11,7 @@ import { createSubscription } from "@/lib/database";
 export const Footer = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState("");
@@ -26,10 +27,15 @@ export const Footer = () => {
         setError("");
 
         try {
-            await createSubscription({ name: name.trim(), email: email.trim() });
+            await createSubscription({
+                name: name.trim(),
+                email: email.trim(),
+                ...(phone.trim() && { phone: phone.trim() })
+            });
             setSuccess(true);
             setName("");
             setEmail("");
+            setPhone("");
             setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
             console.error("Subscription error:", err);
@@ -152,6 +158,13 @@ export const Footer = () => {
                                         placeholder="Your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
+                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white dark:bg-black/50 border border-neutral-200 dark:border-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all"
+                                    />
+                                    <input
+                                        type="tel"
+                                        placeholder="WhatsApp No. (optional)"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
                                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white dark:bg-black/50 border border-neutral-200 dark:border-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all"
                                     />
                                     <button

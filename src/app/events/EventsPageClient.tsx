@@ -164,12 +164,12 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
             {/* 2. TIMELINE SECTION */}
             <div className="w-full relative py-16 bg-neutral-100/50 dark:bg-neutral-900/10 backdrop-blur-3xl border-y border-neutral-200 dark:border-neutral-800/50 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 mb-12 flex items-center justify-between">
-                    <div>
-                        <h2 className="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter flex items-center gap-2">
+                    <div className="max-w-[70%]">
+                        <h2 className="text-xl md:text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter flex items-center gap-2">
                             The Timeline
                             <Circle className="w-2 h-2 fill-green-500 text-green-500 animate-pulse" />
                         </h2>
-                        <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Navigate the legacy of innovation</p>
+                        <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest truncate">Navigate our legacy of innovation</p>
                     </div>
                     <div className="flex gap-2">
                         <motion.button
@@ -197,7 +197,7 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
 
                     <div
                         ref={scrollRef}
-                        className="flex overflow-x-auto overflow-y-hidden gap-12 px-[15vw] pb-12 cursor-grab active:cursor-grabbing hide-scrollbar snap-x no-scrollbar relative z-10"
+                        className="flex overflow-x-auto overflow-y-hidden gap-8 md:gap-12 px-6 md:px-[15vw] pb-12 cursor-grab active:cursor-grabbing hide-scrollbar snap-x no-scrollbar relative z-10"
                     >
                         {timelineData.map((event, idx) => {
                             const isPast = event.status === "completed" || event.status === "past";
@@ -294,13 +294,13 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
             <div className="max-w-7xl mx-auto px-6 py-24 relative z-10">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                     <div>
-                        <h2 className="text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                        <h2 className="text-3xl md:text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
                             Discovery <br /> Board
                         </h2>
                         <div className="w-16 h-1.5 bg-[var(--neon-lime)] mt-4" />
                     </div>
 
-                    <div className="flex overflow-x-auto pb-4 gap-2 no-scrollbar">
+                    <div className="flex overflow-x-auto pb-4 gap-2 no-scrollbar px-6 -mx-6 md:px-0 md:mx-0">
                         {(["all", "completed", "ongoing", "upcoming"] as FilterType[]).map((f) => (
                             <button
                                 key={f}

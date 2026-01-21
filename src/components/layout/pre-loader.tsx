@@ -14,7 +14,7 @@ export const PreLoader = () => {
 
     useEffect(() => {
         if (index === COMMANDS.length) {
-            setTimeout(() => setIsLoading(false), 800);
+            setTimeout(() => setIsLoading(false), 300); // Reduced from 800ms
             return;
         }
 
@@ -22,7 +22,7 @@ export const PreLoader = () => {
             () => {
                 setIndex((prev) => prev + 1);
             },
-            1200 // Longer duration for each word
+            400 // Reduced from 1200ms for faster loading
         );
         return () => clearTimeout(timeout);
     }, [index]);
@@ -33,17 +33,17 @@ export const PreLoader = () => {
                 <motion.div
                     key="loader"
                     exit={{ y: "-100%" }}
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }} // Custom bezier for premium feel
+                    transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
                     className="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--background)]"
                 >
                     <AnimatePresence mode="wait">
                         {index < COMMANDS.length && (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
-                                transition={{ duration: 0.5 }}
+                                initial={{ opacity: 0, y: 15 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -15 }}
+                                transition={{ duration: 0.25 }}
                                 className="absolute"
                             >
                                 <h1 className="font-mono text-4xl md:text-7xl font-bold text-[var(--neon-lime)] tracking-tighter">
@@ -57,3 +57,4 @@ export const PreLoader = () => {
         </AnimatePresence>
     );
 };
+

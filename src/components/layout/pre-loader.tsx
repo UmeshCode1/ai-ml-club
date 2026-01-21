@@ -43,7 +43,7 @@ export const PreLoader = () => {
                         scale: 1.05,
                         filter: "blur(20px)"
                     }}
-                    transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                    transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--background)] overflow-hidden"
                 >
                     {/* Animated gradient background */}
@@ -52,58 +52,63 @@ export const PreLoader = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         style={{
-                            background: "radial-gradient(circle at 50% 50%, rgba(212,255,0,0.08) 0%, transparent 60%)",
+                            background: "radial-gradient(circle at 50% 50%, rgba(212,255,0,0.06) 0%, transparent 70%)",
                         }}
                     />
 
                     {/* Subtle grid pattern */}
-                    <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
+                    <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
                     {/* Animated rings */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         {[1, 2, 3].map((ring) => (
                             <motion.div
                                 key={ring}
-                                className="absolute rounded-full border border-[var(--neon-lime)]/10"
-                                initial={{ width: 80, height: 80, opacity: 0 }}
+                                className="absolute rounded-full border border-[var(--neon-lime)]/5"
+                                initial={{ width: 60, height: 60, opacity: 0 }}
                                 animate={{
-                                    width: [80, 400 + ring * 120],
-                                    height: [80, 400 + ring * 120],
-                                    opacity: [0.4, 0],
+                                    width: [60, 500 + ring * 150],
+                                    height: [60, 500 + ring * 150],
+                                    opacity: [0.3, 0],
                                 }}
                                 transition={{
-                                    duration: 2.5,
+                                    duration: 3,
                                     repeat: Infinity,
-                                    delay: ring * 0.5,
+                                    delay: ring * 0.6,
                                     ease: "easeOut",
                                 }}
                             />
                         ))}
                     </div>
 
-                    {/* Club branding */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -30, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="mb-10 text-center"
-                    >
-                        <span className="text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase text-neutral-400">
-                            AI & Machine Learning Club
-                        </span>
-                    </motion.div>
+                    {/* Branding Section */}
+                    <div className="absolute top-12 md:top-16 left-0 w-full flex flex-col items-center pointer-events-none px-6 text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="space-y-2"
+                        >
+                            <span className="block text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase text-neutral-500">
+                                AI & Machine Learning Club
+                            </span>
+                            <span className="block text-[9px] md:text-[10px] font-medium tracking-[0.2em] uppercase text-neutral-600/80">
+                                Oriental College Of Technology, Bhopal
+                            </span>
+                        </motion.div>
+                    </div>
 
                     {/* Main word animation with blur effects */}
-                    <div className="relative h-28 md:h-36 flex items-center justify-center">
+                    <div className="relative h-32 md:h-48 flex items-center justify-center">
                         <AnimatePresence mode="wait">
                             {!showFinal && index < COMMANDS.length && (
                                 <motion.div
                                     key={index}
                                     initial={{
                                         opacity: 0,
-                                        y: 40,
+                                        y: 50,
                                         scale: 0.9,
-                                        filter: "blur(12px)"
+                                        filter: "blur(15px)"
                                     }}
                                     animate={{
                                         opacity: 1,
@@ -113,21 +118,21 @@ export const PreLoader = () => {
                                     }}
                                     exit={{
                                         opacity: 0,
-                                        y: -40,
+                                        y: -50,
                                         scale: 1.1,
-                                        filter: "blur(12px)"
+                                        filter: "blur(15px)"
                                     }}
                                     transition={{
-                                        duration: 0.5,
+                                        duration: 0.6,
                                         ease: [0.25, 0.46, 0.45, 0.94]
                                     }}
                                     className="absolute"
                                 >
-                                    <h1 className="font-mono text-6xl md:text-9xl font-black tracking-tight">
-                                        <span className="text-[var(--neon-lime)] drop-shadow-[0_0_30px_rgba(212,255,0,0.3)]">
+                                    <h1 className="font-mono text-7xl md:text-9xl font-black tracking-tight flex items-baseline">
+                                        <span className="bg-clip-text text-transparent bg-gradient-to-b from-[var(--neon-lime)] to-[var(--neon-lime)]/80 drop-shadow-[0_0_40px_rgba(212,255,0,0.2)]">
                                             {COMMANDS[index]}
                                         </span>
-                                        <span className="text-[var(--electric-cyan)] drop-shadow-[0_0_20px_rgba(0,240,255,0.4)]">.</span>
+                                        <span className="text-[var(--electric-cyan)] ml-1 animate-pulse drop-shadow-[0_0_20px_rgba(0,240,255,0.4)]">.</span>
                                     </h1>
                                 </motion.div>
                             )}
@@ -135,21 +140,21 @@ export const PreLoader = () => {
                             {showFinal && (
                                 <motion.div
                                     key="final"
-                                    initial={{ opacity: 0, scale: 0.85, filter: "blur(15px)" }}
+                                    initial={{ opacity: 0, scale: 0.9, filter: "blur(20px)" }}
                                     animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                                     transition={{
-                                        duration: 0.5,
+                                        duration: 0.6,
                                         ease: [0.25, 0.46, 0.45, 0.94]
                                     }}
-                                    className="absolute flex items-center gap-2 md:gap-4"
+                                    className="absolute flex items-center gap-2 md:gap-5"
                                 >
                                     {COMMANDS.map((word, i) => (
                                         <React.Fragment key={word}>
                                             <motion.span
-                                                initial={{ opacity: 0, y: 15, filter: "blur(8px)" }}
+                                                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
                                                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                                transition={{ delay: i * 0.08, duration: 0.3 }}
-                                                className="font-mono text-xl md:text-3xl lg:text-4xl font-bold text-[var(--neon-lime)] drop-shadow-[0_0_15px_rgba(212,255,0,0.25)]"
+                                                transition={{ delay: i * 0.12, duration: 0.4 }}
+                                                className="font-mono text-2xl md:text-4xl lg:text-5xl font-bold text-[var(--neon-lime)] drop-shadow-[0_0_20px_rgba(212,255,0,0.2)]"
                                             >
                                                 {word}
                                             </motion.span>
@@ -157,8 +162,8 @@ export const PreLoader = () => {
                                                 <motion.span
                                                     initial={{ opacity: 0, scale: 0 }}
                                                     animate={{ opacity: 1, scale: 1 }}
-                                                    transition={{ delay: i * 0.08 + 0.1 }}
-                                                    className="text-[var(--electric-cyan)] text-lg md:text-2xl drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]"
+                                                    transition={{ delay: i * 0.12 + 0.15 }}
+                                                    className="text-[var(--electric-cyan)] text-xl md:text-3xl opacity-60"
                                                 >
                                                     •
                                                 </motion.span>
@@ -170,27 +175,41 @@ export const PreLoader = () => {
                         </AnimatePresence>
                     </div>
 
-                    {/* Progress bar */}
-                    <motion.div
-                        className="absolute bottom-16 md:bottom-20 left-1/2 -translate-x-1/2 w-40 md:w-56 h-[2px] bg-neutral-800/50 rounded-full overflow-hidden"
-                        initial={{ opacity: 0, scaleX: 0.8 }}
-                        animate={{ opacity: 1, scaleX: 1 }}
-                        transition={{ delay: 0.2, duration: 0.4 }}
-                    >
+                    {/* Bottom Status Indicating System Load */}
+                    <div className="absolute bottom-12 md:bottom-16 w-full flex justify-center px-8">
                         <motion.div
-                            className="h-full bg-gradient-to-r from-[var(--neon-lime)] via-[var(--electric-cyan)] to-[var(--neon-lime)] rounded-full"
-                            initial={{ width: "0%" }}
-                            animate={{ width: "100%" }}
-                            transition={{ duration: 3.8, ease: "easeInOut" }}
-                            style={{
-                                boxShadow: "0 0 15px rgba(212,255,0,0.5)"
-                            }}
-                        />
-                    </motion.div>
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex items-center gap-3"
+                        >
+                            <div className="flex gap-1.5">
+                                {[0, 1, 2].map((i) => (
+                                    <motion.div
+                                        key={i}
+                                        animate={{
+                                            opacity: [0.2, 1, 0.2],
+                                            scale: [0.8, 1, 0.8],
+                                        }}
+                                        transition={{
+                                            duration: 1.5,
+                                            repeat: Infinity,
+                                            delay: i * 0.2,
+                                        }}
+                                        className="w-1.5 h-1.5 rounded-full bg-[var(--neon-lime)]"
+                                    />
+                                ))}
+                            </div>
+                            <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-mono text-neutral-600">
+                                Synchronizing Neural Network
+                            </span>
+                        </motion.div>
+                    </div>
                 </motion.div>
             )}
         </AnimatePresence>
     );
 };
+
 
 

@@ -45,8 +45,8 @@ export function HeroSection() {
                         <Image
                             src="/aiml-club-logo-new.png"
                             alt="AIML Club"
-                            width={64}
-                            height={64}
+                            width={72}
+                            height={72}
                             className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(163,230,53,0.3)]"
                         />
                     </motion.div>
@@ -70,8 +70,8 @@ export function HeroSection() {
                         <Image
                             src="/college-logo-new.png"
                             alt="OCT"
-                            width={64}
-                            height={64}
+                            width={72}
+                            height={72}
                             className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]"
                         />
                     </motion.div>

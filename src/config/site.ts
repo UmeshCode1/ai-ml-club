@@ -6,43 +6,86 @@ export const siteConfig = {
     url: "https://aimlclub.tech",
     ogImage: "https://aimlclub.tech/og.jpg",
     keywords: [
-        // Primary keywords for ranking
+        // Primary Brand Keywords
         "AIML Club",
         "AI ML Club",
         "aiml club",
         "AI & Machine Learning Club",
         "AIML Club OCT",
         "AIML Club Bhopal",
+        "AI Club",
+        "ML Club",
 
-        // Secondary keywords
-        "AI Club India",
-        "Machine Learning Club",
-        "Artificial Intelligence Club",
-        "AI Club OCT",
-        "ML Club Bhopal",
+        // Oriental College Keywords
+        "Oriental College of Technology",
+        "OCT Bhopal",
+        "OCT",
+        "Oriental College",
+        "Oriental Institute",
+        "Oriental College of Technology Bhopal",
+        "Oriental College AI Club",
+        "OCT AI Club",
+        "OCT AIML Club",
+        "Oriental Tech Club",
 
-        // Location-based
-        "Oriental College of Technology AI Club",
-        "OCT Bhopal Tech Club",
+        // Oriental University / OIST Keywords
+        "Oriental University",
+        "OIST",
+        "Oriental Institute of Science and Technology",
+        "OIST Bhopal",
+        "Oriental University Bhopal",
+        "Oriental Group of Institutes",
+        "OGI Bhopal",
+        "Oriental Group",
+
+        // Bhopal & MP Location Keywords
         "Bhopal AI Club",
+        "Bhopal ML Club",
+        "Bhopal Tech Club",
         "MP AI Club",
+        "Madhya Pradesh AI Club",
+        "Bhopal College Clubs",
+        "Bhopal Engineering Colleges",
+        "MP Engineering Colleges",
+        "Bhopal Technical University",
+        "RGPV Bhopal",
+        "Central India AI Club",
 
-        // Tech keywords
-        "Generative AI",
-        "Computer Vision",
+        // College AI Club Keywords
+        "AI Club India",
+        "Machine Learning Club India",
+        "College AI Club",
+        "Student AI Community",
+        "Tech Club India",
+        "Engineering College AI Club",
+        "Best AI Club Bhopal",
+        "Top AI Club India",
+
+        // Technology Keywords
+        "Artificial Intelligence",
+        "Machine Learning",
         "Deep Learning",
         "Neural Networks",
+        "Computer Vision",
+        "NLP",
+        "Generative AI",
         "ChatGPT",
         "LLM",
+        "TensorFlow",
+        "PyTorch",
         "AI Workshops",
         "ML Projects",
         "AI Hackathon",
+        "Data Science Club",
 
-        // Student/Community
-        "Student AI Community",
-        "Tech Club India",
-        "AI Student Club",
-        "College AI Club"
+        // Event & Activity Keywords
+        "AI Workshops Bhopal",
+        "ML Hackathons India",
+        "Tech Events Bhopal",
+        "Coding Club Bhopal",
+        "Programming Club OCT",
+        "AIML Events",
+        "Tech Seminars Bhopal"
     ],
     authors: [
         {

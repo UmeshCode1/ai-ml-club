@@ -210,59 +210,116 @@ export interface BlogPost {
     excerpt: string;
     content: string;
     author: string;
+    authorRole?: string;
+    authorAvatar?: string;
     coverImageUrl?: string;
-    tags?: string[];
+    category?: string;
+    tags?: string;
+    readTime?: number;
     isPublished: boolean;
+    isFeatured?: boolean;
+    publishedAt?: string;
     $createdAt?: string;
 }
 
 export async function getBlogPosts() {
     const databases = getDatabases();
-    const response = await databases.listDocuments(
-        DATABASE_ID,
-        COLLECTIONS.BLOG,
-        [Query.equal("isPublished", true), Query.orderDesc("$createdAt"), Query.limit(20)]
-    );
-    return response.documents as unknown as BlogPost[];
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.BLOG,
+            [Query.equal("isPublished", true), Query.orderDesc("$createdAt"), Query.limit(20)]
+        );
+        return response.documents as unknown as BlogPost[];
+    } catch {
+        return [];
+    }
+}
+
+export async function getFeaturedBlogPosts() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.BLOG,
+            [Query.equal("isPublished", true), Query.equal("isFeatured", true), Query.orderDesc("$createdAt"), Query.limit(3)]
+        );
+        return response.documents as unknown as BlogPost[];
+    } catch {
+        return [];
+    }
 }
 
 export async function getBlogPostBySlug(slug: string) {
     const databases = getDatabases();
-    const response = await databases.listDocuments(
-        DATABASE_ID,
-        COLLECTIONS.BLOG,
-        [Query.equal("slug", slug), Query.limit(1)]
-    );
-    return response.documents[0] as unknown as BlogPost | undefined;
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.BLOG,
+            [Query.equal("slug", slug), Query.limit(1)]
+        );
+        return response.documents[0] as unknown as BlogPost | undefined;
+    } catch {
+        return undefined;
+    }
 }
 
-// ==================== GALLERY ====================
-export interface GalleryImage {
+export async function getBlogPostsByCategory(category: string) {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.BLOG,
+            [Query.equal("isPublished", true), Query.equal("category", category), Query.limit(20)]
+        );
+        return response.documents as unknown as BlogPost[];
+    } catch {
+        return [];
+    }
+}
+
+
+
+// ==================== GALLERY ALBUMS ====================
+export interface GalleryAlbum {
     $id?: string;
-    imageUrl: string;
-    caption?: string;
-    eventName?: string;
+    eventName: string;
+    description?: string;
+    posterUrl: string;
+    driveLink: string;
+    eventDate: string;
+    category?: string;
+    photoCount?: number;
+    isVisible?: boolean;
     $createdAt?: string;
 }
 
-export async function getGalleryImages() {
+export async function getGalleryAlbums() {
     const databases = getDatabases();
-    const response = await databases.listDocuments(
-        DATABASE_ID,
-        COLLECTIONS.GALLERY,
-        [Query.orderDesc("$createdAt"), Query.limit(50)]
-    );
-    return response.documents as unknown as GalleryImage[];
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.GALLERY,
+            [Query.equal("isVisible", true), Query.orderDesc("eventDate"), Query.limit(50)]
+        );
+        return response.documents as unknown as GalleryAlbum[];
+    } catch {
+        return [];
+    }
 }
 
-export async function getGalleryByEvent(eventName: string) {
+export async function getGalleryAlbumById(id: string) {
     const databases = getDatabases();
-    const response = await databases.listDocuments(
-        DATABASE_ID,
-        COLLECTIONS.GALLERY,
-        [Query.equal("eventName", eventName), Query.limit(50)]
-    );
-    return response.documents as unknown as GalleryImage[];
+    try {
+        const response = await databases.getDocument(
+            DATABASE_ID,
+            COLLECTIONS.GALLERY,
+            id
+        );
+        return response as unknown as GalleryAlbum;
+    } catch {
+        return null;
+    }
 }
 
 // ==================== CONTACTS ====================

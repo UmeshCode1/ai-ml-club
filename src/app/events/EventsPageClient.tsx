@@ -131,7 +131,7 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
 
                         <div className="max-w-2xl">
                             <BlurReveal
-                                text="The official timeline of Artificial Intelligence and Machine Learning initiatives at Oriental College of Technology. Tracking our impact through high-stakes hackathons, expert-led sessions, and technical innovation."
+                                text="The official timeline of Artificial Intelligence and Machine Learning Club initiatives at Oriental College of Technology. Tracking our impact through high-stakes hackathons, expert-led sessions, and technical innovation."
                                 className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base lg:text-lg leading-relaxed justify-center font-medium"
                                 delay={0.4}
                             />

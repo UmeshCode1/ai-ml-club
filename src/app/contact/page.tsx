@@ -61,20 +61,20 @@ export default function ContactPage() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="text-left mb-16"
+                    className="text-center mb-16 flex flex-col items-center"
                 >
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 items-center">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/20 w-fit">
-                            <Mail className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">Connectivity</span>
+                            <Navigation className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">Active Directory</span>
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
-                            Strategic <br /> Collaboration
+                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter text-center">
+                            Communication <br /> Directory
                         </h1>
-                        <div className="max-w-2xl">
+                        <div className="max-w-2xl mx-auto">
                             <BlurReveal
-                                text="Have questions about our initiatives? We are always looking for strategic partnerships and technical collaborations. Connect with the core leadership team at Oriental College of Technology."
-                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium"
+                                text="Reach out for technical collaborations, membership inquiries, or student-led initiatives. Connect with the club's leadership team to facilitate effective project coordination and institutional partnerships."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium text-center"
                                 delay={0.4}
                             />
                         </div>

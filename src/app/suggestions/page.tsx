@@ -99,20 +99,20 @@ export default function SuggestionPage() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="text-left mb-16"
+                    className="text-center mb-16 flex flex-col items-center"
                 >
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 items-center">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/20 w-fit">
                             <MessageSquare className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
                             <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">Active Feedback</span>
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
-                            Discovery <br /> Portal
+                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter text-center">
+                            Community <br /> Feedback
                         </h1>
-                        <div className="max-w-2xl">
+                        <div className="max-w-2xl mx-auto">
                             <BlurReveal
-                                text="Your insights drive our evolution. Submit your feedback, event ideas, or technical observations to help us shape the future of the AIML community."
-                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium"
+                                text="Share your observations, event proposals, or technical suggestions to help us refine our initiatives. Your input is critical to ensuring the club effectively serves the student body and maintains its technical standards."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium text-center"
                                 delay={0.4}
                             />
                         </div>

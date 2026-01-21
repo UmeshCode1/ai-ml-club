@@ -76,20 +76,20 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: animSettings.duration }}
-                    className="text-left mb-12"
+                    className="text-center mb-12 flex flex-col items-center"
                 >
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 items-center">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/20 w-fit">
                             <BookOpen className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
                             <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">{posts.length} Publications</span>
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter text-center">
                             Technical <br /> Insights
                         </h1>
-                        <div className="max-w-2xl">
+                        <div className="max-w-2xl mx-auto">
                             <BlurReveal
-                                text="Deep dives into artificial intelligence, machine learning tutorials, and the latest updates from our technical ecosystem. Shaping the future, one byte at a time."
-                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium"
+                                text="An analytical archive of artificial intelligence and machine learning research, peer-reviewed tutorials, and technical updates. Building a central knowledge hub for students and researchers to document experimental findings and architectural insights."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium text-center"
                                 delay={0.4}
                             />
                         </div>

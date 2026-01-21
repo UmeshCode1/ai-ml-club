@@ -5,6 +5,7 @@ import { Mail, Users, Crown, Sparkles, Mic, Shield, Calendar, Camera, Palette, V
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { MemberProfileModal } from "@/components/ui/member-profile-modal";
+import { BlurReveal } from "@/components/ui/blur-reveal";
 
 // Member type
 interface AppwriteMember {
@@ -279,13 +280,17 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
                     </span>
                 </motion.h1>
 
-                <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white mb-6">
-                    Core Team
+                <motion.h2 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-2xl md:text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter mb-6">
+                    Core Leadership
                 </motion.h2>
 
-                <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-6">
-                    Meet the passionate individuals driving innovation and excellence. Our team is dedicated to fostering a community of AI & ML enthusiasts.
-                </motion.p>
+                <div className="max-w-2xl mx-auto">
+                    <BlurReveal
+                        text="The student-led committee responsible for executing technical initiatives, coordinating academic workshops, and managing the club's institutional presence. Our leadership oversees project mentorship and the strategic direction of our technical community."
+                        className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium text-center"
+                        delay={0.4}
+                    />
+                </div>
             </motion.div>
 
             {/* Year Filter Tabs */}

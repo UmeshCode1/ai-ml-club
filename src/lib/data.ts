@@ -517,10 +517,10 @@ export const MOCK_EVENTS: Event[] = [
         id: "e7",
         title: "WordPress Tour Workshop",
         description: "Complete WordPress workshop covering website creation, themes, plugins, and deployment. Build your own professional website from scratch!",
-        date: "2026-02-13T10:00:00.000Z",
+        date: "2025-12-13T10:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/wordpress.jpg",
-        status: "upcoming",  // Future event
+        status: "completed",
         category: "Workshop",
         duration: "3 hours"
     },
@@ -534,29 +534,6 @@ export const MOCK_EVENTS: Event[] = [
         status: "completed",
         category: "Orientation",
         duration: "2 hours"
-    },
-    // Past Events
-    {
-        id: "e9",
-        title: "AI Hackathon 2024",
-        description: "48-Hour non-stop innovation marathon. Build AI-powered solutions to real-world problems.",
-        date: "2024-10-15T09:00:00.000Z",
-        location: "Auditorium",
-        image: "/images/events/hackathon.jpg",
-        status: "past",
-        category: "Hackathon",
-        duration: "48 hours"
-    },
-    {
-        id: "e10",
-        title: "GenAI Workshop",
-        description: "Hands-on session with Large Language Models and Generative AI technologies.",
-        date: "2024-09-20T14:00:00.000Z",
-        location: "Lab 2",
-        image: "/images/events/genai-workshop.jpg",
-        status: "past",
-        category: "Workshop",
-        duration: "3 hours"
     }
 ];
 

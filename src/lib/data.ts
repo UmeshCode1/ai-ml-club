@@ -443,7 +443,7 @@ export const MOCK_PROJECTS: Project[] = [
 ];
 
 export const MOCK_EVENTS: Event[] = [
-    // 2025 Events
+    // Successfully Conducted Events (2025)
     {
         id: "e1",
         title: "Expert Talk by Coding Thinker",
@@ -451,7 +451,7 @@ export const MOCK_EVENTS: Event[] = [
         date: "2025-08-26T10:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/expert-talk.jpg",
-        status: "upcoming",
+        status: "completed",
         category: "Expert Talk",
         duration: "1.5 hours"
     },
@@ -462,7 +462,7 @@ export const MOCK_EVENTS: Event[] = [
         date: "2025-09-10T10:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/dspl-session.jpg",
-        status: "upcoming",
+        status: "completed",
         category: "Session",
         duration: "2 hours",
         registrationLink: "https://drive.google.com/file/d/1xv3a9iCzqhP2mRNXrXFPtc2MdO4triam/view?usp=sharing"
@@ -474,7 +474,7 @@ export const MOCK_EVENTS: Event[] = [
         date: "2025-09-11T09:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/dspl-workshop.jpg",
-        status: "upcoming",
+        status: "completed",
         category: "Workshop",
         duration: "2 days",
         registrationLink: "https://drive.google.com/file/d/1xv3a9iCzqhP2mRNXrXFPtc2MdO4triam/view?usp=sharing"
@@ -486,7 +486,7 @@ export const MOCK_EVENTS: Event[] = [
         date: "2025-10-13T10:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/apfity.jpg",
-        status: "upcoming",
+        status: "completed",
         category: "Competition",
         duration: "1 hour",
         registrationLink: "https://drive.google.com/file/d/1yEwEA1owqbw1So4HH01FjJaeSejo5XMo/view?usp=drive_link"
@@ -498,7 +498,7 @@ export const MOCK_EVENTS: Event[] = [
         date: "2025-11-10T10:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/codify.jpg",
-        status: "upcoming",
+        status: "completed",
         category: "Competition",
         duration: "1 hour"
     },
@@ -509,7 +509,7 @@ export const MOCK_EVENTS: Event[] = [
         date: "2025-11-29T10:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/rl-talk.jpg",
-        status: "upcoming",
+        status: "completed",
         category: "Expert Talk",
         duration: "1.5 hours"
     },
@@ -520,13 +520,24 @@ export const MOCK_EVENTS: Event[] = [
         date: "2026-02-13T10:00:00.000Z",
         location: "Oriental College of Technology, Bhopal",
         image: "/images/events/wordpress.jpg",
-        status: "upcoming",
+        status: "upcoming",  // Future event
         category: "Workshop",
         duration: "3 hours"
     },
-    // Past Events
     {
         id: "e8",
+        title: "New Core Team Member Orientation",
+        description: "Official onboarding and orientation session for new AIML Club core team members. Learn about club culture, responsibilities, upcoming plans, and connect with the team!",
+        date: "2025-12-30T10:00:00.000Z",
+        location: "Oriental College of Technology, Bhopal",
+        image: "/images/events/orientation.jpg",
+        status: "completed",
+        category: "Orientation",
+        duration: "2 hours"
+    },
+    // Past Events
+    {
+        id: "e9",
         title: "AI Hackathon 2024",
         description: "48-Hour non-stop innovation marathon. Build AI-powered solutions to real-world problems.",
         date: "2024-10-15T09:00:00.000Z",
@@ -537,7 +548,7 @@ export const MOCK_EVENTS: Event[] = [
         duration: "48 hours"
     },
     {
-        id: "e9",
+        id: "e10",
         title: "GenAI Workshop",
         description: "Hands-on session with Large Language Models and Generative AI technologies.",
         date: "2024-09-20T14:00:00.000Z",

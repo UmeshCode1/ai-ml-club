@@ -16,10 +16,9 @@ function useStats() {
         // Events count from actual data
         const eventsCount = MOCK_EVENTS.length;
 
-        // Years running: 2024 is year 1, calculate based on current year
-        const foundingYear = 2024;
-        const currentYear = now.getFullYear();
-        const yearsRunning = currentYear - foundingYear + 1;
+        // Years running: Founded August 9, 2025
+        const foundingDate = new Date("2025-08-09");
+        const yearsRunning = Math.max(1, Math.floor((now.getTime() - foundingDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000)) + 1);
 
         // Projects shipped (can be updated from data later)
         const projectsShipped = 5;

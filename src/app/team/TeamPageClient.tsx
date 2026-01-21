@@ -46,14 +46,30 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
     const hasImage = member.imageUrl && member.imageUrl !== "/images/team/placeholder.jpg";
     const hasSocials = member.linkedin || member.github || member.instagram;
 
+    // Optimized animations for mobile performance
+    const cardVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                stiffness: 45,
+                damping: 25,
+                mass: 1
+            }
+        }
+    };
+
     if (isLeadership) {
         return (
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-10%" }}
+                variants={cardVariants}
                 onClick={onClick}
-                className="group relative cursor-pointer"
+                className="group relative cursor-pointer will-change-transform"
             >
                 <div className="relative p-6 bg-gradient-to-br from-white to-neutral-50 dark:from-white/[0.03] dark:to-white/[0.01] rounded-2xl border border-neutral-200 dark:border-white/10 hover:border-[var(--neon-lime)] transition-all duration-500 hover:shadow-xl hover:shadow-[var(--neon-lime)]/10 hover:scale-[1.02]">
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--neon-lime)]/0 to-[var(--electric-cyan)]/0 group-hover:from-[var(--neon-lime)]/5 group-hover:to-[var(--electric-cyan)]/5 transition-all duration-500" />
@@ -62,7 +78,14 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                         <div className="flex items-center gap-4 mb-4">
                             <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)] transition-colors shadow-lg">
                                 {hasImage ? (
-                                    <Image src={member.imageUrl!} alt={member.name} fill className="object-cover" />
+                                    <Image
+                                        src={member.imageUrl!}
+                                        alt={member.name}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover"
+                                        loading="lazy"
+                                    />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--electric-cyan)] to-[var(--neon-lime)] text-black font-bold text-2xl">
                                         {initials}
@@ -109,17 +132,25 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            variants={cardVariants}
             onClick={onClick}
-            className="group cursor-pointer"
+            className="group cursor-pointer will-change-transform"
         >
             <div className="relative p-4 bg-white dark:bg-white/[0.02] rounded-xl border border-neutral-200 dark:border-white/10 hover:border-[var(--neon-lime)]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[var(--neon-lime)]/5 hover:scale-[1.02]">
                 <div className="flex items-center gap-3">
                     <div className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 border border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors">
                         {hasImage ? (
-                            <Image src={member.imageUrl!} alt={member.name} fill className="object-cover" />
+                            <Image
+                                src={member.imageUrl!}
+                                alt={member.name}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                className="object-cover"
+                                loading="lazy"
+                            />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-white/10 dark:to-white/5 text-neutral-600 dark:text-neutral-300 font-semibold text-sm">
                                 {initials}

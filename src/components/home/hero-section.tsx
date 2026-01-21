@@ -47,6 +47,7 @@ export function HeroSection() {
                             alt="AIML Club"
                             width={72}
                             height={72}
+                            sizes="100px"
                             className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(163,230,53,0.3)]"
                         />
                     </motion.div>
@@ -72,6 +73,7 @@ export function HeroSection() {
                             alt="OCT"
                             width={72}
                             height={72}
+                            sizes="100px"
                             className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]"
                         />
                     </motion.div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 export const CardSpotlight = ({
@@ -17,9 +17,14 @@ export const CardSpotlight = ({
     const divRef = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [opacity, setOpacity] = useState(0);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+    useEffect(() => {
+        setIsTouchDevice(window.matchMedia("(hover: none)").matches);
+    }, []);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!divRef.current) return;
+        if (!divRef.current || isTouchDevice) return;
 
         const div = divRef.current;
         const rect = div.getBoundingClientRect();
@@ -28,6 +33,7 @@ export const CardSpotlight = ({
     };
 
     const handleFocus = () => {
+        setIsTouchDevice(false); // Enable for keyboard focus
         setOpacity(1);
     };
 
@@ -36,7 +42,7 @@ export const CardSpotlight = ({
     };
 
     const handleMouseEnter = () => {
-        setOpacity(1);
+        if (!isTouchDevice) setOpacity(1);
     };
 
     const handleMouseLeave = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 export function MagneticButton({
     children,
@@ -12,8 +12,19 @@ export function MagneticButton({
 }) {
     const ref = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+    useEffect(() => {
+        // Check if device supports hover (usually non-touch)
+        const checkTouch = () => {
+            return window.matchMedia("(hover: none)").matches;
+        };
+        setIsTouchDevice(checkTouch());
+    }, []);
 
     const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (isTouchDevice) return; // Disable magnetic effect on touch devices
+
         const { clientX, clientY } = e;
         const { height, width, left, top } = ref.current?.getBoundingClientRect() || {
             height: 0,

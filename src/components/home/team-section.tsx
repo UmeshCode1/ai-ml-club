@@ -152,6 +152,7 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 300
                                                             src={member.image}
                                                             alt={member.name}
                                                             fill
+                                                            sizes="(max-width: 768px) 256px, 320px"
                                                             className="object-cover"
                                                         />
                                                     ) : (

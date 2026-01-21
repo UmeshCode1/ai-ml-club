@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { Mail, Users, Crown, Sparkles, Mic, Shield, Calendar, Camera, Palette, Video, Linkedin, Github, Instagram, GraduationCap, ChevronRight, Award, Star, CalendarDays } from "lucide-react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { MemberProfileModal } from "@/components/ui/member-profile-modal";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 
@@ -47,13 +47,13 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
     const hasSocials = member.linkedin || member.github || member.instagram;
 
     // Optimized animations for mobile performance
-    const cardVariants = {
+    const cardVariants: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 45,
                 damping: 25,
                 mass: 1

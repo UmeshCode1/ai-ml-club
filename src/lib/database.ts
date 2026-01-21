@@ -174,11 +174,15 @@ export interface Event {
     title: string;
     description: string;
     date: string;
-    time: string;
-    venue: string;
+    time?: string;
+    venue?: string;
+    location?: string; // alias for venue
     imageUrl?: string;
     registrationLink?: string;
     isUpcoming: boolean;
+    category?: string;
+    duration?: string;
+    status?: "upcoming" | "ongoing" | "past" | "completed";
     $createdAt?: string;
 }
 

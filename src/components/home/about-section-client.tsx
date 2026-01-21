@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 const tags = [
     "Workshops",
@@ -18,38 +18,40 @@ interface AboutSectionClientProps {
 
 export function AboutSectionClient({ images }: AboutSectionClientProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState<Set<number>>(new Set([0]));
 
-    // Preload next image
+    // Preload images
     const preloadImage = useCallback((index: number) => {
-        if (images.length === 0) return;
-        const nextIndex = (index + 1) % images.length;
+        if (images.length === 0 || imagesLoaded.has(index)) return;
         const img = new window.Image();
-        img.src = images[nextIndex].url;
-    }, [images]);
+        img.src = images[index].url;
+        img.onload = () => {
+            setImagesLoaded(prev => new Set([...prev, index]));
+        };
+    }, [images, imagesLoaded]);
 
-    // Auto-rotate images every 3 seconds with smooth transition
+    // Auto-rotate images every 3 seconds
     useEffect(() => {
         if (images.length <= 1) return;
 
         // Preload first few images on mount
-        images.slice(0, 3).forEach((_, idx) => preloadImage(idx));
+        images.slice(0, Math.min(3, images.length)).forEach((_, idx) => preloadImage(idx));
 
         const timer = setInterval(() => {
             setCurrentImageIndex((prev) => {
                 const next = (prev + 1) % images.length;
-                preloadImage(next); // Preload next image
+                preloadImage((next + 1) % images.length); // Preload next
                 return next;
             });
-        }, 3000); // 3 seconds per image
+        }, 3000);
 
         return () => clearInterval(timer);
     }, [images.length, images, preloadImage]);
 
-    // Current image URL
-    const currentImage = images.length > 0
-        ? images[currentImageIndex].url
-        : "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop";
+    // Memoize image list to prevent unnecessary re-renders
+    const imageList = useMemo(() => images.length > 0 ? images : [
+        { $id: 'fallback', name: 'Club Moments', url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop' }
+    ], [images]);
 
     return (
         <section className="py-24 md:py-32 relative z-10 bg-transparent overflow-hidden">
@@ -76,7 +78,7 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
 
                         {/* Paragraphs */}
                         <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
-                            The AI & Machine Learning Club at Oriental College of Technology is a student-driven ecosystem dedicated to exploring the frontiers of Artificial Intelligence.
+                            The AI &amp; Machine Learning Club at Oriental College of Technology is a student-driven ecosystem dedicated to exploring the frontiers of Artificial Intelligence.
                         </p>
                         <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 leading-relaxed">
                             We don&apos;t just learn; we build. From workshops and hackathons to real-world projects, we provide the platform for students to turn theoretical knowledge into practical innovation.
@@ -118,41 +120,42 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                 {/* Background Grid */}
                                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)] pointer-events-none" />
 
-                                {/* Image Carousel with Smooth Crossfade */}
+                                {/* Image Carousel - Stack-based crossfade (no flicker) */}
                                 <div className="absolute inset-0 z-0">
+                                    {/* Solid background to prevent bleed-through */}
+                                    <div className="absolute inset-0 bg-neutral-950" />
+
                                     <div className="relative w-full h-full">
                                         {/* Overlay Gradient for readability */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent z-10" />
 
-                                        {/* Loading Placeholder */}
-                                        {!isLoaded && (
-                                            <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
-                                                <div className="w-8 h-8 border-2 border-[var(--neon-lime)] border-t-transparent rounded-full animate-spin" />
-                                            </div>
-                                        )}
-
-                                        {/* Smooth Crossfade Images */}
-                                        <AnimatePresence mode="sync">
+                                        {/* Stack-based crossfade - all images rendered, only opacity changes */}
+                                        {imageList.map((img, idx) => (
                                             <motion.div
-                                                key={currentImageIndex}
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                                key={img.$id}
+                                                initial={false}
+                                                animate={{
+                                                    opacity: idx === currentImageIndex ? 1 : 0,
+                                                    zIndex: idx === currentImageIndex ? 1 : 0
+                                                }}
+                                                transition={{
+                                                    duration: 0.8,
+                                                    ease: "easeInOut"
+                                                }}
                                                 className="absolute inset-0"
+                                                style={{ willChange: 'opacity' }}
                                             >
                                                 <Image
-                                                    src={currentImage}
-                                                    alt="Club Moments"
+                                                    src={img.url}
+                                                    alt={img.name || "Club Moments"}
                                                     fill
                                                     className="object-cover opacity-70"
                                                     sizes="(max-width: 768px) 100vw, 50vw"
-                                                    priority={currentImageIndex === 0}
-                                                    onLoad={() => setIsLoaded(true)}
+                                                    priority={idx === 0}
                                                     unoptimized
                                                 />
                                             </motion.div>
-                                        </AnimatePresence>
+                                        ))}
                                     </div>
                                 </div>
 

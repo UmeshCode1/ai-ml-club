@@ -1,22 +1,25 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    const [mounted, setMounted] = useState(false);
-
+    // Remove no-transitions class after mount to enable smooth theme switching
     useEffect(() => {
-        // eslint-disable-next-line
-        setMounted(true);
+        // Small delay to ensure styles are applied
+        const timer = requestAnimationFrame(() => {
+            document.documentElement.classList.remove('no-transitions');
+        });
+        return () => cancelAnimationFrame(timer);
     }, []);
 
-    if (!mounted) {
-        return <>{children}</>;
-    }
-
     return (
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
             {children}
         </ThemeProvider>
     );

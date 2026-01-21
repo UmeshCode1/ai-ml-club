@@ -247,3 +247,23 @@ h6 {
     filter: blur(60px);
   }
 }
+
+/* ============================================
+   FOUC Prevention - Transition Suppression
+   ============================================ */
+
+/* Applied via pre-hydration script, removed after mount */
+html.no-transitions,
+html.no-transitions *,
+html.no-transitions *::before,
+html.no-transitions *::after {
+  transition: none !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+}
+
+/* Stable backgrounds during hydration */
+html.no-transitions body,
+html.no-transitions .dark body {
+  background-color: var(--background) !important;
+}

@@ -56,7 +56,7 @@ export const Navbar = () => {
             transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
             className="fixed top-5 inset-x-0 mx-auto w-max max-w-[95vw] z-50"
         >
-            <div className="flex items-center gap-4 px-4 h-14 rounded-full border border-black/5 dark:border-white/10 bg-white/80 dark:bg-black/20 backdrop-blur-2xl shadow-sm transition-all duration-300">
+            <div className="flex items-center gap-4 px-4 h-14 rounded-full border border-black/5 dark:border-white/10 bg-white/40 dark:bg-black/20 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300">
 
                 {/* Logos & Identity */}
                 <Link href="/" className="flex items-center gap-3 md:gap-4 pr-4 group">

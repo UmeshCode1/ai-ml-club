@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, User, Send, Loader2, Navigation } from "lucide-react";
+import { Mail, MapPin, Phone, User, Send, Navigation } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { NeuralNetwork } from "@/components/ui/neural-network";
 import { useState, useEffect } from "react";
@@ -244,23 +245,27 @@ export default function ContactPage() {
                                     />
                                 </div>
 
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#D4FF00] to-[#00F0FF] text-black font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 shadow-lg shadow-[var(--neon-lime)]/20"
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 className="w-5 h-5 animate-spin" />
-                                            Sending...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Send className="w-5 h-5" />
-                                            Send Message
-                                        </>
-                                    )}
-                                </button>
+                                <div className="pt-2">
+                                    <MagneticButton>
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#D4FF00] to-[#00F0FF] text-black font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 shadow-lg shadow-[var(--neon-lime)]/20"
+                                        >
+                                            {isSubmitting ? (
+                                                <>
+                                                    <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                                    Sending...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Send Message
+                                                    <Send className="w-5 h-5" />
+                                                </>
+                                            )}
+                                        </button>
+                                    </MagneticButton>
+                                </div>
 
                                 {submitStatus === "success" && (
                                     <motion.div

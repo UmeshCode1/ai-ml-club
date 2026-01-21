@@ -1,162 +1,102 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { CommandPalette } from "@/components/layout/command-palette";
-import { PreLoader } from "@/components/layout/pre-loader";
 import { Providers } from "@/components/layout/providers";
-import { GlobalBackground } from "@/components/layout/global-background";
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { CommandPalette } from "@/components/layout/command-palette";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { MagneticCursor } from "@/components/ui/magnetic-cursor";
 import { AppwritePing } from "@/components/layout/appwrite-ping";
+import { GlobalScrollProgress } from "@/components/layout/global-scroll-progress";
+import { RouteTransition } from "@/components/layout/route-transition";
+import { PreLoader } from "@/components/layout/pre-loader";
+import { GlobalBackground } from "@/components/layout/global-background";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-sans",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "AIML Club OCT - AI & Machine Learning Club | Bhopal",
-    template: `%s | AIML Club OCT`,
+    default: "AI & Machine Learning Club | Oriental College of Technology",
+    template: "%s | AI & Machine Learning Club",
   },
-  description: "AIML Club OCT (AI & Machine Learning Club) at Oriental College of Technology, Bhopal. India's leading student-driven AI ecosystem for workshops, hackathons, and real-world AI/ML projects. Join AIML Club OCT community today!",
-  keywords: siteConfig.keywords,
-  authors: siteConfig.authors,
-  creator: "AIML Club OCT",
-  publisher: "AIML Club",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
+  description: "Official club of Oriental College of Technology, Bhopal, focused on Artificial Intelligence and Machine Learning exploration, education, and community building.",
+  keywords: ["AI", "ML", "Artificial Intelligence", "Machine Learning", "Data Science", "Bhopal", "OCT", "College Club"],
+  authors: [{ name: "Umesh Patel", url: "https://github.com/Umesh-Patel-1" }],
+  creator: "Umesh Patel",
   openGraph: {
     type: "website",
-    locale: "en_IN",
-    url: siteConfig.url,
-    title: "AIML Club - AI & Machine Learning Club | OCT Bhopal",
-    description: "AIML Club - India's leading student-driven AI & Machine Learning ecosystem at Oriental College of Technology, Bhopal. Join workshops, hackathons, and real-world AI projects.",
-    siteName: "AIML Club",
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: "AIML Club - AI & Machine Learning Club OCT Bhopal",
-      },
-    ],
+    locale: "en_US",
+    url: "https://aimlclub.in",
+    title: "AI & Machine Learning Club",
+    description: "Official club of Oriental College of Technology, Bhopal",
+    siteName: "AI & Machine Learning Club",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AIML Club - AI & Machine Learning Club",
-    description: "AIML Club at OCT Bhopal - India's leading student AI community",
-    images: [siteConfig.ogImage],
-    creator: "@aimlcluboct",
+    title: "AI & Machine Learning Club",
+    description: "Official club of Oriental College of Technology, Bhopal",
+    creator: "@Umesh_Patel_1",
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/aiml-club-logo-new.png", type: "image/png" },
-    ],
-    shortcut: "/aiml-club-logo-new.png",
-    apple: "/aiml-club-logo-new.png",
+    icon: "/favicon.ico",
   },
-  manifest: "/site.webmanifest",
-  metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: siteConfig.url,
-  },
-  verification: {
-    google: "your-google-verification-code", // Add your Google Search Console verification code
-  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  // JSON-LD Organization Schema for SEO
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://aimlclub.tech/#organization",
-    "name": "AI & Machine Learning Club - OCT",
-    "alternateName": ["AIML Club", "AIML Club OCT", "AI ML Club", "AIML Club Bhopal"],
-    "url": "https://aimlclub.tech",
-    "logo": "https://aimlclub.tech/aiml-club-logo-new.png",
-    "description": "AIML Club OCT - India's leading student-driven AI ecosystem at Oriental College of Technology, Bhopal.",
-    "email": "aimlcluboct@gmail.com",
-    "telephone": "+91-6299200082",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Oriental College of Technology",
-      "addressLocality": "Bhopal",
-      "addressRegion": "Madhya Pradesh",
-      "addressCountry": "IN"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/company/aimlcluboct",
-      "https://github.com/aimlcluboct",
-      "https://www.instagram.com/aimlcluboct",
-      "https://www.instagram.com/photopia_",
-      "https://www.commudle.com/communities/ai-ml-club",
-      "https://linktr.ee/aimlcluboct",
-      "https://whatsapp.com/channel/0029VbAthv38V0tfulumuV1D",
-      "https://info.aimlclub.tech",
-      "https://codify.aimlclub.tech",
-      "https://social.aimlclub.tech"
-    ]
-  };
-
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Pre-hydration theme script - resolves theme BEFORE first paint to prevent FOUC */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');var p=window.matchMedia('(prefers-color-scheme:dark)').matches;var d=t==='dark'||(t!=='light'&&p);document.documentElement.classList.toggle('dark',d);document.documentElement.classList.add('no-transitions');}catch(e){}})()`,
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-      </head>
-      <body className={cn(inter.variable, jetbrainsMono.variable, spaceGrotesk.variable, "bg-background text-foreground antialiased selection:bg-[#D4FF00] selection:text-black")}>
-        <SmoothScroll>
-          <Providers>
+      <body suppressHydrationWarning className={cn(
+        "min-h-screen font-sans antialiased bg-[var(--background)] transition-colors duration-300 overflow-x-hidden relative",
+        inter.variable,
+        jetbrainsMono.variable
+      )}>
+        <Providers>
+          <GlobalScrollProgress />
+          <SmoothScroll>
+            {/* Global Holographic Noise Texture */}
+            <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('/noise.png')] bg-repeat" />
+
             <AppwritePing />
-            <GlobalBackground />
             <PreLoader />
+            <GlobalBackground />
+            <Navbar />
+
+            <main className="relative min-h-screen">
+              <RouteTransition>
+                {children}
+              </RouteTransition>
+            </main>
+
+            <Footer />
             <CommandPalette />
             <MagneticCursor />
-            <Navbar />
-            <main className="min-h-screen">
-              {children}
-            </main>
-            <Footer />
-          </Providers>
-        </SmoothScroll>
+          </SmoothScroll>
+        </Providers>
       </body>
     </html>
   );

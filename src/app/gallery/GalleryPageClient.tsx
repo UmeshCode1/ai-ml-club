@@ -6,7 +6,8 @@ import { BlurReveal } from "@/components/ui/blur-reveal";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, FolderOpen, Image as ImageIcon, Calendar, Filter, Share2 } from "lucide-react";
+import { ImageIcon, FolderOpen, ExternalLink, Filter, Calendar, Share2 } from "lucide-react";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { GalleryAlbum } from "@/lib/database";
 
@@ -114,9 +115,13 @@ export default function GalleryPageClient({ albums, driveLink }: GalleryPageClie
                                         Browse all {totalPhotos}+ photos organized in separate event folders
                                     </p>
                                 </div>
-                                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--neon-lime)] text-black font-semibold text-sm group-hover:shadow-lg transition-all">
-                                    <span>Browse</span>
-                                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <div className="ml-auto">
+                                    <MagneticButton>
+                                        <div className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[var(--neon-lime)] text-black font-black text-sm group-hover:shadow-[0_0_20px_var(--neon-lime)] transition-all cursor-pointer">
+                                            <span>Browse</span>
+                                            <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        </div>
+                                    </MagneticButton>
                                 </div>
                             </div>
                         </div>
@@ -131,19 +136,20 @@ export default function GalleryPageClient({ albums, driveLink }: GalleryPageClie
                     className="flex overflow-x-auto pb-4 gap-4 no-scrollbar px-6 -mx-6 md:px-0 md:mx-0 flex-nowrap items-center min-w-full mb-8"
                 >
                     {categories.map((cat) => (
-                        <motion.button
-                            key={cat}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setFilter(cat)}
-                            className={cn(
-                                "px-6 py-2.5 rounded-full text-xs font-black uppercase transition-all whitespace-nowrap border-2 flex-shrink-0 min-w-fit",
-                                filter === cat
-                                    ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent"
-                                    : "bg-white/80 dark:bg-neutral-900/80 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)]"
-                            )}
-                        >
-                            {cat === "all" ? "All Albums" : cat}
-                        </motion.button>
+                        <MagneticButton key={cat}>
+                            <motion.button
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setFilter(cat)}
+                                className={cn(
+                                    "px-6 py-2.5 rounded-full text-[10px] font-black uppercase transition-all whitespace-nowrap border-2 flex-shrink-0 min-w-fit",
+                                    filter === cat
+                                        ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent"
+                                        : "bg-white/80 dark:bg-neutral-900/80 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)]"
+                                )}
+                            >
+                                {cat === "all" ? "All Albums" : cat}
+                            </motion.button>
+                        </MagneticButton>
                     ))}
                 </motion.div>
 

@@ -41,15 +41,29 @@ export const metadata: Metadata = {
     title: "AI & Machine Learning Club",
     description: "Official club of Oriental College of Technology, Bhopal",
     siteName: "AI & Machine Learning Club",
+    images: [
+      {
+        url: "/aiml-club-logo-new.png",
+        width: 512,
+        height: 512,
+        alt: "AIML Club Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI & Machine Learning Club",
     description: "Official club of Oriental College of Technology, Bhopal",
     creator: "@Umesh_Patel_1",
+    images: ["/aiml-club-logo-new.png"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/aiml-club-logo-new.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/aiml-club-logo-new.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 

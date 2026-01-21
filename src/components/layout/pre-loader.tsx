@@ -181,28 +181,23 @@ export const PreLoader = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="flex items-center gap-3"
+                            className="flex items-center gap-2"
                         >
-                            <div className="flex gap-1.5">
-                                {[0, 1, 2].map((i) => (
-                                    <motion.div
-                                        key={i}
-                                        animate={{
-                                            opacity: [0.2, 1, 0.2],
-                                            scale: [0.8, 1, 0.8],
-                                        }}
-                                        transition={{
-                                            duration: 1.5,
-                                            repeat: Infinity,
-                                            delay: i * 0.2,
-                                        }}
-                                        className="w-1.5 h-1.5 rounded-full bg-[var(--neon-lime)]"
-                                    />
-                                ))}
-                            </div>
-                            <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-mono text-neutral-600">
-                                Synchronizing Neural Network
-                            </span>
+                            {[0, 1, 2].map((i) => (
+                                <motion.div
+                                    key={i}
+                                    animate={{
+                                        opacity: [0.2, 1, 0.2],
+                                        scale: [1, 1.2, 1],
+                                    }}
+                                    transition={{
+                                        duration: 1.2,
+                                        repeat: Infinity,
+                                        delay: i * 0.15,
+                                    }}
+                                    className="w-1.5 h-1.5 rounded-full bg-[var(--neon-lime)] shadow-[0_0_10px_rgba(212,255,0,0.5)]"
+                                />
+                            ))}
                         </motion.div>
                     </div>
                 </motion.div>
@@ -210,6 +205,8 @@ export const PreLoader = () => {
         </AnimatePresence>
     );
 };
+
+
 
 
 

@@ -100,6 +100,7 @@ export const Footer = () => {
                                 { name: "Suggestion Box", href: "/suggestions" },
                                 { name: "Constitution", href: "/constitution" },
                                 { name: "Notion Workspace", href: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061", external: true },
+                                { name: "GitHub Org", href: "https://github.com/aimlcluboct", external: true },
                                 { name: "Media Drive", href: siteConfig.links.drive, external: true },
                                 { name: "WhatsApp Channel", href: siteConfig.links.whatsappChannel, external: true },
                                 { name: "Blog", href: "/blog" },

@@ -120,7 +120,7 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                 {/* Background Grid */}
                                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,black,transparent)] pointer-events-none" />
 
-                                {/* Image Carousel - Stack-based crossfade (no flicker) */}
+                                {/* Image Carousel - Crossfade with stable base layer to prevent flicker */}
                                 <div className="absolute inset-0 z-0">
                                     {/* Solid background to prevent bleed-through */}
                                     <div className="absolute inset-0 bg-neutral-950" />
@@ -129,21 +129,28 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                         {/* Overlay Gradient for readability */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent z-10" />
 
-                                        {/* Stack-based crossfade - all images rendered, only opacity changes */}
+                                        {/* Base layer - always shows current image at full opacity */}
+                                        <div className="absolute inset-0">
+                                            <Image
+                                                src={imageList[currentImageIndex]?.url || imageList[0]?.url}
+                                                alt={imageList[currentImageIndex]?.name || "Club Moments"}
+                                                fill
+                                                className="object-cover opacity-70"
+                                                sizes="(max-width: 768px) 100vw, 50vw"
+                                                priority
+                                                unoptimized
+                                            />
+                                        </div>
+
+                                        {/* Transition layer - fades in/out on top of base */}
                                         {imageList.map((img, idx) => (
-                                            <motion.div
+                                            <div
                                                 key={img.$id}
-                                                initial={false}
-                                                animate={{
+                                                className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                                                style={{
                                                     opacity: idx === currentImageIndex ? 1 : 0,
-                                                    zIndex: idx === currentImageIndex ? 1 : 0
+                                                    zIndex: idx === currentImageIndex ? 2 : 1,
                                                 }}
-                                                transition={{
-                                                    duration: 0.8,
-                                                    ease: "easeInOut"
-                                                }}
-                                                className="absolute inset-0"
-                                                style={{ willChange: 'opacity' }}
                                             >
                                                 <Image
                                                     src={img.url}
@@ -154,7 +161,7 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                                     priority={idx === 0}
                                                     unoptimized
                                                 />
-                                            </motion.div>
+                                            </div>
                                         ))}
                                     </div>
                                 </div>

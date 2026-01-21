@@ -86,7 +86,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning className={cn(
-        "min-h-screen font-sans antialiased bg-[var(--background)] transition-colors duration-300 overflow-x-hidden relative",
+        "min-h-screen font-sans antialiased bg-[var(--background)] overflow-x-hidden relative",
         inter.variable,
         jetbrainsMono.variable
       )}>

@@ -42,18 +42,6 @@ export const PreLoader = () => {
                     transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--background)] overflow-hidden"
                 >
-                    {/* Animated gradient background - very slow pulse */}
-                    <motion.div
-                        className="absolute inset-0"
-                        animate={{
-                            opacity: [0.03, 0.06, 0.03],
-                        }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                        style={{
-                            background: "radial-gradient(circle at 50% 50%, var(--neon-lime) 0%, transparent 70%)",
-                        }}
-                    />
-
                     {/* Subtle grid pattern for high-tech feel */}
                     <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
 

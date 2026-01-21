@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { BlurReveal } from "@/components/ui/blur-reveal";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, FolderOpen, Image as ImageIcon, Calendar, Filter } from "lucide-react";
@@ -45,28 +47,28 @@ export default function GalleryPageClient({ albums, driveLink }: GalleryPageClie
     return (
         <div className="min-h-screen pt-20 sm:pt-24 md:pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-6xl mx-auto">
-                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: animSettings.duration }}
-                    className="text-center mb-6 sm:mb-8"
+                    className="text-left mb-12"
                 >
-                    <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.1, type: "spring" }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/30 rounded-full mb-4"
-                    >
-                        <ImageIcon className="w-4 h-4 text-[var(--neon-lime-text)]" />
-                        <span className="text-xs font-semibold text-[var(--neon-lime-text)]">{albums.length} Event Albums</span>
-                    </motion.div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-neutral-50 dark:to-neutral-500 mb-3">
-                        Media Gallery
-                    </h1>
-                    <p className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400 max-w-xl mx-auto">
-                        Browse photos from all our events, organized by album
-                    </p>
+                    <div className="flex flex-col gap-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/20 w-fit">
+                            <ImageIcon className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">{albums.length} Active Albums</span>
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                            Neural <br /> Archives
+                        </h1>
+                        <div className="max-w-2xl">
+                            <BlurReveal
+                                text="A visual collection of our breakthroughs, workshops, and high-impact technical events. Preserving the legacy of innovation at Oriental College of Technology."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium"
+                                delay={0.4}
+                            />
+                        </div>
+                    </div>
                 </motion.div>
 
                 {/* Main CTA Card */}
@@ -106,17 +108,19 @@ export default function GalleryPageClient({ albums, driveLink }: GalleryPageClie
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: animSettings.duration, delay: 0.3 }}
-                    className="flex flex-wrap justify-center gap-2 mb-6 sm:mb-8"
+                    className="flex overflow-x-auto pb-4 gap-4 no-scrollbar px-6 -mx-6 md:px-0 md:mx-0 flex-nowrap items-center min-w-full mb-8"
                 >
                     {categories.map((cat) => (
                         <motion.button
                             key={cat}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setFilter(cat)}
-                            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-semibold transition-all duration-200 border ${filter === cat
-                                ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent"
-                                : "bg-white/80 dark:bg-neutral-900/80 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700"
-                                }`}
+                            className={cn(
+                                "px-6 py-2.5 rounded-full text-xs font-black uppercase transition-all whitespace-nowrap border-2 flex-shrink-0 min-w-fit",
+                                filter === cat
+                                    ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-transparent"
+                                    : "bg-white/80 dark:bg-neutral-900/80 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)]"
+                            )}
                         >
                             {cat === "all" ? "All Albums" : cat}
                         </motion.button>

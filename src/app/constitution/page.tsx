@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Book, FileText, Scale, Shield, Users } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
+import { BlurReveal } from "@/components/ui/blur-reveal";
 
 export default function ConstitutionPage() {
     const sections = [
@@ -37,20 +38,29 @@ export default function ConstitutionPage() {
         <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
             <div className="max-w-4xl w-full">
                 {/* Header */}
-                <div className="text-center mb-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-500 mb-6">
-                            Club Constitution
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-left mb-16"
+                >
+                    <div className="flex flex-col gap-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/20 w-fit">
+                            <Shield className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">Governing Charter</span>
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                            Foundational <br /> Principles
                         </h1>
-                        <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-                            The governing principles and core values that define our community.
-                        </p>
-                    </motion.div>
-                </div>
+                        <div className="max-w-2xl">
+                            <BlurReveal
+                                text="The governing values and academic standards that define the AIML Club at Oriental College of Technology. Establishing a framework for innovation, integrity, and technical excellence."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium"
+                                delay={0.4}
+                            />
+                        </div>
+                    </div>
+                </motion.div>
 
                 {/* Content Grid */}
                 <div className="grid grid-cols-1 gap-8">

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Mail, MessageSquare, Lock, Globe, Sparkles } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { BlurReveal } from "@/components/ui/blur-reveal";
 import confetti from "canvas-confetti";
 import { createSuggestion } from "@/lib/database";
 
@@ -75,23 +76,29 @@ export default function SuggestionPage() {
         <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
             <div className="max-w-3xl w-full">
                 {/* Header */}
-                <div className="text-center mb-12">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="inline-block mb-4"
-                    >
-                        <div className="p-3 rounded-2xl bg-gradient-to-tr from-[var(--neon-lime)]/20 to-[var(--electric-cyan)]/20 backdrop-blur-xl border border-[var(--neon-lime)]/30 shadow-[0_0_30px_rgba(32,125,255,0.2)]">
-                            <MessageSquare className="w-8 h-8 text-[var(--neon-lime-text)]" />
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-left mb-16"
+                >
+                    <div className="flex flex-col gap-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/20 w-fit">
+                            <MessageSquare className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">Active Feedback</span>
                         </div>
-                    </motion.div>
-                    <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-500 mb-4">
-                        Suggestion Box
-                    </h1>
-                    <p className="text-neutral-600 dark:text-neutral-400 text-lg">
-                        Help us improve. Your voice shapes our future.
-                    </p>
-                </div>
+                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                            Discovery <br /> Portal
+                        </h1>
+                        <div className="max-w-2xl">
+                            <BlurReveal
+                                text="Your insights drive our evolution. Submit your feedback, event ideas, or technical observations to help us shape the future of the AIML community."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium"
+                                delay={0.4}
+                            />
+                        </div>
+                    </div>
+                </motion.div>
 
                 {/* Main Form Card */}
                 <GradientBorder

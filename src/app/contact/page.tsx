@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, User, Send, Loader2, Navigation } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
+import { BlurReveal } from "@/components/ui/blur-reveal";
 import { useState } from "react";
 import { createContact } from "@/lib/database";
 
@@ -37,20 +38,27 @@ export default function ContactPage() {
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="text-center mb-12"
+                    className="text-left mb-16"
                 >
-                    <div className="inline-block px-4 py-1.5 rounded-full border border-[var(--neon-lime)]/40 bg-[var(--neon-lime)]/5 text-[var(--neon-lime-text)] text-xs font-bold uppercase tracking-widest mb-6">
-                        Get in Touch
+                    <div className="flex flex-col gap-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 border border-[var(--neon-lime)]/20 w-fit">
+                            <Mail className="w-3.5 h-3.5 text-[var(--neon-lime-text)]" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">Connectivity</span>
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                            Strategic <br /> Collaboration
+                        </h1>
+                        <div className="max-w-2xl">
+                            <BlurReveal
+                                text="Have questions about our initiatives? We are always looking for strategic partnerships and technical collaborations. Connect with the core leadership team at Oriental College of Technology."
+                                className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium"
+                                delay={0.4}
+                            />
+                        </div>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-500 mb-4">
-                        Contact Us
-                    </h1>
-                    <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-                        Have questions about AIML Club? Want to collaborate or join us? We&apos;d love to hear from you.
-                    </p>
                 </motion.div>
 
                 {/* Quick Contact Cards */}

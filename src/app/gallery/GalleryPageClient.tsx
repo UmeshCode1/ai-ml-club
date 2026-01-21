@@ -6,7 +6,8 @@ import { BlurReveal } from "@/components/ui/blur-reveal";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, FolderOpen, Image as ImageIcon, Calendar, Filter } from "lucide-react";
+import { ExternalLink, FolderOpen, Image as ImageIcon, Calendar, Filter, Share2 } from "lucide-react";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { GalleryAlbum } from "@/lib/database";
 
 interface GalleryPageClientProps {
@@ -18,8 +19,19 @@ type CategoryFilter = "all" | "Workshop" | "Competition" | "Expert Talk" | "Orie
 
 export default function GalleryPageClient({ albums, driveLink }: GalleryPageClientProps) {
     const [filter, setFilter] = useState<CategoryFilter>("all");
+    const [scrollProgress, setScrollProgress] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const prefersReducedMotion = useReducedMotion();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            setScrollProgress(progress);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     useEffect(() => {
         const checkDevice = () => setIsMobile(window.innerWidth < 640);
@@ -46,6 +58,14 @@ export default function GalleryPageClient({ albums, driveLink }: GalleryPageClie
 
     return (
         <div className="min-h-screen pt-20 sm:pt-24 md:pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Scroll Progress Bar */}
+            <div className="fixed top-0 left-0 right-0 h-1 z-[100] pointer-events-none">
+                <motion.div
+                    className="h-full bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)]"
+                    style={{ width: `${scrollProgress}%` }}
+                />
+            </div>
+
             <div className="max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
@@ -151,73 +171,94 @@ export default function GalleryPageClient({ albums, driveLink }: GalleryPageClie
                                         rel="noopener noreferrer"
                                         className="group block h-full"
                                     >
-                                        <div className="relative h-full rounded-xl sm:rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] overflow-hidden hover:border-[var(--neon-lime)]/50 hover:shadow-xl transition-all duration-300">
-                                            {/* Poster Image */}
-                                            <div className="aspect-[4/3] relative w-full overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900">
-                                                {album.posterUrl && (
-                                                    <Image
-                                                        src={album.posterUrl}
-                                                        alt={album.eventName}
-                                                        fill
-                                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                                    />
-                                                )}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                        <CardSpotlight
+                                            containerClassName="rounded-xl sm:rounded-2xl border border-[var(--card-border)] overflow-hidden hover:border-[var(--neon-lime)]/50 hover:shadow-xl transition-all duration-300"
+                                            className="p-0"
+                                            color="rgba(0, 240, 255, 0.1)"
+                                        >
+                                            <div className="relative h-full overflow-hidden">
+                                                {/* Poster Image */}
+                                                <div className="aspect-[4/3] relative w-full overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900">
+                                                    {album.posterUrl && (
+                                                        <Image
+                                                            src={album.posterUrl}
+                                                            alt={album.eventName}
+                                                            fill
+                                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                        />
+                                                    )}
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                                                {/* Category Badge */}
-                                                {album.category && (
-                                                    <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
-                                                        <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-medium bg-[var(--neon-lime)]/80 text-black">
-                                                            {album.category}
-                                                        </span>
+                                                    {/* Category Badge */}
+                                                    {album.category && (
+                                                        <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
+                                                            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-medium bg-[var(--neon-lime)]/80 text-black">
+                                                                {album.category}
+                                                            </span>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Photo Count */}
+                                                    {album.photoCount && album.photoCount > 0 && (
+                                                        <div className="absolute top-2 right-2 sm:top-3 sm:right-3">
+                                                            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold bg-black/50 backdrop-blur-sm text-white flex items-center gap-1">
+                                                                <ImageIcon className="w-3 h-3" />
+                                                                {album.photoCount}
+                                                            </span>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Title on Image */}
+                                                    <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3">
+                                                        <h3 className="text-sm sm:text-base font-bold text-white line-clamp-2 group-hover:text-[var(--neon-lime)] transition-colors">
+                                                            {album.eventName}
+                                                        </h3>
                                                     </div>
-                                                )}
+                                                </div>
 
-                                                {/* Photo Count */}
-                                                {album.photoCount && album.photoCount > 0 && (
-                                                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3">
-                                                        <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold bg-black/50 backdrop-blur-sm text-white flex items-center gap-1">
-                                                            <ImageIcon className="w-3 h-3" />
-                                                            {album.photoCount}
-                                                        </span>
+                                                {/* Content */}
+                                                <div className="p-4 relative z-20">
+                                                    {/* Date */}
+                                                    <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-[var(--electric-cyan-text)] font-semibold mb-2">
+                                                        <Calendar className="w-3 h-3" />
+                                                        {new Date(album.eventDate).toLocaleDateString("en-IN", {
+                                                            day: "numeric",
+                                                            month: "short",
+                                                            year: "numeric"
+                                                        })}
                                                     </div>
-                                                )}
 
-                                                {/* Title on Image */}
-                                                <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3">
-                                                    <h3 className="text-sm sm:text-base font-bold text-white line-clamp-2 group-hover:text-[var(--neon-lime)] transition-colors">
-                                                        {album.eventName}
-                                                    </h3>
+                                                    {/* Description */}
+                                                    {album.description && (
+                                                        <p className="text-[10px] sm:text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 mb-3">
+                                                            {album.description}
+                                                        </p>
+                                                    )}
+
+                                                    {/* Actions */}
+                                                    <div className="flex items-center justify-between mt-auto">
+                                                        <div className="flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-[var(--neon-lime-text)] group-hover:underline">
+                                                            <span>View Album</span>
+                                                            <ExternalLink className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                                                        </div>
+                                                        <button
+                                                            className="p-1.5 rounded-full hover:bg-[var(--electric-cyan)]/10 text-neutral-400 hover:text-[var(--electric-cyan-text)] transition-colors"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                navigator.share({
+                                                                    title: album.eventName,
+                                                                    text: album.description,
+                                                                    url: album.driveLink
+                                                                }).catch(() => { });
+                                                            }}
+                                                        >
+                                                            <Share2 className="w-3.5 h-3.5" />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            {/* Content */}
-                                            <div className="p-3 sm:p-4">
-                                                {/* Date */}
-                                                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-[var(--electric-cyan-text)] font-semibold mb-2">
-                                                    <Calendar className="w-3 h-3" />
-                                                    {new Date(album.eventDate).toLocaleDateString("en-IN", {
-                                                        day: "numeric",
-                                                        month: "short",
-                                                        year: "numeric"
-                                                    })}
-                                                </div>
-
-                                                {/* Description */}
-                                                {album.description && (
-                                                    <p className="text-[10px] sm:text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 mb-3">
-                                                        {album.description}
-                                                    </p>
-                                                )}
-
-                                                {/* View Button */}
-                                                <div className="flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-[var(--neon-lime-text)] group-hover:underline">
-                                                    <span>View Album</span>
-                                                    <ExternalLink className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </CardSpotlight>
                                     </Link>
                                 </motion.div>
                             ))}

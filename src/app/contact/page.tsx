@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, User, Send, Loader2, Navigation } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { BlurReveal } from "@/components/ui/blur-reveal";
-import { useState } from "react";
+import { NeuralNetwork } from "@/components/ui/neural-network";
+import { useState, useEffect } from "react";
 import { createContact } from "@/lib/database";
 
 export default function ContactPage() {
@@ -16,6 +17,17 @@ export default function ContactPage() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+    const [scrollProgress, setScrollProgress] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            setScrollProgress(progress);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,6 +47,14 @@ export default function ContactPage() {
 
     return (
         <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Scroll Progress Bar */}
+            <div className="fixed top-0 left-0 right-0 h-1 z-[100] pointer-events-none">
+                <motion.div
+                    className="h-full bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)]"
+                    style={{ width: `${scrollProgress}%` }}
+                />
+            </div>
+
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div
@@ -150,11 +170,12 @@ export default function ContactPage() {
                         className="lg:col-span-3"
                     >
                         <GradientBorder
-                            containerClassName="rounded-3xl shadow-2xl"
-                            className="p-6 md:p-8 bg-[var(--card-bg)] backdrop-blur-xl"
+                            containerClassName="rounded-3xl shadow-2xl relative overflow-hidden"
+                            className="p-6 md:p-8 bg-[var(--card-bg)] backdrop-blur-xl relative z-10"
                             duration={10}
                         >
-                            <div className="flex items-center gap-3 mb-6">
+                            <NeuralNetwork className="opacity-20 pointer-events-none -z-10" />
+                            <div className="flex items-center gap-3 mb-6 relative z-20">
                                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#D4FF00] to-[#00F0FF] flex items-center justify-center">
                                     <Send className="w-6 h-6 text-black" />
                                 </div>
@@ -164,7 +185,7 @@ export default function ContactPage() {
                                 </div>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-5">
+                            <form onSubmit={handleSubmit} className="space-y-5 relative z-20">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">

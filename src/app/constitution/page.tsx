@@ -1,41 +1,94 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Book, FileText, Scale, Shield, Users } from "lucide-react";
-import { GradientBorder } from "@/components/ui/gradient-border";
+import { Book, FileText, Scale, Shield, Users, LucideIcon } from "lucide-react";
 import { BlurReveal } from "@/components/ui/blur-reveal";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
+import { useState, useEffect } from "react";
+
+interface ConstitutionSection {
+    title: string;
+    icon: LucideIcon;
+    content: string;
+    points: string[];
+}
 
 export default function ConstitutionPage() {
-    const sections = [
+    const [scrollProgress, setScrollProgress] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            setScrollProgress(progress);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const sections: ConstitutionSection[] = [
         {
             title: "Preamble",
             icon: Book,
-            content: "We, the members of the AIML Club at Oriental College of Technology, in order to foster innovation, promote technical excellence, and build a community of future leaders in Artificial Intelligence and Machine Learning, do hereby establish this Constitution."
+            content: "We, the members of the AIML Club at Oriental College of Technology, in order to foster innovation, promote technical excellence, and build a community of future leaders.",
+            points: [
+                "Establishing a standard for technical integrity",
+                "Fostering a culture of collaborative learning",
+                "Promoting ethical AI development practices"
+            ]
         },
         {
             title: "Mission",
             icon: Scale,
-            content: "To democratize AI education, provide hands-on experience through projects, and create a collaborative environment where students can learn, build, and grow together."
+            content: "To democratize AI education, provide hands-on experience through projects, and create a collaborative environment where students can learn and grow.",
+            points: [
+                "Hands-on project-based learning modules",
+                "Skill development for industry readiness",
+                "Bridging the gap between theory and practice"
+            ]
         },
         {
             title: "Membership",
             icon: Users,
-            content: "Membership is open to all students of OCT who show a genuine interest in AI/ML. Members are expected to actively participate in club activities, maintain academic integrity, and contribute to the community."
+            content: "Membership is open to all students of OCT who show a genuine interest in AI/ML. Members are expected to actively participate in club activities.",
+            points: [
+                "Open access to all technical workshops",
+                "Priority registration for flagship hackathons",
+                "Commitment to community growth and support"
+            ]
         },
         {
             title: "Leadership",
             icon: Shield,
-            content: "The club is led by a Core Council comprising the President, Vice President, Tech Lead, and Event Lead. Elections are held annually, and leaders are chosen based on merit, dedication, and vision."
+            content: "The club is led by a Core Council comprising the President, Vice President, Tech Lead, and Event Lead. Elections are held annually.",
+            points: [
+                "Merit-based selection for council positions",
+                "Transparency in decision-making processes",
+                "Dedicated mentorship for junior members"
+            ]
         },
         {
             title: "Code of Conduct",
             icon: FileText,
-            content: "All members must treat each other with respect. Harassment, discrimination, or unethical behavior of any kind will not be tolerated and may result in immediate revocation of membership."
+            content: "All members must treat each other with respect. Harassment, discrimination, or unethical behavior of any kind will not be tolerated.",
+            points: [
+                "Zero-tolerance policy for harassment",
+                "Respectful and constructive peer feedback",
+                "Maintaining academic and technical honesty"
+            ]
         }
     ];
 
     return (
         <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
+            {/* Scroll Progress Bar */}
+            <div className="fixed top-0 left-0 right-0 h-1 z-[100] pointer-events-none">
+                <motion.div
+                    className="h-full bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)]"
+                    style={{ width: `${scrollProgress}%` }}
+                />
+            </div>
+
             <div className="max-w-4xl w-full">
                 {/* Header */}
                 <motion.div
@@ -63,38 +116,66 @@ export default function ConstitutionPage() {
                 </motion.div>
 
                 {/* Content Grid */}
-                <div className="grid grid-cols-1 gap-8">
-                    {sections.map((section, index) => (
+                <div className="relative pl-8 md:pl-12">
+                    {/* Vertical Progress Line */}
+                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
                         <motion.div
-                            key={section.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                            <GradientBorder
-                                containerClassName="rounded-3xl shadow-lg relative overflow-hidden group hover:shadow-2xl transition-all duration-500"
-                                className="bg-[var(--card-bg)] backdrop-blur-xl p-8 border border-[var(--card-border)]"
-                                duration={10 + index}
+                            className="w-full bg-gradient-to-b from-[var(--neon-lime)] to-[var(--electric-cyan)] origin-top"
+                            style={{ height: `${scrollProgress}%` }}
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-12">
+                        {sections.map((section, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                                className="relative"
                             >
-                                <div className="flex items-start gap-6">
-                                    <div className="hidden md:flex flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--neon-lime)]/10 to-[var(--electric-cyan)]/10 border border-[var(--neon-lime)]/20 items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                        <section.icon className="w-6 h-6 text-[var(--neon-lime-text)]" />
-                                    </div>
-                                    <div>
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <section.icon className="w-6 h-6 text-[var(--neon-lime-text)] md:hidden" />
-                                            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-                                                {section.title}
-                                            </h2>
+                                {/* Connector Dot */}
+                                <div className="absolute -left-[33px] md:-left-[49px] top-10 w-4 h-4 rounded-full bg-white dark:bg-black border-2 border-[var(--neon-lime)] z-20" />
+
+                                <CardSpotlight
+                                    containerClassName="rounded-3xl shadow-xl overflow-hidden border border-[var(--card-border)]"
+                                    className="p-0"
+                                    color="rgba(212, 255, 0, 0.05)"
+                                >
+                                    <div className="p-8 md:p-10">
+                                        <div className="flex flex-col md:flex-row gap-6 items-start">
+                                            <div className="p-4 rounded-2xl bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] shrink-0">
+                                                <section.icon className="w-8 h-8" />
+                                            </div>
+                                            <div>
+                                                <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                                                    {section.title}
+                                                </h2>
+                                                <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6 font-medium">
+                                                    {section.content}
+                                                </p>
+                                                <div className="h-px w-20 bg-gradient-to-r from-[var(--neon-lime)] to-transparent mb-6" />
+                                                <ul className="space-y-4">
+                                                    {section.points.map((point, pIndex) => (
+                                                        <motion.li
+                                                            key={pIndex}
+                                                            className="flex items-start gap-3 group/point"
+                                                        >
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-[var(--neon-lime)] mt-2 group-hover/point:scale-150 transition-transform" />
+                                                            <span className="text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-neutral-300 transition-colors">
+                                                                {point}
+                                                            </span>
+                                                        </motion.li>
+                                                    ))}
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-lg">
-                                            {section.content}
-                                        </p>
                                     </div>
-                                </div>
-                            </GradientBorder>
-                        </motion.div>
-                    ))}
+                                </CardSpotlight>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Footer Signature */}

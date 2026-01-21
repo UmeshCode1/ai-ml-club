@@ -6,7 +6,8 @@ import { BlurReveal } from "@/components/ui/blur-reveal";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, ArrowRight, Search, BookOpen, User, Tag } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Search, BookOpen, User, Share2 } from "lucide-react";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { BlogPost } from "@/lib/database";
 
 interface BlogPageClientProps {
@@ -18,8 +19,19 @@ type CategoryFilter = "all" | string;
 export default function BlogPageClient({ posts }: BlogPageClientProps) {
     const [filter, setFilter] = useState<CategoryFilter>("all");
     const [searchQuery, setSearchQuery] = useState("");
+    const [scrollProgress, setScrollProgress] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const prefersReducedMotion = useReducedMotion();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            setScrollProgress(progress);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     useEffect(() => {
         const checkDevice = () => setIsMobile(window.innerWidth < 640);
@@ -51,6 +63,14 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
 
     return (
         <div className="min-h-screen pt-20 sm:pt-24 md:pt-28 pb-12 px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Scroll Progress Bar */}
+            <div className="fixed top-0 left-0 right-0 h-1 z-[100] pointer-events-none">
+                <motion.div
+                    className="h-full bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)]"
+                    style={{ width: `${scrollProgress}%` }}
+                />
+            </div>
+
             <div className="max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
@@ -187,79 +207,94 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                                     whileTap={{ scale: 0.98 }}
                                 >
                                     <Link href={`/blog/${post.slug}`} className="group block h-full">
-                                        <div className="relative h-full rounded-xl sm:rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] overflow-hidden hover:border-[var(--neon-lime)]/50 hover:shadow-lg transition-all duration-300">
-                                            {/* Cover Image */}
-                                            <div className="aspect-[16/9] relative w-full overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900">
-                                                {post.coverImageUrl ? (
-                                                    <Image
-                                                        src={post.coverImageUrl}
-                                                        alt={post.title}
-                                                        fill
-                                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                                    />
-                                                ) : (
-                                                    <div className="absolute inset-0 flex items-center justify-center">
-                                                        <BookOpen className="w-12 h-12 text-neutral-300 dark:text-neutral-700" />
-                                                    </div>
-                                                )}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-
-                                                {/* Category */}
-                                                {post.category && (
-                                                    <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
-                                                        <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-medium bg-[var(--neon-lime)]/80 text-black">
-                                                            {post.category}
-                                                        </span>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            {/* Content */}
-                                            <div className="p-3 sm:p-4">
-                                                {/* Date & Read Time */}
-                                                <div className="flex items-center gap-3 text-[10px] sm:text-xs text-neutral-500 mb-2">
-                                                    <span className="flex items-center gap-1">
-                                                        <Calendar className="w-3 h-3" />
-                                                        {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-IN", {
-                                                            day: "numeric",
-                                                            month: "short",
-                                                            year: "numeric"
-                                                        }) : "Recently"}
-                                                    </span>
-                                                    {post.readTime && (
-                                                        <span className="flex items-center gap-1">
-                                                            <Clock className="w-3 h-3" />
-                                                            {post.readTime} min read
-                                                        </span>
+                                        <CardSpotlight
+                                            containerClassName="rounded-xl sm:rounded-2xl border border-[var(--card-border)] overflow-hidden hover:border-[var(--neon-lime)]/50 hover:shadow-lg transition-all duration-300"
+                                            className="p-0"
+                                            color="rgba(212, 255, 0, 0.1)"
+                                        >
+                                            <div className="relative h-full overflow-hidden">
+                                                {/* Cover Image */}
+                                                <div className="aspect-[16/9] relative w-full overflow-hidden bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900">
+                                                    {post.coverImageUrl ? (
+                                                        <Image
+                                                            src={post.coverImageUrl}
+                                                            alt={post.title}
+                                                            fill
+                                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                        />
+                                                    ) : (
+                                                        <div className="absolute inset-0 flex items-center justify-center">
+                                                            <BookOpen className="w-12 h-12 text-neutral-300 dark:text-neutral-700" />
+                                                        </div>
                                                     )}
-                                                </div>
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-                                                {/* Title */}
-                                                <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[var(--neon-lime-text)] transition-colors">
-                                                    {post.title}
-                                                </h3>
-
-                                                {/* Excerpt */}
-                                                <p className="text-[10px] sm:text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 mb-3">
-                                                    {post.excerpt}
-                                                </p>
-
-                                                {/* Author & Tags */}
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-neutral-500">
-                                                        <User className="w-3 h-3" />
-                                                        <span>{post.author}</span>
-                                                    </div>
-                                                    {post.tags && (
-                                                        <div className="flex items-center gap-1 text-[10px] text-neutral-400">
-                                                            <Tag className="w-3 h-3" />
-                                                            <span className="truncate max-w-[80px]">{post.tags.split(",")[0]}</span>
+                                                    {/* Category */}
+                                                    {post.category && (
+                                                        <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
+                                                            <span className="px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold bg-[var(--neon-lime)]/80 text-black">
+                                                                {post.category}
+                                                            </span>
                                                         </div>
                                                     )}
                                                 </div>
+
+                                                {/* Content */}
+                                                <div className="p-4 sm:p-5 relative z-20">
+                                                    {/* Date & Read Time */}
+                                                    <div className="flex items-center gap-3 text-[10px] sm:text-xs text-neutral-500 mb-2">
+                                                        <span className="flex items-center gap-1">
+                                                            <Calendar className="w-3 h-3" />
+                                                            {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-IN", {
+                                                                day: "numeric",
+                                                                month: "short",
+                                                                year: "numeric"
+                                                            }) : "Recently"}
+                                                        </span>
+                                                        {post.readTime && (
+                                                            <span className="flex items-center gap-1">
+                                                                <Clock className="w-3 h-3" />
+                                                                {post.readTime} min read
+                                                            </span>
+                                                        )}
+                                                    </div>
+
+                                                    {/* Title */}
+                                                    <h3 className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white mb-2 line-clamp-2 group-hover:text-[var(--neon-lime-text)] transition-colors">
+                                                        {post.title}
+                                                    </h3>
+
+                                                    {/* Excerpt */}
+                                                    <p className="text-[10px] sm:text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 mb-3">
+                                                        {post.excerpt}
+                                                    </p>
+
+                                                    {/* Author & Tags */}
+                                                    <div className="flex items-center justify-between mt-auto">
+                                                        <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-neutral-500">
+                                                            <User className="w-3 h-3" />
+                                                            <span>{post.author}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <button
+                                                                className="p-1.5 rounded-full hover:bg-[var(--neon-lime)]/10 text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors"
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    navigator.share({
+                                                                        title: post.title,
+                                                                        text: post.excerpt,
+                                                                        url: window.location.origin + `/blog/${post.slug}`
+                                                                    }).catch(() => { });
+                                                                }}
+                                                            >
+                                                                <Share2 className="w-3.5 h-3.5" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </CardSpotlight>
                                     </Link>
                                 </motion.div>
                             ))}

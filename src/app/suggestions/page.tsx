@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-//
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Mail, MessageSquare, Lock, Globe, Sparkles } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BlurReveal } from "@/components/ui/blur-reveal";
+import { NeuralNetwork } from "@/components/ui/neural-network";
 import confetti from "canvas-confetti";
 import { createSuggestion } from "@/lib/database";
 
@@ -15,7 +15,18 @@ export default function SuggestionPage() {
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [scrollProgress, setScrollProgress] = useState(0);
     const formRef = useRef<HTMLFormElement>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            setScrollProgress(progress);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const triggerConfetti = () => {
         const duration = 3 * 1000;
@@ -74,6 +85,14 @@ export default function SuggestionPage() {
 
     return (
         <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
+            {/* Scroll Progress Bar */}
+            <div className="fixed top-0 left-0 right-0 h-1 z-[100] pointer-events-none">
+                <motion.div
+                    className="h-full bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)]"
+                    style={{ width: `${scrollProgress}%` }}
+                />
+            </div>
+
             <div className="max-w-3xl w-full">
                 {/* Header */}
                 <motion.div
@@ -109,6 +128,8 @@ export default function SuggestionPage() {
                     <div className="absolute top-0 right-0 p-6 md:p-10 opacity-10 pointer-events-none">
                         <Sparkles className="w-32 h-32 text-[var(--electric-cyan)]" />
                     </div>
+
+                    <NeuralNetwork className="opacity-20 pointer-events-none" />
 
                     <div className="relative z-10 w-full">
                         <AnimatePresence mode="wait">

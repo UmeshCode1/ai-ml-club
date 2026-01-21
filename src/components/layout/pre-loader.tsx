@@ -105,10 +105,9 @@ export const PreLoader = () => {
                                     className="absolute"
                                 >
                                     <h1 className="font-mono text-7xl md:text-[10rem] font-black tracking-tighter leading-none">
-                                        <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-[var(--neon-lime)] drop-shadow-[0_0_50px_rgba(212,255,0,0.3)]">
+                                        <span className="text-[var(--neon-lime)] drop-shadow-[0_0_50px_rgba(212,255,0,0.4)]">
                                             {COMMANDS[index]}
                                         </span>
-                                        <span className="text-[var(--electric-cyan)] animate-pulse shadow-[0_0_20px_rgba(0,240,255,0.4)]">.</span>
                                     </h1>
                                 </motion.div>
                             )}

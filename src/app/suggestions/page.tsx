@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, User, Mail, MessageSquare, Lock, Globe, Sparkles } from "lucide-react";
+import { Send, User, Mail, MessageSquare, Lock, Globe, Sparkles, Phone } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BlurReveal } from "@/components/ui/blur-reveal";
@@ -59,16 +59,18 @@ export default function SuggestionPage() {
         setLoading(true);
         setError(null);
 
-        const formData = new FormData(formRef.current!);
-        const name = formData.get("name") as string;
-        const email = formData.get("email") as string;
-        const category = formData.get("category") as string;
-        const text = formData.get("suggestion") as string;
-
         try {
+            const formData = new FormData(formRef.current!);
+            const name = formData.get("name") as string;
+            const email = formData.get("email") as string;
+            const phone = formData.get("phone") as string;
+            const category = formData.get("category") as string;
+            const text = formData.get("suggestion") as string;
+
             const result = await createSuggestion({
                 name: isAnonymous ? undefined : name,
                 email: isAnonymous ? undefined : email,
+                phone: isAnonymous ? undefined : (phone?.trim() || undefined),
                 category,
                 text,
                 isAnonymous,
@@ -214,6 +216,18 @@ export default function SuggestionPage() {
                                                                 name="email"
                                                                 placeholder="your@email.com"
                                                                 required={!isAnonymous}
+                                                                className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-neutral-200 dark:border-white/10 focus:border-[var(--neon-lime)] focus:ring-2 focus:ring-[var(--neon-lime)]/20 outline-none transition-all placeholder:text-neutral-400 text-neutral-900 dark:text-white"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <label className="text-sm font-bold text-neutral-700 dark:text-neutral-300 ml-1">WhatsApp No. (optional)</label>
+                                                        <div className="relative group">
+                                                            <Phone className="absolute left-4 top-3.5 w-5 h-5 text-neutral-400 group-focus-within:text-[var(--neon-lime)] transition-colors" />
+                                                            <input
+                                                                type="tel"
+                                                                name="phone"
+                                                                placeholder="+91 9876543210"
                                                                 className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-neutral-200 dark:border-white/10 focus:border-[var(--neon-lime)] focus:ring-2 focus:ring-[var(--neon-lime)]/20 outline-none transition-all placeholder:text-neutral-400 text-neutral-900 dark:text-white"
                                                             />
                                                         </div>

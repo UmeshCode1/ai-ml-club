@@ -75,6 +75,7 @@ export interface Suggestion {
     $id?: string;
     name?: string;
     email?: string;
+    phone?: string; // Optional WhatsApp number
     category: string;
     text: string;
     isAnonymous: boolean;
@@ -332,6 +333,7 @@ export interface Contact {
     $id?: string;
     name: string;
     email: string;
+    phone?: string; // Optional WhatsApp number
     subject: string;
     message: string;
     $createdAt?: string;

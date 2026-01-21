@@ -15,6 +15,7 @@ export default function ContactPage() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        phone: "",
         subject: "",
         message: "",
     });
@@ -41,9 +42,15 @@ export default function ContactPage() {
         setSubmitStatus("idle");
 
         try {
-            await createContact(formData);
+            await createContact({
+                name: formData.name,
+                email: formData.email,
+                subject: formData.subject,
+                message: formData.message,
+                ...(formData.phone.trim() && { phone: formData.phone.trim() })
+            });
             setSubmitStatus("success");
-            setFormData({ name: "", email: "", subject: "", message: "" });
+            setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
         } catch {
             setSubmitStatus("error");
         } finally {
@@ -222,19 +229,36 @@ export default function ContactPage() {
                                     </div>
                                 </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-                                        Subject *
-                                    </label>
-                                    <input
-                                        type="text"
-                                        required
-                                        value={formData.subject}
-                                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)] focus:border-transparent transition-all"
-                                        placeholder="How can we help you?"
-                                    />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
+                                            WhatsApp No. (optional)
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            value={formData.phone}
+                                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                            className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)] focus:border-transparent transition-all"
+                                            placeholder="+91 9876543210"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
+                                            Subject *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={formData.subject}
+                                            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                                            className="w-full px-4 py-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)] focus:border-transparent transition-all"
+                                            placeholder="How can we help you?"
+                                        />
+                                    </div>
                                 </div>
+
+
 
                                 <div>
                                     <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">

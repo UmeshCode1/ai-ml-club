@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const tags = [
     "Workshops",
@@ -16,56 +16,38 @@ interface AboutSectionClientProps {
     images: { $id: string; name: string; url: string }[];
 }
 
+const CrossfadeImage = ({ src, alt, isActive, priority }: { src: string; alt: string; isActive: boolean; priority: boolean }) => (
+    <div
+        className="absolute inset-0 transition-opacity duration-[800ms] ease-in-out will-change-opacity"
+        style={{ opacity: isActive ? 1 : 0 }}
+    >
+        <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+            priority={priority}
+            loading={priority ? undefined : "lazy"}
+        />
+    </div>
+);
+
 export function AboutSectionClient({ images }: AboutSectionClientProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [nextImageIndex, setNextImageIndex] = useState(1);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [allImagesLoaded, setAllImagesLoaded] = useState(false);
-    const loadedImagesRef = useRef<Set<number>>(new Set([0]));
 
     // Memoize image list to prevent unnecessary re-renders
     const imageList = useMemo(() => images.length > 0 ? images : [
         { $id: 'fallback', name: 'Club Moments', url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop' }
     ], [images]);
 
-    // Preload all images on mount
-    useEffect(() => {
-        if (imageList.length <= 1) {
-            setAllImagesLoaded(true);
-            return;
-        }
-
-        let loadedCount = 0;
-        const totalImages = Math.min(imageList.length, 10); // Limit to first 10
-
-        imageList.slice(0, totalImages).forEach((img, idx) => {
-            const image = new window.Image();
-            image.src = img.url;
-            image.onload = () => {
-                loadedImagesRef.current.add(idx);
-                loadedCount++;
-                if (loadedCount >= Math.min(3, totalImages)) {
-                    setAllImagesLoaded(true);
-                }
-            };
-            image.onerror = () => {
-                loadedCount++;
-                if (loadedCount >= Math.min(3, totalImages)) {
-                    setAllImagesLoaded(true);
-                }
-            };
-        });
-
-        // Fallback timeout
-        const timeout = setTimeout(() => setAllImagesLoaded(true), 3000);
-        return () => clearTimeout(timeout);
-    }, [imageList]);
-
     // Auto-rotate images with smooth crossfade
     useEffect(() => {
-        if (imageList.length <= 1 || !allImagesLoaded) return;
+        if (imageList.length <= 1) return;
 
-        const timer = setInterval(() => {
+        const rotateTrigger = setInterval(() => {
             setIsTransitioning(true);
             const next = (currentImageIndex + 1) % imageList.length;
             setNextImageIndex(next);
@@ -74,29 +56,11 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
             setTimeout(() => {
                 setCurrentImageIndex(next);
                 setIsTransitioning(false);
-            }, 800); // Match transition duration
-        }, 4000); // Slower rotation for less jarring experience
+            }, 800);
+        }, 5000); // 5s for even better stability
 
-        return () => clearInterval(timer);
-    }, [imageList.length, currentImageIndex, allImagesLoaded]);
-
-    // Stable crossfade without flicker
-    const CrossfadeImage = useCallback(({ src, alt, isActive }: { src: string; alt: string; isActive: boolean }) => (
-        <div
-            className="absolute inset-0 transition-opacity duration-[800ms] ease-in-out will-change-opacity"
-            style={{ opacity: isActive ? 1 : 0 }}
-        >
-            <Image
-                src={src}
-                alt={alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-                unoptimized
-            />
-        </div>
-    ), []);
+        return () => clearInterval(rotateTrigger);
+    }, [imageList.length, currentImageIndex, imageList]);
 
     return (
         <section className="py-24 md:py-32 relative z-10 bg-transparent overflow-hidden">
@@ -167,11 +131,12 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
 
                                 {/* Image Container with stable layers */}
                                 <div className="absolute inset-0 z-[2]">
-                                    {/* Current Image (always visible) */}
+                                    {/* Current Image */}
                                     <CrossfadeImage
                                         src={imageList[currentImageIndex]?.url || imageList[0]?.url}
                                         alt={imageList[currentImageIndex]?.name || "Club Moments"}
                                         isActive={!isTransitioning}
+                                        priority={currentImageIndex === 0} // Only first image in the whole lifecycle gets priority
                                     />
 
                                     {/* Next Image (fades in during transition) */}
@@ -180,6 +145,7 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                             src={imageList[nextImageIndex]?.url || imageList[0]?.url}
                                             alt={imageList[nextImageIndex]?.name || "Club Moments"}
                                             isActive={true}
+                                            priority={false}
                                         />
                                     )}
 

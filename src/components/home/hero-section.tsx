@@ -3,13 +3,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Play } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { NeuralNetwork } from "@/components/ui/neural-network";
 import { FloatingKeywords } from "@/components/ui/floating-keywords";
 
 export function HeroSection() {
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+    const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
+
     return (
         <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-24 pb-20 px-4">
             {/* Background Gradients */}
@@ -31,7 +36,10 @@ export function HeroSection() {
                 <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[var(--background)] to-transparent" />
             </div>
 
-            <div className="container relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
+            <motion.div
+                style={{ y: y1, opacity, scale }}
+                className="container relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center"
+            >
 
                 {/* Logos - X Pattern (Mobile Only) */}
                 <div className="flex md:hidden items-center justify-center gap-5 mb-8">
@@ -47,7 +55,8 @@ export function HeroSection() {
                             alt="AIML Club"
                             width={72}
                             height={72}
-                            sizes="100px"
+                            sizes="72px"
+                            priority
                             className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(163,230,53,0.3)]"
                         />
                     </motion.div>
@@ -73,7 +82,8 @@ export function HeroSection() {
                             alt="OCT"
                             width={72}
                             height={72}
-                            sizes="100px"
+                            sizes="72px"
+                            priority
                             className="object-contain relative z-10 drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]"
                         />
                     </motion.div>
@@ -157,7 +167,7 @@ export function HeroSection() {
                     </MagneticButton>
                 </motion.div>
 
-            </div>
+            </motion.div>
         </section>
     );
 }

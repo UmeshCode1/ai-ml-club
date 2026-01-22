@@ -19,6 +19,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
     const mouse = useRef({ x: 0, y: 0 });
     const isMouseIn = useRef(false);
     const isMobileRef = useRef(false);
+    const lastFrameTime = useRef(0);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -42,7 +43,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             // Reduce particles on mobile for performance
             const isMobile = width < 768;
             isMobileRef.current = isMobile;
-            const baseCount = isMobile ? 20 : Math.min(Math.floor((width * height) / 15000), 100);
+            const baseCount = isMobile ? 12 : Math.min(Math.floor((width * height) / 15000), 100);
             const particleCount = baseCount;
 
             particles.current = [];
@@ -62,6 +63,17 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             // Professional Colors
             const particleFill = isDark ? "rgba(255, 255, 255, 0.6)" : "rgba(0, 0, 0, 0.4)";
             const lineStroke = isDark ? "rgba(100, 100, 255," : "rgba(0, 0, 0,";
+
+            // FPS controlling for mobile
+            const now = Date.now();
+            const elapsed = now - lastFrameTime.current;
+            const fpsLimit = isMobileRef.current ? 33 : 16; // ~30fps mobile, ~60fps desktop
+
+            if (elapsed < fpsLimit) {
+                animationFrameId = requestAnimationFrame(drawStats);
+                return;
+            }
+            lastFrameTime.current = now;
 
             ctx.clearRect(0, 0, width, height);
 

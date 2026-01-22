@@ -39,21 +39,41 @@ export const Navbar = () => {
         { name: "Contact", path: "/contact" },
     ];
 
-    const dropdownVariants = {
-        hidden: { opacity: 0, y: 10, scale: 0.95, transition: { staggerChildren: 0.05, staggerDirection: -1 } },
-        visible: { opacity: 1, y: 0, scale: 1, transition: { staggerChildren: 0.05, delayChildren: 0.1 } }
+    const dropdownVariants: any = {
+        hidden: {
+            opacity: 0,
+            y: 15,
+            scale: 0.95,
+            filter: "blur(10px)",
+            transition: {
+                staggerChildren: 0.03,
+                staggerDirection: -1,
+                ease: [0.16, 1, 0.3, 1]
+            }
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            transition: {
+                staggerChildren: 0.05,
+                delayChildren: 0.1,
+                ease: [0.16, 1, 0.3, 1]
+            }
+        }
     };
 
-    const itemVariants = {
-        hidden: { opacity: 0, x: -10, filter: "blur(5px)" },
-        visible: { opacity: 1, x: 0, filter: "blur(0px)" }
+    const itemVariants: any = {
+        hidden: { opacity: 0, x: -10, y: 5 },
+        visible: { opacity: 1, x: 0, y: 0 }
     };
 
     return (
         <motion.nav
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
+            transition={{ duration: 1.2, type: "spring", bounce: 0.2 }}
             className="fixed top-5 inset-x-0 mx-auto w-max max-w-[95vw] z-50"
         >
             <div className="flex items-center gap-4 px-4 h-14 rounded-full border border-black/5 dark:border-white/10 bg-white/40 dark:bg-black/20 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300">
@@ -66,6 +86,8 @@ export const Navbar = () => {
                                 src="/aiml-club-logo-new.png"
                                 alt="AIML Club"
                                 fill
+                                sizes="48px"
+                                priority
                                 className="object-contain"
                             />
                         </div>
@@ -75,6 +97,8 @@ export const Navbar = () => {
                                 src="/college-logo-new.png"
                                 alt="OCT Bhopal"
                                 fill
+                                sizes="48px"
+                                priority
                                 className="object-contain drop-shadow-sm"
                             />
                         </div>
@@ -85,7 +109,7 @@ export const Navbar = () => {
                             AIML CLUB
                         </span>
                         <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium tracking-wide leading-none">
-                            Oriental College Of Technology , Bhopal
+                            Oriental College Of Technology, Bhopal
                         </span>
                     </div>
                 </Link>

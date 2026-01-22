@@ -80,11 +80,14 @@ export default function GalleryPageClient({ albums, driveLink }: GalleryPageClie
                             <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--neon-lime-text)]">{albums.length} Active Albums</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter text-center">
-                            Event <br /> Chronicle
+                            Engineering <br />
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--neon-lime-text)] via-[var(--electric-cyan-text)] to-[var(--neon-lime-text)] bg-[length:200%_auto] animate-gradient-flow italic">
+                                MEMORIES
+                            </span>
                         </h1>
                         <div className="max-w-2xl mx-auto">
                             <BlurReveal
-                                text="A factual record of our technical workshops, project exhibitions, and community activities. Documenting the collaborative progress and shared milestones of the AIML Club at Oriental College of Technology."
+                                text="The official timeline of Artificial Intelligence and Machine Learning Club initiatives at Oriental College of Technology. Tracking our impact through high-stakes hackathons, expert-led sessions, and technical innovation."
                                 className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed font-medium text-center"
                                 delay={0.4}
                             />

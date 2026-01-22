@@ -127,16 +127,16 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
 
                         <div className="mb-6">
                             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-white leading-[1.1]">
-                                Engineering <br />
+                                Event <br />
                                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--neon-lime-text)] via-[var(--electric-cyan-text)] to-[var(--neon-lime-text)] bg-[length:200%_auto] animate-gradient-flow font-black italic">
-                                    MEMORIES
+                                    CHRONICLE
                                 </span>
                             </h1>
                         </div>
 
                         <div className="max-w-2xl">
                             <BlurReveal
-                                text="The official timeline of Artificial Intelligence and Machine Learning Club initiatives at Oriental College of Technology. Tracking our impact through high-stakes hackathons, expert-led sessions, and technical innovation."
+                                text="A factual record of our technical workshops, project exhibitions, and community activities. Documenting the collaborative progress and shared milestones of the AIML Club at Oriental College of Technology."
                                 className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base lg:text-lg leading-relaxed justify-center font-medium"
                                 delay={0.4}
                             />

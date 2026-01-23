@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, Linkedin, Github, Instagram, MapPin, GraduationCap, Users } from "lucide-react";
+import { X, Mail, Linkedin, Github, Instagram, GraduationCap, Users } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
 

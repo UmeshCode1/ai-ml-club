@@ -10,8 +10,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BlurReveal } from "@/components/ui/blur-reveal";
-import { useDeviceType } from "@/hooks/use-device-type";
-import { createScrollVariants, getViewportConfig } from "@/lib/animation-variants";
 
 interface Event {
     $id: string;
@@ -36,9 +34,6 @@ interface EventsPageClientProps {
 export default function EventsPageClient({ events }: EventsPageClientProps) {
     const [filter, setFilter] = useState<FilterType>("all");
     const scrollRef = useRef<HTMLDivElement>(null);
-    const { device, prefersReducedMotion } = useDeviceType();
-    const variants = createScrollVariants(device, prefersReducedMotion);
-    const viewportConfig = getViewportConfig(device);
 
     // Process Timeline Data
     const timelineData = [...events].sort((a, b) =>

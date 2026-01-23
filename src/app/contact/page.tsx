@@ -7,9 +7,8 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { NeuralNetwork } from "@/components/ui/neural-network";
 import { useState, useEffect } from "react";
-import { createContact } from "@/lib/database";
-import { useDeviceType } from "@/hooks/use-device-type";
-import { createScrollVariants, getViewportConfig } from "@/lib/animation-variants";
+import { createContact, getLeadershipMembers, Member } from "@/lib/database";
+
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -22,9 +21,7 @@ export default function ContactPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
     const [scrollProgress, setScrollProgress] = useState(0);
-    const { device, prefersReducedMotion } = useDeviceType();
-    const variants = createScrollVariants(device, prefersReducedMotion);
-    const viewportConfig = getViewportConfig(device);
+    const [leadership, setLeadership] = useState<Member[]>([]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -32,7 +29,14 @@ export default function ContactPage() {
             const progress = (window.scrollY / totalHeight) * 100;
             setScrollProgress(progress);
         };
+
+        const fetchLeadership = async () => {
+            const data = await getLeadershipMembers();
+            setLeadership(data);
+        };
+
         window.addEventListener("scroll", handleScroll);
+        fetchLeadership();
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -113,45 +117,46 @@ export default function ContactPage() {
                         </div>
                     </motion.a>
 
-                    {/* President */}
-                    <motion.a
-                        href="tel:+916299200082"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
-                        className="group"
-                    >
-                        <div className="p-4 rounded-2xl bg-neutral-100/50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)]/50 transition-all hover:shadow-lg hover:shadow-[var(--neon-lime)]/5">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4FF00]/20 to-[#00F0FF]/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                                <Phone className="w-5 h-5 text-[var(--neon-lime-text)]" />
+                    {/* Dynamic Leadership Cards */}
+                    {leadership.map((member, index) => (
+                        <motion.a
+                            key={member.$id}
+                            href={member.contactNo ? `tel:${member.contactNo}` : "#"}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.1 * (index + 1) }}
+                            className="group"
+                        >
+                            <div className="p-4 rounded-2xl bg-neutral-100/50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)]/50 transition-all hover:shadow-lg hover:shadow-[var(--neon-lime)]/5">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4FF00]/20 to-[#00F0FF]/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                    <Phone className="w-5 h-5 text-[var(--neon-lime-text)]" />
+                                </div>
+                                <h3 className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">{member.role}</h3>
+                                <p className="text-xs text-neutral-400 flex items-center gap-1 mb-0.5">
+                                    <User className="w-3 h-3" /> {member.name}
+                                </p>
+                                <p className="text-xs text-neutral-500 dark:text-neutral-400">{member.contactNo || "No contact"}</p>
                             </div>
-                            <h3 className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">President</h3>
-                            <p className="text-xs text-neutral-400 flex items-center gap-1 mb-0.5">
-                                <User className="w-3 h-3" /> Vishal Kumar
-                            </p>
-                            <p className="text-xs text-neutral-500 dark:text-neutral-400">+91 6299200082</p>
-                        </div>
-                    </motion.a>
+                        </motion.a>
+                    ))}
 
-                    {/* Vice President */}
-                    <motion.a
-                        href="tel:+917974389476"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.2 }}
-                        className="group"
-                    >
-                        <div className="p-4 rounded-2xl bg-neutral-100/50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 hover:border-[var(--neon-lime)]/50 transition-all hover:shadow-lg hover:shadow-[var(--neon-lime)]/5">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4FF00]/20 to-[#00F0FF]/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                                <Phone className="w-5 h-5 text-[var(--neon-lime-text)]" />
+                    {/* Fallback if no leadership data found (optional but good for UX during first load) */}
+                    {leadership.length === 0 && (
+                        <>
+                            {/* President Placeholder */}
+                            <div className="p-4 rounded-2xl bg-neutral-100/50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 animate-pulse">
+                                <div className="w-10 h-10 rounded-xl bg-neutral-200 dark:bg-neutral-800 mb-3" />
+                                <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded w-24 mb-2" />
+                                <div className="h-3 bg-neutral-200 dark:bg-neutral-800 rounded w-32" />
                             </div>
-                            <h3 className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">Vice President</h3>
-                            <p className="text-xs text-neutral-400 flex items-center gap-1 mb-0.5">
-                                <User className="w-3 h-3" /> Umesh Patle
-                            </p>
-                            <p className="text-xs text-neutral-500 dark:text-neutral-400">+91 7974389476</p>
-                        </div>
-                    </motion.a>
+                            {/* Vice President Placeholder */}
+                            <div className="p-4 rounded-2xl bg-neutral-100/50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 animate-pulse">
+                                <div className="w-10 h-10 rounded-xl bg-neutral-200 dark:bg-neutral-800 mb-3" />
+                                <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded w-24 mb-2" />
+                                <div className="h-3 bg-neutral-200 dark:bg-neutral-800 rounded w-32" />
+                            </div>
+                        </>
+                    )}
 
                     {/* Address */}
                     <motion.a

@@ -19,7 +19,12 @@ export function MagneticButton({
         const checkTouch = () => {
             return window.matchMedia("(hover: none)").matches;
         };
-        setIsTouchDevice(checkTouch());
+
+        const frame = requestAnimationFrame(() => {
+            setIsTouchDevice(checkTouch());
+        });
+
+        return () => cancelAnimationFrame(frame);
     }, []);
 
     const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {

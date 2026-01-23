@@ -5,7 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { GradientBorder } from "@/components/ui/gradient-border";
-import { TextDecode } from "@/components/ui/text-decode";
 
 export function CTASection() {
     return (

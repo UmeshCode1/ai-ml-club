@@ -170,6 +170,24 @@ export async function getMembersByTeam(team: string) {
     return response.documents as unknown as Member[];
 }
 
+export async function getLeadershipMembers() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.MEMBERS,
+            [
+                Query.equal("role", ["President", "Vice President"]),
+                Query.limit(10)
+            ]
+        );
+        return response.documents as unknown as Member[];
+    } catch (error) {
+        console.error("Failed to fetch leadership members:", error);
+        return [];
+    }
+}
+
 // ==================== EVENTS ====================
 export interface Event {
     $id?: string;

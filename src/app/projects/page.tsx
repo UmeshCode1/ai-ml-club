@@ -6,14 +6,8 @@ import { Github, ExternalLink } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { FloatingCard } from "@/components/ui/floating-card";
 import Image from "next/image";
-import { useDeviceType } from "@/hooks/use-device-type";
-import { motion } from "framer-motion";
-import { createScrollVariants, getViewportConfig } from "@/lib/animation-variants";
 
 export default function ProjectsPage() {
-    const { device, prefersReducedMotion } = useDeviceType();
-    const variants = createScrollVariants(device, prefersReducedMotion);
-    const viewportConfig = getViewportConfig(device);
     return (
         <div className="min-h-screen relative w-full flex flex-col items-center pt-24 px-4 bg-transparent">
             <div className="text-center mb-16">

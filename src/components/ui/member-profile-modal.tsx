@@ -56,149 +56,127 @@ export function MemberProfileModal({ member, isOpen, onClose }: MemberProfileMod
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+                        className="fixed inset-0 bg-black/80 backdrop-blur-md z-[60]"
                     />
 
                     {/* Modal */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                        onClick={(e) => e.target === e.currentTarget && onClose()}
-                    >
-                        <div className="relative w-full max-w-md bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-white/10">
+                    <div className="fixed inset-0 z-[61] flex items-center justify-center p-4" onClick={(e) => e.target === e.currentTarget && onClose()}>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="relative w-full max-w-2xl bg-[#0a0a0a] rounded-3xl shadow-2xl overflow-hidden border border-white/10"
+                        >
+                            {/* Decorative Background Glows */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--neon-lime)]/10 rounded-full blur-[100px] pointer-events-none" />
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
+
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
-                                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-neutral-100 dark:bg-white/10 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-white/20 transition-colors"
+                                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/20 hover:bg-white/10 text-white/70 hover:text-white transition-all backdrop-blur-sm border border-white/5"
                             >
                                 <X className="w-5 h-5" />
                             </button>
 
-                            {/* Header Background */}
-                            <div className="relative h-32 bg-gradient-to-br from-[var(--electric-cyan)] via-[var(--neon-lime)] to-[var(--electric-cyan)]">
-                                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
-                                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-neutral-900" />
-                            </div>
-
-                            {/* Profile Content */}
-                            <div className="relative px-6 pb-6 -mt-16">
-                                {/* Avatar */}
-                                <div className="relative w-28 h-28 mx-auto mb-4 rounded-2xl overflow-hidden border-4 border-white dark:border-neutral-900 shadow-xl">
-                                    {hasImage ? (
-                                        <Image
-                                            src={member.imageUrl!}
-                                            alt={member.name}
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--electric-cyan)] to-[var(--neon-lime)] text-black font-bold text-3xl">
-                                            {initials}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Name & Role */}
-                                <div className="text-center mb-6">
-                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">
-                                        {member.name}
-                                    </h2>
-                                    <p className="text-[var(--electric-cyan)] font-semibold">
-                                        {member.role}
-                                    </p>
-                                </div>
-
-                                {/* Info Cards */}
-                                <div className="space-y-3 mb-6">
-                                    {/* Team */}
-                                    {member.team && (
-                                        <div className="flex items-center gap-3 p-3 rounded-xl bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10">
-                                            <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                                                <Users className="w-5 h-5 text-purple-500" />
+                            <div className="flex flex-col md:flex-row relative z-10">
+                                {/* Left Side: Image & Socials */}
+                                <div className="w-full md:w-2/5 p-6 md:p-8 flex flex-col items-center border-b md:border-b-0 md:border-r border-white/5 bg-white/[0.02]">
+                                    {/* Avatar */}
+                                    <div className="relative w-40 h-40 md:w-full md:aspect-square rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-6 group">
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-[var(--neon-lime)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
+                                        {hasImage ? (
+                                            <Image
+                                                src={member.imageUrl!}
+                                                alt={member.name}
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900">
+                                                <span className="text-4xl font-bold text-white/50">{initials}</span>
                                             </div>
-                                            <div>
-                                                <p className="text-xs text-neutral-500 dark:text-neutral-400">Team</p>
-                                                <p className="text-sm font-medium text-neutral-900 dark:text-white">{member.team}</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Enrollment */}
-                                    {member.enrollmentNo && (
-                                        <div className="flex items-center gap-3 p-3 rounded-xl bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10">
-                                            <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                                                <GraduationCap className="w-5 h-5 text-amber-500" />
-                                            </div>
-                                            <div>
-                                                <p className="text-xs text-neutral-500 dark:text-neutral-400">Enrollment No.</p>
-                                                <p className="text-sm font-medium text-neutral-900 dark:text-white font-mono">{member.enrollmentNo}</p>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Email */}
-                                    {member.email && (
-                                        <a
-                                            href={`mailto:${member.email}`}
-                                            className="flex items-center gap-3 p-3 rounded-xl bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 hover:border-[var(--electric-cyan)] transition-colors group"
-                                        >
-                                            <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-                                                <Mail className="w-5 h-5 text-blue-500 group-hover:text-white transition-colors" />
-                                            </div>
-                                            <div className="min-w-0 flex-1">
-                                                <p className="text-xs text-neutral-500 dark:text-neutral-400">Email</p>
-                                                <p className="text-sm font-medium text-neutral-900 dark:text-white truncate">{member.email}</p>
-                                            </div>
-                                        </a>
-                                    )}
-                                </div>
-
-                                {/* Social Links */}
-                                {hasSocials && (
-                                    <div className="border-t border-neutral-200 dark:border-white/10 pt-4">
-                                        <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center mb-3">Connect</p>
-                                        <div className="flex justify-center gap-3">
-                                            {member.linkedin && (
-                                                <a
-                                                    href={member.linkedin}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="w-12 h-12 rounded-xl bg-[#0077B5]/10 flex items-center justify-center text-[#0077B5] hover:bg-[#0077B5] hover:text-white transition-all hover:scale-110"
-                                                >
-                                                    <Linkedin className="w-6 h-6" />
-                                                </a>
-                                            )}
-                                            {member.github && (
-                                                <a
-                                                    href={member.github}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="w-12 h-12 rounded-xl bg-neutral-800/10 dark:bg-white/10 flex items-center justify-center text-neutral-800 dark:text-white hover:bg-neutral-800 hover:text-white transition-all hover:scale-110"
-                                                >
-                                                    <Github className="w-6 h-6" />
-                                                </a>
-                                            )}
-                                            {member.instagram && (
-                                                <a
-                                                    href={member.instagram}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/10 via-pink-500/10 to-orange-500/10 flex items-center justify-center text-pink-500 hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-500 hover:text-white transition-all hover:scale-110"
-                                                >
-                                                    <Instagram className="w-6 h-6" />
-                                                </a>
-                                            )}
-                                        </div>
+                                        )}
                                     </div>
-                                )}
+
+                                    {/* Social Links (Desktop: Left Side, Mobile: Hidden here, shown below) */}
+                                    <div className="hidden md:flex gap-3 justify-center w-full">
+                                        {member.linkedin && <SocialButton href={member.linkedin} icon={Linkedin} color="text-[#0077B5]" hoverBg="hover:bg-[#0077B5]/20" />}
+                                        {member.github && <SocialButton href={member.github} icon={Github} color="text-white" hoverBg="hover:bg-white/20" />}
+                                        {member.instagram && <SocialButton href={member.instagram} icon={Instagram} color="text-[#E1306C]" hoverBg="hover:bg-[#E1306C]/20" />}
+                                    </div>
+                                </div>
+
+                                {/* Right Side: Details */}
+                                <div className="w-full md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                                    <div className="mb-6">
+                                        <div className="inline-block px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 text-[var(--neon-lime)] text-xs font-bold uppercase tracking-wider mb-3 border border-[var(--neon-lime)]/20">
+                                            {member.role}
+                                        </div>
+                                        <h2 className="text-3xl md:text-3xl font-bold text-white mb-2 leading-tight">
+                                            {member.name}
+                                        </h2>
+                                        <div className="h-1 w-20 bg-gradient-to-r from-[var(--electric-cyan)] to-transparent rounded-full" />
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        {member.team && (
+                                            <DetailRow icon={Users} label="Team" value={member.team} color="text-purple-400" />
+                                        )}
+                                        {member.enrollmentNo && (
+                                            <DetailRow icon={GraduationCap} label="Enrollment" value={member.enrollmentNo} color="text-amber-400" />
+                                        )}
+                                        {member.email && (
+                                            <DetailRow icon={Mail} label="Email" value={member.email} color="text-[var(--electric-cyan)]" isLink />
+                                        )}
+                                    </div>
+
+                                    {/* Mobile Socials */}
+                                    <div className="flex md:hidden gap-3 mt-8 pt-6 border-t border-white/5 justify-center">
+                                        {member.linkedin && <SocialButton href={member.linkedin} icon={Linkedin} color="text-[#0077B5]" hoverBg="hover:bg-[#0077B5]/20" />}
+                                        {member.github && <SocialButton href={member.github} icon={Github} color="text-white" hoverBg="hover:bg-white/20" />}
+                                        {member.instagram && <SocialButton href={member.instagram} icon={Instagram} color="text-[#E1306C]" hoverBg="hover:bg-[#E1306C]/20" />}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 </>
             )}
         </AnimatePresence>
+    );
+}
+
+function SocialButton({ href, icon: Icon, color, hoverBg }: { href: string; icon: React.ElementType; color: string; hoverBg: string }) {
+    return (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center ${color} ${hoverBg} transition-all duration-300 border border-white/5 hover:border-white/20`}
+        >
+            <Icon className="w-5 h-5" />
+        </a>
+    );
+}
+
+function DetailRow({ icon: Icon, label, value, color, isLink = false }: { icon: React.ElementType; label: string; value: string; color: string; isLink?: boolean }) {
+    return (
+        <div className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/[0.02] transition-colors group">
+            <div className={`w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center ${color} border border-white/5 group-hover:border-white/10 transition-colors`}>
+                <Icon className="w-5 h-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-0.5">{label}</p>
+                {isLink ? (
+                    <a href={`mailto:${value}`} className="text-sm font-medium text-neutral-300 hover:text-white transition-colors truncate block">
+                        {value}
+                    </a>
+                ) : (
+                    <p className="text-sm font-medium text-neutral-300 truncate">{value}</p>
+                )}
+            </div>
+        </div>
     );
 }

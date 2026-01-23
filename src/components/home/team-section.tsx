@@ -142,45 +142,52 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 300
                                         >
                                             <div className="relative group w-full aspect-[4/5] mb-6">
                                                 <GradientBorder
-                                                    containerClassName={`w-full h-full rounded-3xl transition-all duration-500 ${isActive ? 'shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(255,255,255,0.05)]' : ''}`}
-                                                    className="bg-[var(--card-bg)] backdrop-blur-xl rounded-3xl flex items-center justify-center overflow-hidden"
-                                                    borderWidth={isActive ? 2 : 1}
-                                                    duration={isActive ? 4 : 10}
+                                                    containerClassName={`w-full h-full rounded-3xl transition-all duration-500 ${isActive ? 'shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(var(--neon-lime-rgb),0.15)] scale-[1.02]' : 'opacity-70 scale-95'}`}
+                                                    className="bg-neutral-900/80 backdrop-blur-xl rounded-3xl flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors duration-500"
+                                                    borderWidth={isActive ? 1.5 : 0}
+                                                    duration={isActive ? 3 : 10}
                                                 >
+                                                    {/* Noise Texture Overlay */}
+                                                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none z-10" />
+
+                                                    {/* Gradient Glow */}
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-20 opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+
                                                     {member.image ? (
                                                         <Image
                                                             src={member.image}
                                                             alt={member.name}
                                                             fill
                                                             sizes="(max-width: 768px) 256px, 320px"
-                                                            className="object-cover"
+                                                            className="object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
                                                         />
                                                     ) : (
-                                                        <div className="w-full h-full bg-gradient-to-br from-[var(--electric-cyan)] to-[var(--neon-lime)] flex items-center justify-center">
-                                                            <span className="text-5xl font-bold text-black">
+                                                        <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
+                                                            <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-[var(--electric-cyan)] to-[var(--neon-lime)]">
                                                                 {initials}
                                                             </span>
                                                         </div>
                                                     )}
 
                                                     {/* Click hint overlay */}
-                                                    {isActive && (
-                                                        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-colors">
-                                                            <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                                                                Click to view profile
-                                                            </span>
-                                                        </div>
-                                                    )}
+                                                    <div className="absolute bottom-6 left-0 right-0 z-30 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+                                                        <span className="px-4 py-1.5 rounded-full bg-[var(--neon-lime)] text-black text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_var(--neon-lime)]">
+                                                            View Profile
+                                                        </span>
+                                                    </div>
                                                 </GradientBorder>
                                             </div>
 
-                                            <div className="text-center">
-                                                <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">
+                                            <div className={`text-center transition-all duration-300 ${isActive ? 'opacity-100 transform-none' : 'opacity-50 scale-90'}`}>
+                                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight group-hover:text-[var(--neon-lime)] transition-colors">
                                                     {member.name}
                                                 </h3>
-                                                <span className={`text-sm tracking-widest uppercase font-semibold ${isActive ? 'text-[var(--neon-lime-text)]' : 'text-neutral-500'}`}>
-                                                    {member.role}
-                                                </span>
+                                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--electric-cyan)] animate-pulse" />
+                                                    <span className="text-xs tracking-widest uppercase font-semibold text-neutral-300">
+                                                        {member.role}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </motion.div>
                                     );

@@ -25,7 +25,6 @@ const CrossfadeImage = ({ src, alt, isActive, priority }: { src: string; alt: st
             src={src}
             alt={alt}
             fill
-            unoptimized
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
             priority={priority}

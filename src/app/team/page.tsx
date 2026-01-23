@@ -2,6 +2,8 @@ import { getMembers } from "@/lib/database";
 import { Metadata } from "next";
 import TeamPageClient from "./TeamPageClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
     title: "Our Team - AIML Club Leaders & Members",
     description: "Meet the talented team behind AIML Club OCT. Our council members, technical leads, and passionate student innovators driving AI & Machine Learning at Oriental College of Technology, Bhopal.",

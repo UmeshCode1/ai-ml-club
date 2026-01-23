@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -39,7 +39,7 @@ export const Navbar = () => {
         { name: "Contact", path: "/contact" },
     ];
 
-    const dropdownVariants: any = {
+    const dropdownVariants: Variants = {
         hidden: {
             opacity: 0,
             y: 15,
@@ -64,7 +64,7 @@ export const Navbar = () => {
         }
     };
 
-    const itemVariants: any = {
+    const itemVariants: Variants = {
         hidden: { opacity: 0, x: -10, y: 5 },
         visible: { opacity: 1, x: 0, y: 0 }
     };

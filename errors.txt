@@ -1,0 +1,46 @@
+
+D:\AIML CLUB V6\scripts\check-attributes.ts
+  24:24  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  29:62  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\AIML CLUB V6\scripts\create-events-collection.ts
+  74:27  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\AIML CLUB V6\scripts\debug-seed.ts
+  54:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\AIML CLUB V6\scripts\fix-events-attr.ts
+  25:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\AIML CLUB V6\scripts\remake-events.ts
+  53:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\AIML CLUB V6\scripts\seed-all-data.ts
+  242:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  253:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  264:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\AIML CLUB V6\src\components\layout\navbar.tsx
+  42:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  67:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\AIML CLUB V6\src\components\ui\magnetic-button.tsx
+  22:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\AIML CLUB V6\src\components\ui\magnetic-button.tsx:22:9
+  20 |             return window.matchMedia("(hover: none)").matches;
+  21 |         };
+> 22 |         setIsTouchDevice(checkTouch());
+     |         ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  23 |     }, []);
+  24 |
+  25 |     const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {  react-hooks/set-state-in-effect
+
+✖ 12 problems (12 errors, 0 warnings)
+

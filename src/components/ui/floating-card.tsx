@@ -1,17 +1,36 @@
-"use client";
-
-
-
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export const FloatingCard = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
+export const FloatingCard = ({
+    children,
+    delay = 0,
+    variant = "default"
+}: {
+    children: React.ReactNode;
+    delay?: number;
+    variant?: "default" | "glitch"
+}) => {
     const [floatDelay, setFloatDelay] = useState(0);
 
     useEffect(() => {
-        // eslint-disable-next-line
-        setFloatDelay(Math.random() * 2);
+        const d = Math.random() * 2;
+        const timer = setTimeout(() => setFloatDelay(d), 0);
+        return () => clearTimeout(timer);
     }, []);
+
+    const glitchVariants: Variants = {
+        animate: {
+            x: variant === "glitch" ? [0, -2, 2, -1, 0] : 0,
+            y: variant === "glitch" ? [-12, -14, -10, -13, -12] : [0, -12, 0],
+            scale: variant === "glitch" ? [1, 1.01, 0.99, 1.005, 1] : 1,
+            transition: {
+                duration: variant === "glitch" ? 4 : 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: floatDelay,
+            }
+        }
+    };
 
     return (
         <motion.div
@@ -21,15 +40,8 @@ export const FloatingCard = ({ children, delay = 0 }: { children: React.ReactNod
             transition={{ duration: 0.5, delay: delay, ease: "easeOut" }}
         >
             <motion.div
-                animate={{
-                    y: [0, -12, 0],
-                }}
-                transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: floatDelay,
-                }}
+                variants={glitchVariants}
+                animate="animate"
             >
                 {children}
             </motion.div>

@@ -196,8 +196,10 @@ export const Navbar = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-2 pl-2 border-l border-white/10 ml-2">
-                    <ThemeToggle />
+                <div className="flex items-center gap-4 pl-4 border-l border-white/10 ml-2">
+                    <div className="flex items-center gap-2">
+                        <ThemeToggle />
+                    </div>
                     <MagneticButton>
                         <Link
                             href={siteConfig.links.commudle}

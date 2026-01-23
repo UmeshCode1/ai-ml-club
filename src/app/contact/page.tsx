@@ -32,7 +32,30 @@ export default function ContactPage() {
 
         const fetchLeadership = async () => {
             const data = await getLeadershipMembers();
-            setLeadership(data);
+
+            // Find the latest year in the data
+            const latestYear = Math.max(...data.map(m => {
+                const year = parseInt(m.year?.toString() || "0");
+                return isNaN(year) ? 0 : year;
+            }), 0);
+
+            // Filter for only latest year and unique roles
+            const filtered = data.filter(m => {
+                const year = parseInt(m.year?.toString() || "0");
+                return (year === latestYear || latestYear === 0) && (m.role === "President" || m.role === "Vice President");
+            });
+
+            // Ensure unique cards (one per role)
+            const unique = filtered.reduce((acc: Member[], curr) => {
+                const exists = acc.find(m => m.role === curr.role);
+                if (!exists) acc.push(curr);
+                return acc;
+            }, []);
+
+            // Sort so President appears first
+            unique.sort((a) => a.role === "President" ? -1 : 1);
+
+            setLeadership(unique);
         };
 
         window.addEventListener("scroll", handleScroll);

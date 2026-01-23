@@ -178,7 +178,7 @@ export async function getLeadershipMembers() {
             COLLECTIONS.MEMBERS,
             [
                 Query.equal("role", ["President", "Vice President"]),
-                Query.limit(10)
+                Query.limit(20)
             ]
         );
         return response.documents as unknown as Member[];

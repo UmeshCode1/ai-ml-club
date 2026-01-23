@@ -112,7 +112,6 @@ export default function RootLayout({
             <Footer />
             <CommandPalette />
             <MagneticCursor />
-            <SpeedInsights />
           </SmoothScroll>
           <SpeedInsights />
         </Providers>

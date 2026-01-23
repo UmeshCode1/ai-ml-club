@@ -5,8 +5,11 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { GradientBorder } from "@/components/ui/gradient-border";
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 
 export function CTASection() {
+    const { scrollToId } = useSmoothScroll();
+
     return (
         <section className="py-24 relative overflow-hidden">
             {/* Background elements */}
@@ -52,8 +55,8 @@ export function CTASection() {
                             transition={{ duration: 0.8, delay: 0.4 }}
                         >
                             <MagneticButton>
-                                <Link
-                                    href="/join"
+                                <button
+                                    onClick={() => scrollToId("newsletter", 2500)}
                                     className="relative overflow-hidden inline-flex items-center justify-center px-12 py-5 text-lg font-bold text-[var(--background)] transition-all duration-300 bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)] rounded-full hover:shadow-[0_0_40px_var(--neon-lime)] hover:-translate-y-1 group"
                                 >
                                     <span className="relative z-10 flex items-center">
@@ -61,7 +64,7 @@ export function CTASection() {
                                         <ArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />
                                     </span>
                                     <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-0" />
-                                </Link>
+                                </button>
                             </MagneticButton>
 
                             <div className="mt-8 flex gap-6 text-sm font-semibold text-neutral-500 uppercase tracking-widest justify-center">

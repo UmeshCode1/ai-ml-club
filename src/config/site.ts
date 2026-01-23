@@ -128,7 +128,6 @@ export const siteConfig = {
         { name: "Home", path: "/" },
         { name: "Events", path: "/events" },
         { name: "Team", path: "/team" },
-        { name: "Projects", path: "/projects" },
         { name: "Gallery", path: "/gallery" },
         { name: "Blog", path: "/blog" },
         { name: "Contact", path: "/contact" },

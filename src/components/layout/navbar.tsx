@@ -6,17 +6,18 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Variants } from "framer-motion";
 import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText, Github } from "lucide-react";
-import { siteConfig } from "@/config/site";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
 import { useHaptic } from "@/hooks/use-haptic";
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [hoveredPath, setHoveredPath] = useState<string | null>(null);
     const pathname = usePathname();
     const { trigger } = useHaptic();
+    const { scrollToId } = useSmoothScroll();
 
     // Custom nav links for this layout
     const navLinks = [
@@ -201,15 +202,14 @@ export const Navbar = () => {
                         <ThemeToggle />
                     </div>
                     <MagneticButton>
-                        <Link
-                            href={siteConfig.links.commudle}
-                            target="_blank"
+                        <button
+                            onClick={() => scrollToId("newsletter", 2500)}
                             className="hidden md:flex relative overflow-hidden items-center px-6 py-2.5 text-sm font-bold text-[var(--background)] bg-[var(--neon-lime)] rounded-full group hover:shadow-[0_0_20px_var(--neon-lime)] transition-shadow duration-300"
                         >
                             <span className="relative z-10">Join</span>
                             {/* Shimmer Effect */}
                             <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-0" />
-                        </Link>
+                        </button>
                     </MagneticButton>
 
                     {/* Mobile Menu Toggle */}
@@ -264,6 +264,21 @@ export const Navbar = () => {
                                     )}
                                 </React.Fragment>
                             ))}
+
+                            {/* Mobile Join Button */}
+                            <div className="mt-4 p-2 border-t border-neutral-200 dark:border-white/10">
+                                <button
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        trigger();
+                                        scrollToId("newsletter", 2500);
+                                    }}
+                                    className="w-full relative overflow-hidden flex items-center justify-center px-6 py-4 text-base font-bold text-[var(--background)] bg-[var(--neon-lime)] rounded-xl group"
+                                >
+                                    <span className="relative z-10">Join the Club</span>
+                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-0" />
+                                </button>
+                            </div>
                         </div>
                     </motion.div>
                 )}

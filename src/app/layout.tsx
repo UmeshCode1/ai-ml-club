@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   description: "Official club of Oriental College of Technology, Bhopal, focused on Artificial Intelligence and Machine Learning exploration, education, and community building.",
   keywords: ["AI", "ML", "Artificial Intelligence", "Machine Learning", "Data Science", "Bhopal", "OCT", "College Club"],
-  authors: [{ name: "Umesh Patel", url: "https://github.com/Umesh-Patel-1" }],
+  authors: [{ name: "Umesh Patel", url: "https://github.com/UmeshCode1" }],
   creator: "Umesh Patel",
   openGraph: {
     type: "website",

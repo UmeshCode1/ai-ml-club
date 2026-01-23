@@ -13,9 +13,25 @@ export const PreLoader = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        // Prevent scrolling while loading
+        if (isLoading) {
+            document.body.style.overflow = 'hidden';
+            window.scrollTo(0, 0); // Keep at top
+        } else {
+            document.body.style.overflow = 'unset';
+            // Final safety check to ensure we are at the top for hero section
+            window.scrollTo({ top: 0, behavior: 'auto' });
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isLoading]);
+
+    useEffect(() => {
         if (index === COMMANDS.length) {
-            // After the last word ("Inspire"), wait 1s before closing the loader
-            const exitTimer = setTimeout(() => setIsLoading(false), 1000);
+            // After the words, provide a slight pause for "Inspire" before exit
+            const exitTimer = setTimeout(() => setIsLoading(false), 800);
             return () => clearTimeout(exitTimer);
         }
 
@@ -23,7 +39,7 @@ export const PreLoader = () => {
             () => {
                 setIndex((prev) => prev + 1);
             },
-            1000 // Each word gets 1s of fame
+            index === 0 ? 1200 : 1000 // First word slightly longer for focus
         );
         return () => clearTimeout(timeout);
     }, [index]);
@@ -36,10 +52,9 @@ export const PreLoader = () => {
                     initial={{ opacity: 1 }}
                     exit={{
                         opacity: 0,
-                        scale: 1.05,
-                        filter: "blur(30px)"
+                        y: "-100%", // Slide up effect for premium feel
+                        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
                     }}
-                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--background)] overflow-hidden"
                 >
                     {/* Subtle grid pattern for high-tech feel */}

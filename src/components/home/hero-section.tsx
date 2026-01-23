@@ -8,8 +8,10 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { NeuralNetwork } from "@/components/ui/neural-network";
 import { FloatingKeywords } from "@/components/ui/floating-keywords";
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 
 export function HeroSection() {
+    const { scrollToId } = useSmoothScroll();
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -126,8 +128,8 @@ export function HeroSection() {
                     className="flex flex-col sm:flex-row items-center gap-6"
                 >
                     <MagneticButton>
-                        <Link
-                            href="/join"
+                        <button
+                            onClick={() => scrollToId("newsletter", 2500)}
                             className="relative overflow-hidden inline-flex items-center justify-center px-10 py-4 text-base font-bold text-[var(--background)] transition-all duration-300 bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)] rounded-full hover:shadow-[0_0_40px_var(--neon-lime)] hover:-translate-y-1 group"
                         >
                             <span className="relative z-10 flex items-center">
@@ -135,12 +137,12 @@ export function HeroSection() {
                                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                             </span>
                             <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-0" />
-                        </Link>
+                        </button>
                     </MagneticButton>
 
                     <MagneticButton>
                         <Link
-                            href="/projects"
+                            href="/events"
                             className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-neutral-700 dark:text-white transition-all duration-300 bg-white/80 dark:bg-white/5 backdrop-blur-md border border-neutral-200 dark:border-white/10 rounded-full hover:bg-neutral-100 dark:hover:bg-white/10 hover:border-neutral-300 dark:hover:border-white/20 hover:-translate-y-1 shadow-[var(--shadow-sm)]"
                         >
                             <Play className="w-4 h-4 mr-2 fill-current" />

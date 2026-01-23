@@ -109,7 +109,6 @@ export const Footer = () => {
                                 { name: "GitHub Org", href: "https://github.com/aimlcluboct", external: true },
                                 { name: "Media Drive", href: siteConfig.links.drive, external: true },
                                 { name: "WhatsApp Channel", href: siteConfig.links.whatsappChannel, external: true },
-                                { name: "Blog", href: "/blog" },
                             ].map((link) => (
                                 <li key={link.name}>
                                     <Link
@@ -127,6 +126,7 @@ export const Footer = () => {
                     {/* Newsletter - Full width on mobile */}
                     <div className="col-span-2 sm:col-span-2 lg:col-span-1">
                         <GradientBorder
+                            id="newsletter"
                             containerClassName="rounded-2xl sm:rounded-3xl shadow-lg"
                             className="p-4 sm:p-6 bg-neutral-50/80 dark:bg-neutral-900/80 backdrop-blur-xl"
                             duration={10}

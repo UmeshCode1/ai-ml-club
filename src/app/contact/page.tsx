@@ -9,7 +9,6 @@ import { NeuralNetwork } from "@/components/ui/neural-network";
 import { useState, useEffect } from "react";
 import { createContact } from "@/lib/database";
 import { useDeviceType } from "@/hooks/use-device-type";
-import { createScrollVariants, getViewportConfig } from "@/lib/animation-variants";
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -23,8 +22,6 @@ export default function ContactPage() {
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
     const [scrollProgress, setScrollProgress] = useState(0);
     const { device, prefersReducedMotion } = useDeviceType();
-    const variants = createScrollVariants(device, prefersReducedMotion);
-    const viewportConfig = getViewportConfig(device);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -147,7 +144,7 @@ export default function ContactPage() {
                             </div>
                             <h3 className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">Vice President</h3>
                             <p className="text-xs text-neutral-400 flex items-center gap-1 mb-0.5">
-                                <User className="w-3 h-3" /> Umesh Patle
+                                <User className="w-3 h-3" /> Umesh Patel
                             </p>
                             <p className="text-xs text-neutral-500 dark:text-neutral-400">+91 7974389476</p>
                         </div>

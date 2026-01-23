@@ -47,7 +47,7 @@ export const organizationSchema = {
             "@type": "ContactPoint",
             "contactType": "Vice President",
             "telephone": "+91-7974389476",
-            "name": "Umesh Patle"
+            "name": "Umesh Patel"
         }
     ],
     "sameAs": [

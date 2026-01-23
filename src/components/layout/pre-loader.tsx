@@ -5,9 +5,9 @@ import { useDeviceType } from "@/hooks/use-device-type";
 import { TextDecode } from "@/components/ui/text-decode";
 
 const COMMANDS = [
-    "Inspire",
-    "Ignite",
-    "Innovate"
+    "Innovate",
+    "Implement",
+    "Inspire"
 ];
 
 export const PreLoader = () => {

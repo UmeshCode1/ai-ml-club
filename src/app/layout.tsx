@@ -15,6 +15,7 @@ import { RouteTransition } from "@/components/layout/route-transition";
 import { PreLoader } from "@/components/layout/pre-loader";
 import { GlobalBackground } from "@/components/layout/global-background";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -112,6 +113,7 @@ export default function RootLayout({
             <CommandPalette />
             <MagneticCursor />
           </SmoothScroll>
+          <SpeedInsights />
         </Providers>
       </body>
     </html>

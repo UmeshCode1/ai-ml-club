@@ -240,7 +240,7 @@ export const Footer = () => {
                             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
                         </Link>
                         <p className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono">
-                            All rights reserved by{" "}
+                            Designed & Developed by{" "}
                             <a
                                 href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"
                                 target="_blank"

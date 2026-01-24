@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Mail, MessageSquare, Lock, Globe, Sparkles, Phone } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
@@ -17,28 +16,7 @@ export default function SuggestionPage() {
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
-    const searchParams = useSearchParams();
     const formRef = useRef<HTMLFormElement>(null);
-
-    // Handle shared data from PWA
-    useEffect(() => {
-        if (!formRef.current) return;
-
-        const title = searchParams.get('title');
-        const text = searchParams.get('text');
-        const url = searchParams.get('url');
-
-        if (title || text || url) {
-            const textarea = formRef.current.querySelector('textarea[name="suggestion"]') as HTMLTextAreaElement;
-            if (textarea) {
-                let sharedContent = "";
-                if (title) sharedContent += `${title}\n`;
-                if (text) sharedContent += `${text}\n`;
-                if (url) sharedContent += `${url}\n`;
-                textarea.value = sharedContent.trim();
-            }
-        }
-    }, [searchParams]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -54,18 +32,12 @@ export default function SuggestionPage() {
         const duration = 3 * 1000;
         const animationEnd = Date.now() + duration;
         const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
         const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
 
         const interval: NodeJS.Timeout = setInterval(function () {
             const timeLeft = animationEnd - Date.now();
-
-            if (timeLeft <= 0) {
-                return clearInterval(interval);
-            }
-
+            if (timeLeft <= 0) return clearInterval(interval);
             const particleCount = 50 * (timeLeft / duration);
-
             confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
             confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
         }, 250);
@@ -109,7 +81,6 @@ export default function SuggestionPage() {
 
     return (
         <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center">
-            {/* Scroll Progress Bar */}
             <div className="fixed top-0 left-0 right-0 h-1 z-[100] pointer-events-none">
                 <motion.div
                     className="h-full bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)]"
@@ -118,7 +89,6 @@ export default function SuggestionPage() {
             </div>
 
             <div className="max-w-3xl w-full">
-                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -143,7 +113,6 @@ export default function SuggestionPage() {
                     </div>
                 </motion.div>
 
-                {/* Main Form Card */}
                 <GradientBorder
                     containerClassName="rounded-[2.5rem] shadow-2xl relative overflow-hidden"
                     className="bg-[var(--card-bg)] backdrop-blur-xl p-6 md:p-10 border border-[var(--card-border)] min-h-[600px] flex items-center justify-center transition-all duration-500"
@@ -167,13 +136,11 @@ export default function SuggestionPage() {
                                     onSubmit={handleSubmit}
                                     className="space-y-8"
                                 >
-                                    {/* Error Message */}
                                     {error && (
                                         <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-center">
                                             {error}
                                         </div>
                                     )}
-                                    {/* Mode Toggle */}
                                     <div className="bg-neutral-100 dark:bg-white/5 rounded-2xl p-4 flex items-center justify-between border border-black/5 dark:border-white/5">
                                         <div className="flex items-center gap-4">
                                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-300 ${isAnonymous ? 'bg-neutral-800 text-white' : 'bg-[#D4FF00] text-black'}`}>
@@ -201,7 +168,6 @@ export default function SuggestionPage() {
                                         </button>
                                     </div>
 
-                                    {/* Public Fields (Collapsible) */}
                                     <AnimatePresence>
                                         {!isAnonymous && (
                                             <motion.div
@@ -254,7 +220,6 @@ export default function SuggestionPage() {
                                         )}
                                     </AnimatePresence>
 
-                                    {/* Category Select */}
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-neutral-700 dark:text-neutral-300 ml-1">Category</label>
                                         <div className="relative">
@@ -265,13 +230,10 @@ export default function SuggestionPage() {
                                                 <option>Collaboration</option>
                                                 <option>Other</option>
                                             </select>
-                                            <div className="absolute right-4 top-3.5 pointer-events-none text-neutral-500">
-                                                ▼
-                                            </div>
+                                            <div className="absolute right-4 top-3.5 pointer-events-none text-neutral-500">▼</div>
                                         </div>
                                     </div>
 
-                                    {/* Suggestion Textarea */}
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-neutral-700 dark:text-neutral-300 ml-1">Your Suggestion <span className="text-red-500">*</span></label>
                                         <textarea
@@ -283,7 +245,6 @@ export default function SuggestionPage() {
                                         />
                                     </div>
 
-                                    {/* Submit Button */}
                                     <div className="pt-4">
                                         <MagneticButton>
                                             <button
@@ -291,13 +252,7 @@ export default function SuggestionPage() {
                                                 disabled={loading}
                                                 className="w-full py-4 rounded-xl bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)] text-[var(--background)] font-bold text-lg shadow-lg hover:shadow-[0_0_20px_var(--neon-lime)] transition-all flex items-center justify-center gap-2 group disabled:opacity-70"
                                             >
-                                                {loading ? (
-                                                    "Submitting..."
-                                                ) : (
-                                                    <>
-                                                        Submit Idea <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                                    </>
-                                                )}
+                                                {loading ? "Submitting..." : <>Submit Idea <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>}
                                             </button>
                                         </MagneticButton>
                                     </div>
@@ -318,12 +273,8 @@ export default function SuggestionPage() {
                                             <Send className="w-10 h-10 text-[var(--background)]" />
                                         </motion.div>
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
-                                        Thank You!
-                                    </h2>
-                                    <p className="text-neutral-600 dark:text-neutral-400 max-w-md mb-8 text-lg">
-                                        Your suggestion has been securely transmitted to our neural network. We appreciate your input!
-                                    </p>
+                                    <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">Thank You!</h2>
+                                    <p className="text-neutral-600 dark:text-neutral-400 max-w-md mb-8 text-lg">Your suggestion has been securely transmitted to our neural network. We appreciate your input!</p>
                                     <MagneticButton>
                                         <button
                                             onClick={() => setSubmitted(false)}

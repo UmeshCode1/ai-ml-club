@@ -7,10 +7,6 @@
     "dir": "ltr",
     "start_url": "/",
     "display": "standalone",
-    "display_override": [
-        "window-controls-overlay",
-        "minimal-ui"
-    ],
     "background_color": "#050505",
     "theme_color": "#D4FF00",
     "orientation": "portrait",
@@ -45,65 +41,20 @@
     "shortcuts": [
         {
             "name": "Team",
-            "url": "/team",
-            "description": "Meet our team",
-            "icons": [
-                {
-                    "src": "/aiml-club-logo-new.png",
-                    "sizes": "192x192"
-                }
-            ]
+            "url": "/team"
         },
         {
             "name": "Events",
-            "url": "/events",
-            "description": "View upcoming events",
-            "icons": [
-                {
-                    "src": "/aiml-club-logo-new.png",
-                    "sizes": "192x192"
-                }
-            ]
+            "url": "/events"
         },
         {
             "name": "Blog",
-            "url": "/blog",
-            "description": "Read our latest articles",
-            "icons": [
-                {
-                    "src": "/aiml-club-logo-new.png",
-                    "sizes": "192x192"
-                }
-            ]
+            "url": "/blog"
         }
     ],
-    "share_target": {
-        "action": "/suggestions",
-        "method": "GET",
-        "enctype": "application/x-www-form-urlencoded",
-        "params": {
-            "title": "title",
-            "text": "text",
-            "url": "url"
-        }
-    },
-    "protocol_handlers": [
-        {
-            "protocol": "web+aiml",
-            "url": "/?p=%s"
-        }
-    ],
-    "launch_handler": {
-        "client_mode": [
-            "focus-existing",
-            "auto"
-        ]
-    },
-    "handle_links": "auto",
     "categories": [
         "education",
         "technology",
-        "productivity",
         "community"
     ],
     "screenshots": [

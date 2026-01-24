@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { MemberProfileModal } from "@/components/ui/member-profile-modal";
 import { BlurReveal } from "@/components/ui/blur-reveal";
+import React, { memo, useCallback } from "react";
 
 // Member type
 interface AppwriteMember {
@@ -40,25 +41,26 @@ const PHOTOPIA_TEAMS = [
     { id: "editors", title: "Media & Editors Team", filter: "Media - Editors", icon: Video, color: "from-teal-500 to-cyan-500" },
 ];
 
+// Optimized animations for mobile performance
+const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: "spring",
+            stiffness: 50,
+            damping: 20
+        }
+    }
+};
+
 // Member Card Component
-function MemberCard({ member, isLeadership = false, onClick }: { member: AppwriteMember; isLeadership?: boolean; onClick: () => void }) {
+const MemberCard = memo(({ member, isLeadership = false, onClick }: { member: AppwriteMember; isLeadership?: boolean; onClick: (member: AppwriteMember) => void }) => {
     const initials = member.name.split(" ").map(n => n[0]).join("").slice(0, 2);
     const hasImage = member.imageUrl && member.imageUrl !== "/images/team/placeholder.jpg";
     const hasSocials = member.linkedin || member.github || member.instagram;
-
-    // Optimized animations for mobile performance
-    const cardVariants: Variants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: "spring",
-                stiffness: 50,
-                damping: 20
-            }
-        }
-    };
+    const handleClick = () => onClick(member);
 
     if (isLeadership) {
         return (
@@ -67,8 +69,8 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                 whileInView="visible"
                 viewport={{ once: true, margin: "-10%" }}
                 variants={cardVariants}
-                onClick={onClick}
-                className="group relative cursor-pointer"
+                onClick={handleClick}
+                className="group relative cursor-pointer will-change-transform"
             >
                 {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon-lime)]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -85,7 +87,7 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                                         src={member.imageUrl!}
                                         alt={member.name}
                                         fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        sizes="(max-width: 768px) 20vw, 150px"
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                                         loading="lazy"
                                     />
@@ -140,7 +142,7 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
             whileInView="visible"
             viewport={{ once: true, margin: "-10%" }}
             variants={cardVariants}
-            onClick={onClick}
+            onClick={handleClick}
             className="group cursor-pointer will-change-transform"
         >
             <div className="relative p-4 bg-black/[0.03] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon-lime)]/30 transition-all duration-300 hover:-translate-y-1">
@@ -151,7 +153,7 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                                 src={member.imageUrl!}
                                 alt={member.name}
                                 fill
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                sizes="60px"
                                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 loading="lazy"
                             />
@@ -178,10 +180,12 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
             </div>
         </motion.div>
     );
-}
+});
+
+MemberCard.displayName = "MemberCard";
 
 // Section Header
-function SectionHeader({ title, description, memberCount, icon: Icon, color }: { title: string; description?: string; memberCount: number; icon: React.ElementType; color: string; }) {
+const SectionHeader = memo(({ title, description, memberCount, icon: Icon, color }: { title: string; description?: string; memberCount: number; icon: React.ElementType; color: string; }) => {
     return (
         <div className="flex items-start gap-4 mb-6">
             <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-lg`}>
@@ -198,7 +202,9 @@ function SectionHeader({ title, description, memberCount, icon: Icon, color }: {
             </div>
         </div>
     );
-}
+});
+
+SectionHeader.displayName = "SectionHeader";
 
 // Year Tab Component
 function YearTabs({ years, selectedYear, onYearChange }: { years: string[]; selectedYear: string; onYearChange: (year: string) => void }) {
@@ -252,10 +258,14 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
         });
     }, [members, selectedYear, availableYears]);
 
-    const handleMemberClick = (member: AppwriteMember) => {
+    const handleMemberClick = useCallback((member: AppwriteMember) => {
         setSelectedMember(member);
         setIsModalOpen(true);
-    };
+    }, []);
+
+    const handleCloseModal = useCallback(() => {
+        setIsModalOpen(false);
+    }, []);
 
     const uniqueFilteredMembers = useMemo(() => {
         const seen = new Set<string>();
@@ -279,7 +289,7 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
 
     return (
         <div className="min-h-screen relative w-full flex flex-col items-center pt-24 px-4 bg-transparent">
-            <MemberProfileModal member={selectedMember} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <MemberProfileModal member={selectedMember} isOpen={isModalOpen} onClose={handleCloseModal} />
 
             {/* Hero Section */}
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12 max-w-5xl">
@@ -370,7 +380,7 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
                                 <SectionHeader title={section.title} description={section.description} memberCount={sectionMembers.length} icon={section.icon} color={section.color} />
                                 <div className={`grid gap-4 ${isLeadershipSection ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'}`}>
                                     {sectionMembers.map((member) => (
-                                        <MemberCard key={member.$id || member.name} member={member} isLeadership={isLeadershipSection} onClick={() => handleMemberClick(member)} />
+                                        <MemberCard key={member.$id || member.name} member={member} isLeadership={isLeadershipSection} onClick={handleMemberClick} />
                                     ))}
                                 </div>
                             </motion.section>
@@ -424,7 +434,7 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
 
                                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                                 {subMembers.map((member) => (
-                                                    <MemberCard key={member.$id || member.name} member={member} onClick={() => handleMemberClick(member)} />
+                                                    <MemberCard key={member.$id || member.name} member={member} onClick={handleMemberClick} />
                                                 ))}
                                             </div>
                                         </motion.div>

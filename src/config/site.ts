@@ -117,7 +117,7 @@ export const siteConfig = {
         whatsappGroup: "https://chat.whatsapp.com/ITBTDOgerQVLnw9dq7jxN6",
 
         // Other
-        drive: "https://drive.google.com/drive/folders/1-_byssQsFS1pw02iDxyt40_n2CdCBaOk",
+        drive: "https://drive.google.com/drive/folders/155hvNMdI83jLOUUZs4U7WaivtRdFsqb4?usp=sharing",
 
         // Contact
         email: "aimlcluboct@gmail.com",

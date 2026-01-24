@@ -33,7 +33,7 @@ export const Navbar = () => {
                 { name: "Constitution", path: "/constitution", icon: Book },
                 { name: "Notion Workspace", path: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061", external: true, icon: NotebookText },
                 { name: "GitHub Org", path: "https://github.com/aimlcluboct", external: true, icon: Github },
-                { name: "Media Drive", path: "https://drive.google.com/drive/folders/1-_byssQsFS1pw02iDxyt40_n2CdCBaOk?usp=sharing", external: true, icon: HardDrive },
+                { name: "Media Drive", path: "https://drive.google.com/drive/folders/155hvNMdI83jLOUUZs4U7WaivtRdFsqb4?usp=sharing", external: true, icon: HardDrive },
                 { name: "WhatsApp Channel", path: "https://whatsapp.com/channel/0029VbAthv38V0tfulumuV1D", external: true, icon: MessageCircle },
                 { name: "Blog", path: "/blog", icon: PenTool }
             ]

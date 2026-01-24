@@ -30,8 +30,8 @@ export const PreLoader = () => {
 
     useEffect(() => {
         if (index === COMMANDS.length) {
-            // After the words, provide a slight pause for "Inspire" before exit
-            const exitTimer = setTimeout(() => setIsLoading(false), 800);
+            // After the words, provide a longer pause for "Inspire" before exit for a premium feel
+            const exitTimer = setTimeout(() => setIsLoading(false), 1200);
             return () => clearTimeout(exitTimer);
         }
 
@@ -39,7 +39,7 @@ export const PreLoader = () => {
             () => {
                 setIndex((prev) => prev + 1);
             },
-            index === 0 ? 1200 : 1000 // First word slightly longer for focus
+            index === 0 ? 1200 : 1500 // 2nd and 3rd words now stay longer
         );
         return () => clearTimeout(timeout);
     }, [index]);

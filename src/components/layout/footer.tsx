@@ -237,10 +237,10 @@ export const Footer = () => {
                             href="/copyright"
                             className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono hover:text-[var(--neon-lime-text)] transition-colors"
                         >
-                            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+                            © {new Date().getFullYear()} - AI & Machine Learning Club OCT , Bhopal.
                         </Link>
                         <p className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono">
-                            Designed & Developed by{" "}
+                            All rights reserved by{" "}
                             <a
                                 href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"
                                 target="_blank"

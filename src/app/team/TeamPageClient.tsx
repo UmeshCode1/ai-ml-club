@@ -73,13 +73,13 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                 {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon-lime)]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative p-6 bg-neutral-900/40 backdrop-blur-md rounded-3xl border border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-all duration-500 hover:-translate-y-1">
+                <div className="relative p-6 bg-white/40 dark:bg-neutral-900/40 backdrop-blur-md rounded-3xl border border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-all duration-500 hover:-translate-y-1">
                     {/* Noise Texture */}
                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none rounded-3xl" />
 
                     <div className="relative z-10">
                         <div className="flex items-center gap-5 mb-5">
-                            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-white/10 group-hover:border-[var(--electric-cyan)] transition-colors shadow-2xl">
+                            <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-neutral-200 dark:border-white/10 group-hover:border-[var(--electric-cyan)] transition-colors shadow-2xl">
                                 {hasImage ? (
                                     <Image
                                         src={member.imageUrl!}
@@ -90,7 +90,7 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                                         loading="lazy"
                                     />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900">
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-900">
                                         <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-[var(--electric-cyan)] to-[var(--neon-lime)]">
                                             {initials}
                                         </span>
@@ -99,7 +99,7 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                             </div>
 
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-xl font-bold text-white group-hover:text-[var(--neon-lime)] transition-colors truncate">
+                                <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-[var(--neon-lime)] transition-colors truncate">
                                     {member.name}
                                 </h3>
                                 <div className="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-[var(--electric-cyan)]/10 border border-[var(--electric-cyan)]/20">
@@ -111,9 +111,9 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div className="flex items-center justify-between pt-4 border-t border-neutral-100 dark:border-white/5">
                             {member.email ? (
-                                <span className="flex items-center gap-2 text-xs text-neutral-400 group-hover:text-white transition-colors truncate max-w-[65%]">
+                                <span className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors truncate max-w-[65%]">
                                     <Mail className="w-3.5 h-3.5 flex-shrink-0" />
                                     <span className="truncate">{member.email}</span>
                                 </span>
@@ -121,9 +121,9 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
 
                             {hasSocials && (
                                 <div className="flex items-center gap-2">
-                                    {member.linkedin && <Linkedin className="w-4 h-4 text-neutral-500 group-hover:text-[#0077b5] transition-colors" />}
-                                    {member.github && <Github className="w-4 h-4 text-neutral-500 group-hover:text-white transition-colors" />}
-                                    {member.instagram && <Instagram className="w-4 h-4 text-neutral-500 group-hover:text-[#E1306C] transition-colors" />}
+                                    {member.linkedin && <Linkedin className="w-4 h-4 text-neutral-400 group-hover:text-[#0077b5] transition-colors" />}
+                                    {member.github && <Github className="w-4 h-4 text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors" />}
+                                    {member.instagram && <Instagram className="w-4 h-4 text-neutral-400 group-hover:text-[#E1306C] transition-colors" />}
                                 </div>
                             )}
                         </div>
@@ -141,11 +141,11 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
             viewport={{ once: true, margin: "-10%" }}
             variants={cardVariants}
             onClick={onClick}
-            className="group cursor-pointer"
+            className="group cursor-pointer will-change-transform"
         >
-            <div className="relative p-4 bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-white/5 hover:border-[var(--neon-lime)]/30 transition-all duration-300 hover:-translate-y-1">
+            <div className="relative p-4 bg-black/[0.03] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon-lime)]/30 transition-all duration-300 hover:-translate-y-1">
                 <div className="flex items-center gap-4">
-                    <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors">
+                    <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-black/10 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors">
                         {hasImage ? (
                             <Image
                                 src={member.imageUrl!}
@@ -156,17 +156,17 @@ function MemberCard({ member, isLeadership = false, onClick }: { member: Appwrit
                                 loading="lazy"
                             />
                         ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-neutral-800">
+                            <div className="w-full h-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800">
                                 <span className="text-sm font-bold text-neutral-400">{initials}</span>
                             </div>
                         )}
                     </div>
 
                     <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-neutral-200 group-hover:text-[var(--neon-lime-text)] transition-colors truncate">
+                        <h3 className="text-base font-bold text-neutral-800 dark:text-neutral-200 group-hover:text-[var(--neon-lime-text)] transition-colors truncate">
                             {member.name}
                         </h3>
-                        <p className="text-xs text-[var(--electric-cyan)] truncate font-medium">{member.role}</p>
+                        <p className="text-xs text-[var(--electric-cyan)] truncate font-semibold">{member.role}</p>
                     </div>
 
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0">
@@ -365,7 +365,7 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: sectionIndex * 0.05 }}
-                                className={`relative p-6 md:p-8 rounded-3xl ${section.bgColor} border ${section.borderColor}`}
+                                className={`relative p-6 md:p-8 rounded-3xl ${section.bgColor} border ${section.borderColor} transition-colors duration-500`}
                             >
                                 <SectionHeader title={section.title} description={section.description} memberCount={sectionMembers.length} icon={section.icon} color={section.color} />
                                 <div className={`grid gap-4 ${isLeadershipSection ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'}`}>

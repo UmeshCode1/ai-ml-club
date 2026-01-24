@@ -53,7 +53,7 @@ export const BlurReveal = ({
             className={cn("flex flex-wrap gap-2", className)}
         >
             {words.map((word, index) => (
-                <motion.span key={index} variants={child} className="inline-block">
+                <motion.span key={index} variants={child} className="inline-block will-change-[filter,opacity,transform]">
                     {word}
                 </motion.span>
             ))}

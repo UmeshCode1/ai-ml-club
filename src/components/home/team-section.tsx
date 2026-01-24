@@ -137,13 +137,13 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 300
                                                 filter: isActive ? 'blur(0px)' : 'blur(4px)',
                                             }}
                                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                            className={`absolute top-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-64 md:w-80 ${isActive ? 'cursor-pointer' : ''}`}
+                                            className={`absolute top-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-64 md:w-80 ${isActive ? 'cursor-pointer' : ''} will-change-transform`}
                                             onClick={() => isActive && handleMemberClick(member)}
                                         >
                                             <div className="relative group w-full aspect-[4/5] mb-6">
                                                 <GradientBorder
-                                                    containerClassName={`w-full h-full rounded-3xl transition-all duration-500 ${isActive ? 'shadow-[0_0_50px_rgba(0,0,0,0.2)] dark:shadow-[0_0_50px_rgba(var(--neon-lime-rgb),0.15)] scale-[1.02]' : 'opacity-70 scale-95'}`}
-                                                    className="bg-neutral-900/80 backdrop-blur-xl rounded-3xl flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors duration-500"
+                                                    containerClassName={`w-full h-full rounded-3xl transition-all duration-500 ${isActive ? 'shadow-[0_0_50px_rgba(0,0,0,0.15)] dark:shadow-[0_0_50px_rgba(var(--neon-lime-rgb),0.15)] scale-[1.02]' : 'opacity-60 scale-95'}`}
+                                                    className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-3xl flex items-center justify-center overflow-hidden border border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors duration-500"
                                                     borderWidth={isActive ? 1.5 : 0}
                                                     duration={isActive ? 3 : 10}
                                                 >
@@ -151,7 +151,7 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 300
                                                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none z-10" />
 
                                                     {/* Gradient Glow */}
-                                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-20 opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 dark:to-black/80 z-20 opacity-40 dark:opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
                                                     {member.image ? (
                                                         <Image
@@ -159,10 +159,11 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 300
                                                             alt={member.name}
                                                             fill
                                                             sizes="(max-width: 768px) 256px, 320px"
-                                                            className="object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
+                                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                            priority={isActive}
                                                         />
                                                     ) : (
-                                                        <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
+                                                        <div className="w-full h-full bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-800 dark:to-neutral-900 flex items-center justify-center">
                                                             <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-[var(--electric-cyan)] to-[var(--neon-lime)]">
                                                                 {initials}
                                                             </span>
@@ -178,13 +179,13 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 300
                                                 </GradientBorder>
                                             </div>
 
-                                            <div className={`text-center transition-all duration-300 ${isActive ? 'opacity-100 transform-none' : 'opacity-50 scale-90'}`}>
-                                                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight group-hover:text-[var(--neon-lime)] transition-colors">
+                                            <div className={`text-center transition-all duration-300 ${isActive ? 'opacity-100 transform-none' : 'opacity-40 scale-90'}`}>
+                                                <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight group-hover:text-[var(--neon-lime)] transition-colors">
                                                     {member.name}
                                                 </h3>
-                                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
+                                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-sm">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-[var(--electric-cyan)] animate-pulse" />
-                                                    <span className="text-xs tracking-widest uppercase font-semibold text-neutral-300">
+                                                    <span className="text-xs tracking-widest uppercase font-bold text-neutral-600 dark:text-neutral-300">
                                                         {member.role}
                                                     </span>
                                                 </div>

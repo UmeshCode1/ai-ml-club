@@ -33,6 +33,9 @@ const COLLECTIONS = {
     GALLERY: "gallery",
     SUBSCRIPTIONS: "subscriptions",
     CONTACTS: "contacts",
+    STATS: "stats",
+    FEATURES: "features",
+    ACTIVITIES: "activities",
 };
 
 // ==================== STORAGE ====================
@@ -380,4 +383,78 @@ export async function getContacts() {
         [Query.orderDesc("$createdAt"), Query.limit(100)]
     );
     return response.documents as unknown as Contact[];
+}
+
+// ==================== HOME STATS ====================
+export interface HomeStat {
+    $id?: string;
+    label: string;
+    value: string;
+    suffix?: string;
+    icon?: string;
+    order?: number;
+}
+
+export async function getHomeStats() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.STATS,
+            [Query.orderAsc("order"), Query.limit(10)]
+        );
+        return response.documents as unknown as HomeStat[];
+    } catch {
+        return [];
+    }
+}
+
+// ==================== HOME FEATURES ====================
+export interface HomeFeature {
+    $id?: string;
+    title: string;
+    description: string;
+    icon?: string;
+    order?: number;
+    color?: string;
+    size?: "small" | "medium" | "large"; // For Bento Grid layout
+}
+
+export async function getHomeFeatures() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.FEATURES,
+            [Query.orderAsc("order"), Query.limit(20)]
+        );
+        return response.documents as unknown as HomeFeature[];
+    } catch {
+        return [];
+    }
+}
+
+// ==================== HOME ACTIVITIES ====================
+export interface HomeActivity {
+    $id?: string;
+    title: string;
+    description: string;
+    image?: string;
+    icon?: string;
+    stats?: string;
+    order?: number;
+}
+
+export async function getHomeActivities() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.ACTIVITIES,
+            [Query.orderAsc("order"), Query.limit(10)]
+        );
+        return response.documents as unknown as HomeActivity[];
+    } catch {
+        return [];
+    }
 }

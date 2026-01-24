@@ -19,22 +19,25 @@ export function CTASection() {
 
             <div className="container mx-auto px-4 relative z-10">
                 <GradientBorder
-                    containerClassName="rounded-[3rem] overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.1)] dark:shadow-[0_0_80px_rgba(32,125,255,0.05)]"
-                    className="bg-white/50 dark:bg-black/40 backdrop-blur-xl p-12 md:p-24 text-center relative overflow-hidden"
-                    borderWidth={1}
-                    duration={15}
+                    containerClassName="rounded-[40px] md:rounded-[60px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] dark:shadow-[0_40px_100px_rgba(0,0,0,0.5)]"
+                    className="bg-white/80 dark:bg-neutral-900/60 backdrop-blur-3xl p-8 md:p-24 text-center relative overflow-hidden border border-neutral-200 dark:border-white/5"
+                    borderWidth={1.5}
+                    duration={10}
                 >
                     {/* Inner Content */}
                     <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
 
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-4xl md:text-7xl font-bold text-neutral-900 dark:text-white mb-8 tracking-tight">
-                                Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon-lime-text)] to-[var(--electric-cyan-text)]">Build The Future?</span>
+                            <h2 className="text-5xl md:text-8xl font-black text-neutral-900 dark:text-white mb-8 tracking-tight leading-[0.9]">
+                                Empower Your <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon-lime-text)] via-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">
+                                    Intelligent Edge
+                                </span>
                             </h2>
                         </motion.div>
 
@@ -43,34 +46,38 @@ export function CTASection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="text-xl text-neutral-600 dark:text-neutral-300 mb-12 max-w-2xl"
+                            className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-14 max-w-3xl font-medium leading-relaxed"
                         >
-                            Join innovators, learners, and creators shaping tomorrow&apos;s technology.
+                            Join the elite league of AI innovators at OCT. Whether you&apos;re a beginner or a pro, we have a desk waiting for you.
                         </motion.p>
 
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.4 }}
+                            className="w-full flex flex-col items-center"
                         >
                             <MagneticButton>
                                 <button
                                     onClick={() => scrollToId("newsletter", 2500)}
-                                    className="relative overflow-hidden inline-flex items-center justify-center px-12 py-5 text-lg font-bold text-[var(--background)] transition-all duration-300 bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)] rounded-full hover:shadow-[0_0_40px_var(--neon-lime)] hover:-translate-y-1 group"
+                                    className="relative overflow-hidden inline-flex items-center justify-center px-12 py-6 text-xl font-black text-black transition-all duration-300 bg-[var(--neon-lime)] rounded-full hover:shadow-[0_0_60px_rgba(var(--neon-lime-rgb),0.5)] hover:-translate-y-2 group"
                                 >
                                     <span className="relative z-10 flex items-center">
-                                        Join the Club
-                                        <ArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />
+                                        BECOME A MEMBER
+                                        <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
                                     </span>
-                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-0" />
+                                    {/* Shimmer Effect */}
+                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/50 to-transparent z-0" />
                                 </button>
                             </MagneticButton>
 
-                            <div className="mt-8 flex gap-6 text-sm font-semibold text-neutral-500 uppercase tracking-widest justify-center">
-                                <Link href="/events" className="hover:text-[var(--neon-lime-text)] transition-colors">Explore Events</Link>
-                                <span>•</span>
-                                <Link href="/contact" className="hover:text-[var(--electric-cyan-text)] transition-colors">Contact Us</Link>
+                            <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4 text-xs font-black text-neutral-400 uppercase tracking-[0.3em] justify-center items-center">
+                                <Link href="/events" className="hover:text-[var(--neon-lime-text)] transition-colors">INITIATIVES</Link>
+                                <div className="w-1.5 h-1.5 rounded-full bg-neutral-800" />
+                                <Link href="/team" className="hover:text-[var(--electric-cyan-text)] transition-colors">THE TEAM</Link>
+                                <div className="w-1.5 h-1.5 rounded-full bg-neutral-800" />
+                                <Link href="/contact" className="hover:text-white transition-colors text-xs">CONTACT OFFICE</Link>
                             </div>
                         </motion.div>
                     </div>

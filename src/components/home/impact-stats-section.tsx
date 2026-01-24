@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { MOCK_EVENTS } from "@/lib/data";
+import { HomeStat } from "@/lib/database";
 
 // Calculate dynamic stats
 function useStats() {
@@ -64,8 +65,18 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
     );
 }
 
-export function ImpactStatsSection() {
-    const stats = useStats();
+export function ImpactStatsSection({ stats: dynamicStats }: { stats?: HomeStat[] }) {
+    const computedStats = useStats();
+
+    // Merge dynamic stats from Appwrite with computed fallbacks
+    const stats = useMemo(() => {
+        if (!dynamicStats || dynamicStats.length === 0) return computedStats;
+        return dynamicStats.map(ds => ({
+            value: parseInt(ds.value.replace(/,/g, '')) || 0,
+            suffix: ds.suffix || "",
+            label: ds.label
+        }));
+    }, [dynamicStats, computedStats]);
 
     return (
         <section className="py-20 md:py-28 relative z-10 overflow-hidden">

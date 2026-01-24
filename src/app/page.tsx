@@ -5,7 +5,7 @@ import { FeaturesSection } from "@/components/home/features-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { ImpactStatsSection } from "@/components/home/impact-stats-section";
 import { TeamSection } from "@/components/home/team-section";
-import { getMembers } from "@/lib/database";
+import { getMembers, getHomeStats, getHomeFeatures, getHomeActivities } from "@/lib/database";
 import { unstable_noStore as noStore } from "next/cache";
 
 // Force dynamic rendering - fetch fresh data on each request
@@ -15,8 +15,13 @@ export default async function Home() {
   // Disable caching
   noStore();
 
-  // Fetch all members from Appwrite
-  const allMembers = await getMembers();
+  // Fetch all data from Appwrite
+  const [allMembers, stats, features, activities] = await Promise.all([
+    getMembers(),
+    getHomeStats(),
+    getHomeFeatures(),
+    getHomeActivities()
+  ]);
 
   // Get latest year (sorted descending)
   const years = [...new Set(allMembers.map(m => m.year).filter(Boolean))].sort().reverse();
@@ -54,10 +59,10 @@ export default async function Home() {
     <main className="flex flex-col min-h-screen bg-transparent">
       <HeroSection />
       <AboutSection />
-      <ImpactStatsSection />
-      <FeaturesSection />
-      <ClubActivitiesSection />
-      <TeamSection members={teamMembers} autoSlideInterval={1000} />
+      <ImpactStatsSection stats={stats} />
+      <FeaturesSection features={features} />
+      <ClubActivitiesSection activities={activities} />
+      <TeamSection members={teamMembers} autoSlideInterval={4000} />
       <CTASection />
     </main>
   );

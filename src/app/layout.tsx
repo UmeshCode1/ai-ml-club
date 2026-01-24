@@ -98,6 +98,17 @@ export default function RootLayout({
         jetbrainsMono.variable
       )}>
         <Providers>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                if ('serviceWorker' in navigator) {
+                  window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js');
+                  });
+                }
+              `,
+            }}
+          />
           <GlobalScrollProgress />
           <SmoothScroll>
             {/* Global Holographic Noise Texture */}

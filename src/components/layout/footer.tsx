@@ -90,6 +90,7 @@ export const Footer = () => {
                                     <Link
                                         href={link.href}
                                         className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors"
+                                        prefetch={true}
                                     >
                                         {link.name}
                                     </Link>
@@ -116,6 +117,7 @@ export const Footer = () => {
                                         href={link.href}
                                         target={link.external ? "_blank" : undefined}
                                         className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors"
+                                        prefetch={link.external ? false : true}
                                     >
                                         {link.name}
                                     </Link>

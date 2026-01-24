@@ -44,8 +44,12 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
         const resize = () => {
             width = window.innerWidth;
             height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+            ctx.scale(dpr, dpr);
             initParticles();
         };
 
@@ -61,9 +65,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * (isMobile ? 0.1 : 0.2),
-                    vy: (Math.random() - 0.5) * (isMobile ? 0.1 : 0.2),
-                    size: Math.random() * (isMobile ? 1.0 : 1.5) + 0.5,
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2), // Slower on mobile
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2),
+                    size: Math.random() * (isMobile ? 0.8 : 1.5) + 0.5,
                 });
             }
         };

@@ -214,16 +214,29 @@ h6 {
 
   /* Reduce animation complexity on mobile */
   .blur-xl {
-    filter: blur(10px);
+    filter: blur(8px);
+    will-change: filter;
+  }
+
+  .blur-2xl,
+  .blur-3xl {
+    filter: blur(12px) !important;
   }
 
   /* Smaller gaps and padding */
   .gap-12 {
-    gap: 1.75rem;
+    gap: 1.5rem;
   }
 
   .gap-16 {
-    gap: 2.25rem;
+    gap: 2rem;
+  }
+
+  /* Simplify shadows */
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: var(--shadow-md) !important;
   }
 }
 
@@ -254,12 +267,23 @@ h6 {
 /* High Performance Mode for Low-End Devices */
 @media (prefers-reduced-motion: reduce),
 (max-width: 480px) {
-  .backdrop-blur-xl {
-    backdrop-filter: blur(8px);
+
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl {
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    /* Solider bg for legibility without heavy blur */
   }
 
-  .blur-\[120px\] {
-    filter: blur(60px);
+  .blur-\[120px\],
+  .blur-\[100px\] {
+    display: none !important;
+    /* Remove heavy bg glows on tiny screens */
+  }
+
+  * {
+    text-rendering: optimizeSpeed !important;
   }
 }
 

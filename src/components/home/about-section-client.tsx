@@ -5,6 +5,7 @@ import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { useState, useEffect, useMemo } from "react";
 import { NeuralNetwork } from "@/components/ui/neural-network";
+import { IntelligenceFeed } from "@/components/ui/intelligence-feed";
 
 const tags = [
     "Workshops",
@@ -190,7 +191,13 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                 {/* Content Overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-[5]">
                                     <div className="w-8 h-1 bg-[var(--neon-lime)] mb-4 shadow-[0_0_10px_var(--neon-lime)]" />
-                                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">Club Moments</h3>
+                                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Club Moments</h3>
+
+                                    {/* Intelligence Feed Integration */}
+                                    <div className="mb-6 p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md">
+                                        <IntelligenceFeed />
+                                    </div>
+
                                     <p className="text-xs sm:text-sm text-neutral-400">Capturing our journey of innovation</p>
 
                                     {/* Image indicator dots */}

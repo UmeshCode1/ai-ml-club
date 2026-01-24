@@ -99,10 +99,16 @@ export function FeaturesSection({ features: dynamicFeatures }: { features?: Home
                                             {/* Noise & Mesh Gradient behind card */}
                                             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
-                                            <div className="relative z-10 w-full">
-                                                <div className={`relative w-16 h-16 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-8 group-hover:rotate-[10deg] transition-transform duration-500 will-change-transform`}>
-                                                    <div className="absolute inset-0 rounded-2xl bg-current opacity-20 blur-xl animate-pulse" />
-                                                    <feature.icon className="w-8 h-8 relative z-10" />
+                                            <div className="relative z-10 w-full mb-auto">
+                                                <div className="flex justify-between items-start mb-10">
+                                                    <div className={`relative w-16 h-16 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center group-hover:rotate-[10deg] transition-transform duration-500 will-change-transform`}>
+                                                        <div className="absolute inset-0 rounded-2xl bg-current opacity-20 blur-xl animate-pulse" />
+                                                        <feature.icon className="w-8 h-8 relative z-10" />
+                                                    </div>
+                                                    <div className="font-mono text-[10px] text-neutral-400 dark:text-neutral-500 text-right opacity-60 group-hover:opacity-100 transition-opacity">
+                                                        MODULE_ID: 0x{index.toString(16).toUpperCase()} <br />
+                                                        STATE: DEPLOYED
+                                                    </div>
                                                 </div>
 
                                                 <h3 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white mb-3 md:mb-4 tracking-tight">
@@ -114,7 +120,10 @@ export function FeaturesSection({ features: dynamicFeatures }: { features?: Home
                                             </div>
 
                                             <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/5 w-full flex justify-between items-center group/btn pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 will-change-[opacity]">
-                                                <span className={`text-sm font-bold uppercase tracking-widest ${feature.color}`}>Learn More</span>
+                                                <div className="flex flex-col">
+                                                    <span className={`text-[10px] font-mono opacity-50 mb-1`}>ACCESS_PROTOCOL</span>
+                                                    <span className={`text-sm font-bold uppercase tracking-widest ${feature.color}`}>Learn More</span>
+                                                </div>
                                                 <div className={`w-8 h-8 rounded-full ${feature.bg} flex items-center justify-center ${feature.color}`}>
                                                     <LucideIcons.ArrowRight className="w-4 h-4" />
                                                 </div>

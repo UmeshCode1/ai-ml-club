@@ -6,6 +6,7 @@ import { HeroSection } from "@/components/home/hero-section";
 import { ImpactStatsSection } from "@/components/home/impact-stats-section";
 import { TeamSection } from "@/components/home/team-section";
 import { SectionConnector } from "@/components/ui/section-connector";
+import { ProximityScan } from "@/components/ui/proximity-scan";
 import { getMembers, getHomeStats, getHomeFeatures, getHomeActivities } from "@/lib/database";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -58,6 +59,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col min-h-screen bg-transparent">
+      <ProximityScan />
       <HeroSection />
       <SectionConnector />
       <AboutSection />

@@ -14,7 +14,8 @@ export function CTASection() {
         <section className="py-24 relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute inset-0 bg-transparent pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[var(--neon-lime)]/5 rounded-full blur-[120px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[var(--neon-lime)]/5 dark:bg-[var(--neon-lime)]/10 rounded-full blur-[120px]" />
+                <div className="absolute top-1/4 right-1/4 w-[40%] h-[40%] bg-[var(--electric-cyan)]/5 rounded-full blur-[100px]" />
             </div>
 
             <div className="container mx-auto px-4 relative z-10">

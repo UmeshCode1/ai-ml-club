@@ -95,22 +95,41 @@ export function ClubActivitiesSection({ activities: dynamicActivities }: { activ
                                         src={activity.image}
                                         alt={activity.title}
                                         fill
-                                        className="object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
+                                        className="object-cover group-hover:scale-105 transition-transform duration-[2s] ease-out opacity-60 dark:opacity-40"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                                    {/* Stats Badge */}
-                                    <div className="absolute top-4 right-4 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest border border-white/10">
-                                        {activity.stats}
+                                    {/* Data Packet Animation Overlay */}
+                                    <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+                                        <motion.div
+                                            animate={{ x: ["-100%", "200%"] }}
+                                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                            className="absolute top-1/4 w-32 h-[1px] bg-gradient-to-r from-transparent via-[var(--neon-lime)] to-transparent opacity-40"
+                                        />
+                                        <motion.div
+                                            animate={{ x: ["200%", "-100%"] }}
+                                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                            className="absolute bottom-1/4 w-48 h-[1px] bg-gradient-to-r from-transparent via-[var(--electric-cyan)] to-transparent opacity-40"
+                                        />
                                     </div>
 
-                                    <div className="absolute bottom-6 left-6 flex items-center gap-3">
-                                        <div className="w-12 h-12 rounded-2xl bg-[var(--neon-lime)] flex items-center justify-center shadow-[0_0_20px_rgba(var(--neon-lime-rgb),0.4)]">
-                                            <activity.icon className="w-6 h-6 text-black" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+
+                                    {/* Stats Badge */}
+                                    <div className="absolute top-4 right-4 px-4 py-1.5 rounded-sm bg-black text-white text-[9px] font-mono uppercase tracking-[0.2em] border border-white/10">
+                                        DATA_SET: {activity.stats.replace(' ', '_')}
+                                    </div>
+
+                                    <div className="absolute bottom-6 left-6 flex items-center gap-4">
+                                        <div className="relative w-14 h-14 rounded-xl bg-black border border-white/10 flex items-center justify-center shadow-2xl">
+                                            <div className="absolute inset-0 rounded-xl bg-[var(--neon-lime)]/10 animate-pulse" />
+                                            <activity.icon className="w-7 h-7 text-[var(--neon-lime-text)] relative z-10" />
                                         </div>
-                                        <h3 className="text-2xl font-black text-white tracking-tight">
-                                            {activity.title}
-                                        </h3>
+                                        <div>
+                                            <div className="text-[10px] font-mono text-[var(--neon-lime-text)] opacity-60 mb-0.5 tracking-widest">INGESTION_NODE_{index + 1}</div>
+                                            <h3 className="text-2xl font-black text-white tracking-tight">
+                                                {activity.title}
+                                            </h3>
+                                        </div>
                                     </div>
                                 </div>
 

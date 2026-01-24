@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useRef, useEffect, useState, useMemo, useId } from "react";
 import { MOCK_EVENTS } from "@/lib/data";
 import { HomeStat } from "@/lib/database";
 
@@ -67,11 +67,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export function ImpactStatsSection({ stats: dynamicStats }: { stats?: HomeStat[] }) {
     const computedStats = useStats();
-    const [sessionId, setSessionId] = useState("");
-
-    useEffect(() => {
-        setSessionId(Math.random().toString(36).substring(7).toUpperCase());
-    }, []);
+    const sessionId = useId().replace(/:/g, "").toUpperCase();
 
     // Merge dynamic stats from Appwrite with computed fallbacks
     const stats = useMemo(() => {

@@ -50,11 +50,12 @@ export function FeaturesSection({ features: dynamicFeatures }: { features?: Home
         return dynamicFeatures.map((f) => {
             // Dynamically resolve lucide icon
             const IconName = f.icon as keyof typeof LucideIcons;
-            const Icon = (LucideIcons[IconName] as any) || Brain;
+            const Icon = (LucideIcons[IconName] as React.FC<LucideIcons.LucideProps>) || Brain;
+
             return {
                 title: f.title,
                 description: f.description,
-                icon: Icon as React.FC<any>,
+                icon: Icon,
                 color: f.color?.includes("lime") ? "text-[var(--neon-lime-text)]" : "text-[var(--electric-cyan-text)]",
                 bg: f.color?.includes("lime") ? "bg-[var(--neon-lime)]/10" : "bg-[var(--electric-cyan)]/10",
                 size: (f.size as "small" | "medium" | "large") || "medium"

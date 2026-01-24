@@ -232,17 +232,25 @@ export const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-neutral-200/50 dark:border-white/10 pt-6 sm:pt-8">
-                    <p className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono text-center">
-                        © {new Date().getFullYear()} {siteConfig.name}. All rights reserved by{" "}
-                        <a
-                            href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-semibold text-[var(--neon-lime-text)] hover:underline"
+                    <div className="flex flex-col items-center gap-2 text-center">
+                        <Link
+                            href="/copyright"
+                            className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono hover:text-[var(--neon-lime-text)] transition-colors"
                         >
-                            Umesh Patel
-                        </a>
-                    </p>
+                            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+                        </Link>
+                        <p className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono">
+                            All rights reserved by{" "}
+                            <a
+                                href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold text-[var(--neon-lime-text)] hover:underline"
+                            >
+                                Umesh Patel
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </footer>

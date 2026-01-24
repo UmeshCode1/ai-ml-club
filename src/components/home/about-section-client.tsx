@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { useState, useEffect, useMemo } from "react";
+import { NeuralNetwork } from "@/components/ui/neural-network";
 
 const tags = [
     "Workshops",
@@ -137,12 +138,17 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative w-full aspect-video md:aspect-[4/3] lg:aspect-square max-h-[500px]"
+                        className="relative w-full aspect-video md:aspect-[4/3] lg:aspect-square max-h-[600px]"
                     >
+                        {/* Spatial Background particles */}
+                        <div className="absolute -inset-20 z-0">
+                            <NeuralNetwork className="opacity-20" />
+                        </div>
+
                         <GradientBorder
-                            containerClassName="w-full h-full rounded-3xl"
+                            containerClassName="w-full h-full rounded-[48px] shadow-2xl relative z-10"
                             className="w-full h-full bg-neutral-950 p-1 flex flex-col relative overflow-hidden"
-                            borderWidth={1}
+                            borderWidth={1.5}
                             duration={10}
                         >
                             {/* Inner Terminal Content */}

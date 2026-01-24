@@ -5,6 +5,7 @@ import { FeaturesSection } from "@/components/home/features-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { ImpactStatsSection } from "@/components/home/impact-stats-section";
 import { TeamSection } from "@/components/home/team-section";
+import { SectionConnector } from "@/components/ui/section-connector";
 import { getMembers, getHomeStats, getHomeFeatures, getHomeActivities } from "@/lib/database";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -58,9 +59,12 @@ export default async function Home() {
   return (
     <main className="flex flex-col min-h-screen bg-transparent">
       <HeroSection />
+      <SectionConnector />
       <AboutSection />
       <ImpactStatsSection stats={stats} />
+      <SectionConnector />
       <FeaturesSection features={features} />
+      <SectionConnector />
       <ClubActivitiesSection activities={activities} />
       <TeamSection members={teamMembers} autoSlideInterval={4000} />
       <CTASection />

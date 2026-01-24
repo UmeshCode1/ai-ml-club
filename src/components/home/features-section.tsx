@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Brain, Code, Users, Trophy } from "lucide-react";
 import { FloatingCard } from "@/components/ui/floating-card";
 import { GradientBorder } from "@/components/ui/gradient-border";
+import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { HomeFeature } from "@/lib/database";
 import * as LucideIcons from "lucide-react";
 
@@ -46,16 +47,17 @@ export function FeaturesSection({ features: dynamicFeatures }: { features?: Home
     const displayFeatures = useMemo(() => {
         if (!dynamicFeatures || dynamicFeatures.length === 0) return DEFAULT_FEATURES;
 
-        return dynamicFeatures.map(f => {
+        return dynamicFeatures.map((f) => {
             // Dynamically resolve lucide icon
-            const Icon = (LucideIcons as any)[f.icon || "Sparkles"] || Brain;
+            const IconName = f.icon as keyof typeof LucideIcons;
+            const Icon = (LucideIcons[IconName] as any) || Brain;
             return {
                 title: f.title,
                 description: f.description,
-                icon: Icon,
+                icon: Icon as React.FC<any>,
                 color: f.color?.includes("lime") ? "text-[var(--neon-lime-text)]" : "text-[var(--electric-cyan-text)]",
                 bg: f.color?.includes("lime") ? "bg-[var(--neon-lime)]/10" : "bg-[var(--electric-cyan)]/10",
-                size: f.size || "medium"
+                size: (f.size as "small" | "medium" | "large") || "medium"
             };
         });
     }, [dynamicFeatures]);
@@ -83,36 +85,41 @@ export function FeaturesSection({ features: dynamicFeatures }: { features?: Home
                         return (
                             <div key={index} className={`${colSpan} ${rowSpan}`}>
                                 <FloatingCard delay={index * 0.1}>
-                                    <GradientBorder
-                                        containerClassName="h-full rounded-[40px] transition-all duration-500 hover:shadow-[0_20px_80px_rgba(var(--neon-lime-rgb),0.1)] group overflow-hidden"
-                                        className="bg-white/80 dark:bg-neutral-900/60 backdrop-blur-3xl p-8 md:p-10 flex flex-col items-start justify-between text-left h-full border border-neutral-200 dark:border-white/5 relative"
-                                        duration={12}
+                                    <CardSpotlight
+                                        className="p-0 border-0"
+                                        containerClassName="rounded-[40px] overflow-hidden group"
+                                        color={feature.color.includes("lime") ? "rgba(163, 230, 53, 0.15)" : "rgba(34, 211, 238, 0.15)"}
                                     >
-                                        {/* Noise & Mesh Gradient behind card */}
-                                        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
-                                        <div className={`absolute top-0 right-0 w-32 h-32 ${feature.bg} blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+                                        <GradientBorder
+                                            containerClassName="h-full w-full rounded-[40px] transition-all duration-500 overflow-hidden"
+                                            className="bg-white/80 dark:bg-neutral-900/60 backdrop-blur-3xl p-8 md:p-10 flex flex-col items-start justify-between text-left h-full border-0 relative"
+                                            duration={12}
+                                        >
+                                            {/* Noise & Mesh Gradient behind card */}
+                                            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
-                                        <div className="relative z-10 w-full">
-                                            <div className={`relative w-16 h-16 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-8 group-hover:rotate-[10deg] transition-transform duration-500`}>
-                                                <div className="absolute inset-0 rounded-2xl bg-current opacity-20 blur-xl animate-pulse" />
-                                                <feature.icon className="w-8 h-8 relative z-10" />
+                                            <div className="relative z-10 w-full">
+                                                <div className={`relative w-16 h-16 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-8 group-hover:rotate-[10deg] transition-transform duration-500`}>
+                                                    <div className="absolute inset-0 rounded-2xl bg-current opacity-20 blur-xl animate-pulse" />
+                                                    <feature.icon className="w-8 h-8 relative z-10" />
+                                                </div>
+
+                                                <h3 className="text-3xl font-black text-neutral-900 dark:text-white mb-4 tracking-tight">
+                                                    {feature.title}
+                                                </h3>
+                                                <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-medium">
+                                                    {feature.description}
+                                                </p>
                                             </div>
 
-                                            <h3 className="text-3xl font-black text-neutral-900 dark:text-white mb-4 tracking-tight">
-                                                {feature.title}
-                                            </h3>
-                                            <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-medium">
-                                                {feature.description}
-                                            </p>
-                                        </div>
-
-                                        <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/5 w-full flex justify-between items-center group/btn pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                            <span className={`text-sm font-bold uppercase tracking-widest ${feature.color}`}>Learn More</span>
-                                            <div className={`w-8 h-8 rounded-full ${feature.bg} flex items-center justify-center ${feature.color}`}>
-                                                <LucideIcons.ArrowRight className="w-4 h-4" />
+                                            <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/5 w-full flex justify-between items-center group/btn pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                                <span className={`text-sm font-bold uppercase tracking-widest ${feature.color}`}>Learn More</span>
+                                                <div className={`w-8 h-8 rounded-full ${feature.bg} flex items-center justify-center ${feature.color}`}>
+                                                    <LucideIcons.ArrowRight className="w-4 h-4" />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </GradientBorder>
+                                        </GradientBorder>
+                                    </CardSpotlight>
                                 </FloatingCard>
                             </div>
                         );

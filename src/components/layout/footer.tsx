@@ -232,14 +232,14 @@ export const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-neutral-200/50 dark:border-white/10 pt-6 sm:pt-8">
-                    <div className="flex flex-col items-center gap-2 text-center">
+                    <div className="flex flex-col items-center gap-1 text-center">
                         <Link
                             href="/copyright"
                             className="text-neutral-500 dark:text-neutral-500 text-[11px] sm:text-xs font-mono hover:text-[var(--neon-lime-text)] transition-colors inline-block max-w-[90vw]"
                         >
-                            © {new Date().getFullYear()} - AI & Machine Learning Club OCT , Bhopal.
+                            © {new Date().getFullYear()} - AI & Machine Learning Club OCT, Bhopal.
                         </Link>
-                        <p className="text-neutral-500 dark:text-neutral-500 text-[11px] sm:text-xs font-mono mt-1">
+                        <p className="text-neutral-500 dark:text-neutral-500 text-[11px] sm:text-xs font-mono">
                             All rights reserved by{" "}
                             <a
                                 href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"

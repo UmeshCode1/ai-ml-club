@@ -60,11 +60,18 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/aiml-club-logo-new.png", type: "image/png" },
     ],
     apple: [
       { url: "/aiml-club-logo-new.png", sizes: "180x180", type: "image/png" },
     ],
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "AIML Club",
   },
 };
 

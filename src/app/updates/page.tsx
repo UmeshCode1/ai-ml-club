@@ -28,8 +28,8 @@ export default async function UpdatesPage() {
             getEvents()
         ]);
 
-        const blogItems: UpdateItem[] = blogPosts.map(post => ({
-            id: post.$id || Math.random().toString(),
+        const blogItems: UpdateItem[] = blogPosts.map((post, i) => ({
+            id: post.$id || `blog-${i}`,
             type: 'blog',
             title: post.title || 'Untitled Post',
             description: post.excerpt || 'No description available.',
@@ -40,8 +40,8 @@ export default async function UpdatesPage() {
             author: post.author || 'AIML Club Team'
         }));
 
-        const eventItems: UpdateItem[] = events.map(event => ({
-            id: event.$id || Math.random().toString(),
+        const eventItems: UpdateItem[] = events.map((event, i) => ({
+            id: event.$id || `event-${i}`,
             type: 'event',
             title: event.title || 'Untitled Event',
             description: event.description || 'No description available.',

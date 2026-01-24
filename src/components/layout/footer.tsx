@@ -231,24 +231,18 @@ export const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-neutral-200/50 dark:border-white/10 pt-8 sm:pt-10">
-                    <div className="flex flex-col items-center gap-4">
-                        <p className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono text-center leading-relaxed">
-                            © {new Date().getFullYear()} {siteConfig.name}. OCT. All rights reserved.
-                        </p>
-                        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-                            <span className="text-[10px] sm:text-xs text-neutral-400 dark:text-neutral-500 uppercase tracking-widest font-bold">Developed with Passion by</span>
-                            <Link
-                                href="/developer"
-                                className="group relative px-4 py-1.5 rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_15px_var(--neon-lime)]"
-                            >
-                                <div className="absolute inset-0 bg-[var(--neon-lime)]/10 group-hover:bg-[var(--neon-lime)] transition-colors duration-500" />
-                                <span className="relative z-10 font-bold text-xs sm:text-sm text-[var(--neon-lime-text)] group-hover:text-black transition-colors duration-500">
-                                    Umesh Patel
-                                </span>
-                            </Link>
-                        </div>
-                    </div>
+                <div className="border-t border-neutral-200/50 dark:border-white/10 pt-6 sm:pt-8">
+                    <p className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono text-center">
+                        © {new Date().getFullYear()} {siteConfig.name}. All rights reserved by{" "}
+                        <a
+                            href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-[var(--neon-lime-text)] hover:underline"
+                        >
+                            Umesh Patel
+                        </a>
+                    </p>
                 </div>
             </div>
         </footer>

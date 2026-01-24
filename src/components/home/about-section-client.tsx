@@ -90,7 +90,7 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                         </motion.div>
 
                         {/* Title */}
-                        <h2 className="text-5xl md:text-8xl font-black text-neutral-900 dark:text-white mb-10 tracking-tighter leading-[0.9]">
+                        <h2 className="text-4xl sm:text-5xl md:text-8xl font-black text-neutral-900 dark:text-white mb-8 md:mb-10 tracking-tighter leading-[1.1] md:leading-[0.9]">
                             Pioneering <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon-lime-text)] via-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">
                                 Intelligent
@@ -106,13 +106,13 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                            <div className="p-6 rounded-3xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5">
-                                <h4 className="text-[var(--neon-lime-text)] font-bold mb-2 uppercase tracking-widest text-xs">Our Mission</h4>
-                                <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">To democratize complex AI concepts through hands-on engineering and collaborative research.</p>
+                            <div className="p-6 rounded-3xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/5">
+                                <h4 className="text-[var(--neon-lime-text)] font-bold mb-2 uppercase tracking-widest text-[10px]">Our Mission</h4>
+                                <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">To democratize complex AI concepts through hands-on engineering and collaborative research.</p>
                             </div>
-                            <div className="p-6 rounded-3xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5">
-                                <h4 className="text-[var(--electric-cyan-text)] font-bold mb-2 uppercase tracking-widest text-xs">The Vision</h4>
-                                <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">Building a legacy of technical excellence that connects Oriental with global industry standards.</p>
+                            <div className="p-6 rounded-3xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/5">
+                                <h4 className="text-[var(--electric-cyan-text)] font-bold mb-2 uppercase tracking-widest text-[10px]">The Vision</h4>
+                                <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">Building a legacy of technical excellence that connects Oriental with global industry standards.</p>
                             </div>
                         </div>
 

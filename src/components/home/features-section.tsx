@@ -100,20 +100,20 @@ export function FeaturesSection({ features: dynamicFeatures }: { features?: Home
                                             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
                                             <div className="relative z-10 w-full">
-                                                <div className={`relative w-16 h-16 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-8 group-hover:rotate-[10deg] transition-transform duration-500`}>
+                                                <div className={`relative w-16 h-16 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-8 group-hover:rotate-[10deg] transition-transform duration-500 will-change-transform`}>
                                                     <div className="absolute inset-0 rounded-2xl bg-current opacity-20 blur-xl animate-pulse" />
                                                     <feature.icon className="w-8 h-8 relative z-10" />
                                                 </div>
 
-                                                <h3 className="text-3xl font-black text-neutral-900 dark:text-white mb-4 tracking-tight">
+                                                <h3 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white mb-3 md:mb-4 tracking-tight">
                                                     {feature.title}
                                                 </h3>
-                                                <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-medium">
+                                                <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-medium">
                                                     {feature.description}
                                                 </p>
                                             </div>
 
-                                            <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/5 w-full flex justify-between items-center group/btn pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                            <div className="mt-8 pt-6 border-t border-neutral-100 dark:border-white/5 w-full flex justify-between items-center group/btn pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 will-change-[opacity]">
                                                 <span className={`text-sm font-bold uppercase tracking-widest ${feature.color}`}>Learn More</span>
                                                 <div className={`w-8 h-8 rounded-full ${feature.bg} flex items-center justify-center ${feature.color}`}>
                                                     <LucideIcons.ArrowRight className="w-4 h-4" />

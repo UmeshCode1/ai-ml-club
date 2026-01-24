@@ -37,19 +37,15 @@ export function ClubActivitiesSection({ activities: dynamicActivities }: { activ
         if (!dynamicActivities || dynamicActivities.length === 0) return DEFAULT_ACTIVITIES;
         return dynamicActivities.map(a => {
             // Dynamically resolve lucide icon
-            const Icon = (LucideIcons as Record<string, any>)[a.icon || "Sparkles"] || Brain;
+            const IconName = a.icon as keyof typeof LucideIcons;
+            const Icon = (LucideIcons[IconName] as any) || Sparkles;
+
             return {
                 title: a.title,
                 description: a.description,
-                image: a.image || DEFAULT_ACTIVITIES[0].image, // Keep image for consistency with DEFAULT_ACTIVITIES
-                icon: Icon as LucideIcon,
-                stats: a.stats || "", // Keep stats for consistency with DEFAULT_ACTIVITIES
-                // The following properties are added as per the instruction,
-                // but are not currently used in the rendering logic of this component.
-                // They might be intended for a different component or future use.
-                color: a.color?.includes("lime") ? "text-[var(--neon-lime-text)]" : "text-[var(--electric-cyan-text)]",
-                bg: a.color?.includes("lime") ? "bg-[var(--neon-lime)]/10" : "bg-[var(--electric-cyan)]/10",
-                size: a.size || "medium"
+                image: a.image || DEFAULT_ACTIVITIES[0].image,
+                icon: Icon as LucideIcons.LucideIcon,
+                stats: a.stats || ""
             };
         });
     }, [dynamicActivities]);

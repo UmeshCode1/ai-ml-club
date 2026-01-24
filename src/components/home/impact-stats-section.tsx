@@ -160,12 +160,12 @@ export function ImpactStatsSection({ stats: dynamicStats }: { stats?: HomeStat[]
                                 </div>
 
                                 {/* Mini Chart/Visual (Static) */}
-                                <div className="mt-6 flex gap-1 h-3 items-end overflow-hidden">
+                                <div className="mt-6 flex gap-1 h-3 items-end overflow-hidden will-change-transform">
                                     {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
                                         <div
                                             key={i}
                                             className={`w-full bg-[var(--neon-lime)]/10 dark:bg-[var(--neon-lime)]/20 rounded-full transition-all duration-500 group-hover:bg-[var(--neon-lime)]`}
-                                            style={{ height: `${(Math.sin(index + i) + 1) * 50}%` }}
+                                            style={{ height: `${(Math.sin((index + 1) * (i + 1)) + 1) * 50}%` }}
                                         />
                                     ))}
                                 </div>

@@ -29,6 +29,7 @@ export const Navbar = () => {
             name: "Resources",
             path: "#",
             children: [
+                { name: "Latest Updates", path: "https://info.aimlclub.tech", external: true, icon: MessageSquare },
                 { name: "Suggestion Box", path: "/suggestions", icon: MessageSquare },
                 { name: "Constitution", path: "/constitution", icon: Book },
                 { name: "Notion Workspace", path: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061", external: true, icon: NotebookText },

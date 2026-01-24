@@ -44,7 +44,6 @@ export function MemberProfileModal({ member, isOpen, onClose }: MemberProfileMod
 
     const initials = member.name.split(" ").map(n => n[0]).join("").slice(0, 2);
     const hasImage = member.imageUrl && member.imageUrl !== "/images/team/placeholder.jpg";
-    const hasSocials = member.linkedin || member.github || member.instagram;
 
     return (
         <AnimatePresence>

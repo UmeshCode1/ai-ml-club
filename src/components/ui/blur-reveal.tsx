@@ -23,7 +23,10 @@ export const BlurReveal = ({
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: { staggerChildren: 0.1, delayChildren: delay },
+            transition: {
+                staggerChildren: typeof window !== 'undefined' && window.innerWidth < 768 ? 0.05 : 0.08,
+                delayChildren: delay
+            },
         },
     };
 

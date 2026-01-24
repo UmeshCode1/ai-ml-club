@@ -51,8 +51,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
         const initParticles = () => {
             const isMobile = width < 768;
+            const isSmallMobile = width < 480;
             isMobileRef.current = isMobile;
-            const baseCount = isMobile ? 15 : Math.min(Math.floor((width * height) / 20000), 80);
+            const baseCount = isSmallMobile ? 8 : (isMobile ? 15 : Math.min(Math.floor((width * height) / 20000), 80));
             const particleCount = baseCount;
 
             particles.current = [];

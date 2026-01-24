@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Play } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { NeuralNetwork } from "@/components/ui/neural-network";
@@ -13,9 +13,12 @@ import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 export function HeroSection() {
     const { scrollToId } = useSmoothScroll();
     const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-    const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
+
+    // Smoother scroll transforms with Spring
+    const smoothY = useSpring(scrollY, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    const y1 = useTransform(smoothY, [0, 500], [0, 150]);
+    const opacity = useTransform(smoothY, [0, 400], [1, 0]);
+    const scale = useTransform(smoothY, [0, 400], [1, 0.98]);
 
     return (
         <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-24 pb-20 px-4">

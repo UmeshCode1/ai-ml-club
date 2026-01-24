@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     default: "AI & Machine Learning Club | Oriental College of Technology",
     template: "%s | AI & Machine Learning Club",
   },
-  description: "Official club of Oriental College of Technology, Bhopal, focused on Artificial Intelligence and Machine Learning exploration, education, and community building.",
+  description: "The premier offline community for AI & Machine Learning at Oriental College of Technology, Bhopal. Focused on on-campus learning, workshops, and student innovation.",
   keywords: ["AI", "ML", "Artificial Intelligence", "Machine Learning", "Data Science", "Bhopal", "OCT", "College Club"],
   authors: [{ name: "Umesh Patel", url: "https://github.com/UmeshCode1" }],
   creator: "Umesh Patel",

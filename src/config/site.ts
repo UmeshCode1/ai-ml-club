@@ -1,7 +1,7 @@
 export const siteConfig = {
     name: "AIML Club - AI & Machine Learning Club OCT",
     shortName: "AIML Club",
-    description: "AIML Club (AI & Machine Learning Club) at Oriental College of Technology, Bhopal is a student-driven ecosystem dedicated to exploring Artificial Intelligence and Machine Learning. Join India's leading AIML Club for workshops, hackathons, and real-world AI projects.",
+    description: "The premier offline community for AI & Machine Learning at Oriental College of Technology, Bhopal. Join us on campus for workshops, hackathons, and collaborative AI projects.",
     tagline: "Innovate • Implement • Inspire",
     url: "https://aimlclub.tech",
     ogImage: "https://aimlclub.tech/og.jpg",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aiml-club-v2';
+const CACHE_NAME = 'aiml-club-v3';
 const STATIC_ASSETS = [
     '/',
     '/manifest.json',
@@ -7,27 +7,19 @@ const STATIC_ASSETS = [
     '/favicon.ico'
 ];
 
-// Install Event - Pre-cache static assets
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            console.log('[SW] Pre-caching static assets');
-            return cache.addAll(STATIC_ASSETS);
-        })
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
     );
     self.skipWaiting();
 });
 
-// Activate Event - Cleanup old caches
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map((cache) => {
-                    if (cache !== CACHE_NAME) {
-                        console.log('[SW] Cleaning old cache:', cache);
-                        return caches.delete(cache);
-                    }
+                    if (cache !== CACHE_NAME) return caches.delete(cache);
                 })
             );
         })
@@ -35,25 +27,17 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Fetch Event - Stale-While-Revalidate Strategy
+// Stale-While-Revalidate
 self.addEventListener('fetch', (event) => {
-    // Only handle GET requests
-    if (event.request.method !== 'GET') return;
-
-    // Skip cross-origin requests
-    if (!event.request.url.startsWith(self.location.origin)) return;
+    if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) return;
 
     event.respondWith(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.match(event.request).then((cachedResponse) => {
                 const fetchedResponse = fetch(event.request).then((networkResponse) => {
-                    // Cache the new response
                     cache.put(event.request, networkResponse.clone());
                     return networkResponse;
-                }).catch(() => {
-                    // If network fails, return cached response if available
-                    return cachedResponse;
-                });
+                }).catch(() => cachedResponse);
 
                 return cachedResponse || fetchedResponse;
             });
@@ -61,14 +45,39 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-// Push Notification Placeholder
+// Handle Notification Clicks
+self.addEventListener('notificationclick', (event) => {
+    event.notification.close();
+    const path = event.notification.data?.path || '/';
+    const fullPath = self.location.origin + path;
+
+    event.waitUntil(
+        clients.matchAll({ type: 'window' }).then((clientList) => {
+            for (const client of clientList) {
+                if (client.url === fullPath && 'focus' in client) return client.focus();
+            }
+            if (clients.openWindow) return clients.openWindow(fullPath);
+        })
+    );
+});
+
+// Background Sync Placeholder
+self.addEventListener('sync', (event) => {
+    if (event.tag === 'form-sync') {
+        console.log('[SW] Handling background sync for forms');
+        // Logic for syncing offline form submissions would go here
+    }
+});
+
+// Push Event
 self.addEventListener('push', (event) => {
     const data = event.data ? event.data.json() : {};
     const title = data.title || 'AIML Club OCT';
     const options = {
         body: data.body || 'New updates from the club!',
         icon: '/aiml-club-logo-new.png',
-        badge: '/aiml-club-logo-new.png'
+        badge: '/aiml-club-logo-new.png',
+        data: { path: data.path || '/' }
     };
     event.waitUntil(self.registration.showNotification(title, options));
 });

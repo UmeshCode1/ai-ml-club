@@ -6,6 +6,9 @@
     "lang": "en-US",
     "dir": "ltr",
     "start_url": "/",
+    "display_override": [
+        "window-controls-overlay"
+    ],
     "display": "standalone",
     "background_color": "#050505",
     "theme_color": "#D4FF00",

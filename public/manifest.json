@@ -78,5 +78,21 @@
         "technology",
         "productivity",
         "community"
+    ],
+    "screenshots": [
+        {
+            "src": "/aiml-club-logo-new.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "AIML Club Home"
+        },
+        {
+            "src": "/aiml-club-logo-new.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "AIML Club Mobile"
+        }
     ]
 }

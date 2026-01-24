@@ -29,26 +29,26 @@ export default async function UpdatesPage() {
         ]);
 
         const blogItems: UpdateItem[] = blogPosts.map(post => ({
-            id: post.$id,
+            id: post.$id || Math.random().toString(),
             type: 'blog',
-            title: post.title,
-            description: post.excerpt,
-            date: post.publishedAt,
-            category: post.category,
-            image: undefined, // Blogs usually use placeholders or specific covers if added later
-            link: `/blog/${post.slug}`,
-            author: post.author
+            title: post.title || 'Untitled Post',
+            description: post.excerpt || 'No description available.',
+            date: post.publishedAt || new Date().toISOString(),
+            category: post.category || 'Announcement',
+            image: undefined,
+            link: `/blog/${post.slug || post.$id}`,
+            author: post.author || 'AIML Club Team'
         }));
 
         const eventItems: UpdateItem[] = events.map(event => ({
-            id: event.$id,
+            id: event.$id || Math.random().toString(),
             type: 'event',
-            title: event.title,
-            description: event.description,
-            date: event.date,
+            title: event.title || 'Untitled Event',
+            description: event.description || 'No description available.',
+            date: event.date || new Date().toISOString(),
             category: event.category || 'Event',
-            image: event.imageUrl,
-            link: '/events', // Focus on linking to the event list or specific event details if needed
+            image: event.imageUrl || undefined,
+            link: '/events',
             author: 'AIML Club'
         }));
 

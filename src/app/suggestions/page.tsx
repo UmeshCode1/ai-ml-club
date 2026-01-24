@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Mail, MessageSquare, Lock, Globe, Sparkles, Phone } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
@@ -16,7 +17,28 @@ export default function SuggestionPage() {
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const searchParams = useSearchParams();
     const formRef = useRef<HTMLFormElement>(null);
+
+    // Handle shared data from PWA
+    useEffect(() => {
+        if (!formRef.current) return;
+
+        const title = searchParams.get('title');
+        const text = searchParams.get('text');
+        const url = searchParams.get('url');
+
+        if (title || text || url) {
+            const textarea = formRef.current.querySelector('textarea[name="suggestion"]') as HTMLTextAreaElement;
+            if (textarea) {
+                let sharedContent = "";
+                if (title) sharedContent += `${title}\n`;
+                if (text) sharedContent += `${text}\n`;
+                if (url) sharedContent += `${url}\n`;
+                textarea.value = sharedContent.trim();
+            }
+        }
+    }, [searchParams]);
 
     useEffect(() => {
         const handleScroll = () => {

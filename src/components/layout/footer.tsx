@@ -235,17 +235,17 @@ export const Footer = () => {
                     <div className="flex flex-col items-center gap-2 text-center">
                         <Link
                             href="/copyright"
-                            className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono hover:text-[var(--neon-lime-text)] transition-colors"
+                            className="text-neutral-500 dark:text-neutral-500 text-[11px] sm:text-xs font-mono hover:text-[var(--neon-lime-text)] transition-colors inline-block max-w-[90vw]"
                         >
                             © {new Date().getFullYear()} - AI & Machine Learning Club OCT , Bhopal.
                         </Link>
-                        <p className="text-neutral-500 dark:text-neutral-500 text-[10px] sm:text-xs font-mono">
+                        <p className="text-neutral-500 dark:text-neutral-500 text-[11px] sm:text-xs font-mono mt-1">
                             All rights reserved by{" "}
                             <a
                                 href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-semibold text-[var(--neon-lime-text)] hover:underline"
+                                className="font-semibold text-[var(--neon-lime-text)] hover:underline whitespace-nowrap"
                             >
                                 Umesh Patel
                             </a>

@@ -87,6 +87,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+
+  /* Safe area support for devices with notches */
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -182,8 +190,15 @@ h6 {
   }
 
   .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Refine Typography for extreme small screens */
+  @media (max-width: 380px) {
+    html {
+      font-size: 14px;
+    }
   }
 
   /* Disable heavy hover effects on touch devices */
@@ -199,16 +214,16 @@ h6 {
 
   /* Reduce animation complexity on mobile */
   .blur-xl {
-    filter: blur(12px);
+    filter: blur(10px);
   }
 
   /* Smaller gaps and padding */
   .gap-12 {
-    gap: 2rem;
+    gap: 1.75rem;
   }
 
   .gap-16 {
-    gap: 2.5rem;
+    gap: 2.25rem;
   }
 }
 

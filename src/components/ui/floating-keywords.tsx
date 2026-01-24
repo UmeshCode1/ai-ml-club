@@ -32,7 +32,7 @@ export function FloatingKeywords({ className }: { className?: string }) {
                         ease: "easeInOut",
                     }}
                     style={{ left: keyword.x, top: keyword.y }}
-                    className="absolute text-xs sm:text-sm font-mono text-[var(--neon-lime-text)]/30 dark:text-neutral-600 tracking-wider"
+                    className="absolute text-xs sm:text-sm font-mono text-[var(--neon-lime-text)]/30 dark:text-neutral-600 tracking-wider will-change-transform"
                 >
                     {keyword.text}
                 </motion.span>

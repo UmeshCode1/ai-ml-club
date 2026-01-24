@@ -20,16 +20,26 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
     const isMouseIn = useRef(false);
     const isMobileRef = useRef(false);
     const lastFrameTime = useRef(0);
+    const isVisible = useRef(true);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { alpha: true });
         if (!ctx) return;
 
         let animationFrameId: number;
         let width = window.innerWidth;
         let height = window.innerHeight;
+
+        // Visibility Observer to stop energy drain when not looking at it
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isVisible.current = entry.isIntersecting;
+            },
+            { threshold: 0.01 }
+        );
+        observer.observe(canvas);
 
         const resize = () => {
             width = window.innerWidth;
@@ -40,10 +50,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
         };
 
         const initParticles = () => {
-            // Reduce particles on mobile for performance
             const isMobile = width < 768;
             isMobileRef.current = isMobile;
-            const baseCount = isMobile ? 12 : Math.min(Math.floor((width * height) / 15000), 100);
+            const baseCount = isMobile ? 15 : Math.min(Math.floor((width * height) / 20000), 80);
             const particleCount = baseCount;
 
             particles.current = [];
@@ -51,23 +60,28 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * (isMobile ? 0.15 : 0.25),
-                    vy: (Math.random() - 0.5) * (isMobile ? 0.15 : 0.25),
-                    size: Math.random() * (isMobile ? 1.2 : 1.8) + 0.8,
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.1 : 0.2),
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.1 : 0.2),
+                    size: Math.random() * (isMobile ? 1.0 : 1.5) + 0.5,
                 });
             }
         };
 
         const drawStats = () => {
+            // Stop energy drain if not visible
+            if (!isVisible.current) {
+                animationFrameId = requestAnimationFrame(drawStats);
+                return;
+            }
+
             const isDark = theme === "dark";
-            // Professional Colors
-            const particleFill = isDark ? "rgba(255, 255, 255, 0.6)" : "rgba(0, 0, 0, 0.4)";
+            const particleFill = isDark ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.3)";
             const lineStroke = isDark ? "rgba(100, 100, 255," : "rgba(0, 0, 0,";
 
-            // FPS controlling for mobile
             const now = Date.now();
             const elapsed = now - lastFrameTime.current;
-            const fpsLimit = isMobileRef.current ? 33 : 16; // ~30fps mobile, ~60fps desktop
+            // Cap FPS for mobile to save battery
+            const fpsLimit = isMobileRef.current ? 40 : 25;
 
             if (elapsed < fpsLimit) {
                 animationFrameId = requestAnimationFrame(drawStats);
@@ -77,28 +91,28 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
             ctx.clearRect(0, 0, width, height);
 
-            particles.current.forEach((p, i) => {
-                // Base Movement
+            const parts = particles.current;
+            const len = parts.length;
+            const connectDistance = isMobileRef.current ? 80 : 120;
+            const mouseRepulsion = 150;
+
+            for (let i = 0; i < len; i++) {
+                const p = parts[i];
                 p.x += p.vx;
                 p.y += p.vy;
 
-                // Wall Bounce
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                // Mouse Interaction (Softer Repulsion)
                 if (isMouseIn.current) {
                     const dx = mouse.current.x - p.x;
                     const dy = mouse.current.y - p.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    const repulsionRadius = 200;
-
-                    if (distance < repulsionRadius) {
-                        const force = (repulsionRadius - distance) / repulsionRadius;
+                    if (distance < mouseRepulsion) {
+                        const force = (mouseRepulsion - distance) / mouseRepulsion;
                         const angle = Math.atan2(dy, dx);
-                        const push = force * 2; // Gentle push
-                        p.x -= Math.cos(angle) * push;
-                        p.y -= Math.sin(angle) * push;
+                        p.x -= Math.cos(angle) * force * 1.5;
+                        p.y -= Math.sin(angle) * force * 1.5;
                     }
                 }
 
@@ -107,27 +121,30 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 ctx.fillStyle = particleFill;
                 ctx.fill();
 
-                // Connections - Skip on mobile for performance
+                // Connections - Only for desktop to significantly save power
                 if (!isMobileRef.current) {
-                    for (let j = i + 1; j < particles.current.length; j++) {
-                        const p2 = particles.current[j];
+                    // Optimization: Only check half the connections to reduce CPU Load
+                    for (let j = i + 1; j < len; j++) {
+                        const p2 = parts[j];
                         const dx = p.x - p2.x;
-                        const dy = p.y - p2.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        const connectDistance = 100;
+                        if (Math.abs(dx) > connectDistance) continue;
 
+                        const dy = p.y - p2.y;
+                        if (Math.abs(dy) > connectDistance) continue;
+
+                        const dist = Math.sqrt(dx * dx + dy * dy);
                         if (dist < connectDistance) {
-                            const opacity = 1 - dist / connectDistance;
+                            const opacity = (1 - dist / connectDistance) * 0.15;
                             ctx.beginPath();
                             ctx.moveTo(p.x, p.y);
                             ctx.lineTo(p2.x, p2.y);
-                            ctx.strokeStyle = `${lineStroke} ${opacity * 0.12})`;
-                            ctx.lineWidth = 0.6;
+                            ctx.strokeStyle = `${lineStroke}${opacity})`;
+                            ctx.lineWidth = 0.5;
                             ctx.stroke();
                         }
                     }
                 }
-            });
+            }
 
             animationFrameId = requestAnimationFrame(drawStats);
         };
@@ -151,6 +168,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             window.removeEventListener("resize", resize);
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseout", handleMouseLeave);
+            observer.disconnect();
             cancelAnimationFrame(animationFrameId);
         };
     }, [theme]);
@@ -158,7 +176,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
     return (
         <canvas
             ref={canvasRef}
-            className={cn("absolute inset-0 w-full h-full pointer-events-none", className)}
+            className={cn("absolute inset-0 w-full h-full pointer-events-none will-change-transform", className)}
         />
     );
 };
+

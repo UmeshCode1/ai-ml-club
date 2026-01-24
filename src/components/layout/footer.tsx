@@ -103,7 +103,7 @@ export const Footer = () => {
                         <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6">Resources</h3>
                         <ul className="space-y-2 sm:space-y-3">
                             {[
-                                { name: "Latest Updates", href: "/updates" },
+                                { name: "Latest Updates", href: siteConfig.links.info, external: true },
                                 { name: "Suggestion Box", href: "/suggestions" },
                                 { name: "Constitution", href: "/constitution" },
                                 { name: "Notion Workspace", href: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061", external: true },

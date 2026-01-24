@@ -4,16 +4,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { useState, useEffect, useMemo } from "react";
-import { NeuralNetwork } from "@/components/ui/neural-network";
-import { IntelligenceFeed } from "@/components/ui/intelligence-feed";
 
 const tags = [
     "Workshops",
     "Hackathons",
     "Research",
-    "Networking",
-    "Industrial Visits",
-    "Paper Publications"
+    "Networking"
 ];
 
 interface AboutSectionClientProps {
@@ -80,55 +76,32 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                         className="flex flex-col items-start"
                     >
                         {/* EST Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--neon-lime)]/30 bg-[var(--neon-lime)]/5 text-[var(--neon-lime-text)] text-xs font-bold uppercase tracking-[0.2em] mb-8"
-                        >
-                            <span className="w-2 h-2 rounded-full bg-[var(--neon-lime)] animate-pulse" />
-                            ESTABLISHED 2025
-                        </motion.div>
+                        <div className="inline-block px-4 py-1.5 rounded-full border border-[var(--neon-lime)]/40 bg-[var(--neon-lime)]/5 text-[var(--neon-lime-text)] text-xs font-bold uppercase tracking-widest mb-8">
+                            EST. 2025
+                        </div>
 
                         {/* Title */}
-                        <h2 className="text-4xl sm:text-5xl md:text-8xl font-black text-neutral-900 dark:text-white mb-8 md:mb-10 tracking-tighter leading-[1.1] md:leading-[0.9]">
-                            Pioneering <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon-lime-text)] via-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">
-                                Intelligent
-                            </span> <br />
-                            Futures
+                        <h2 className="text-5xl md:text-7xl font-bold text-neutral-900 dark:text-white mb-8 tracking-tight">
+                            About <span className="text-[var(--neon-lime-text)]">AIML Club</span>
                         </h2>
 
-                        <div className="h-1 w-32 bg-gradient-to-r from-[var(--neon-lime)] to-transparent rounded-full mb-12" />
-
                         {/* Paragraphs */}
-                        <p className="text-xl text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed font-medium">
-                            The AI & Machine Learning Club at Oriental College of Technology is more than a team&mdash;it&apos;s a high-performance ecosystem for the next generation of engineers.
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
+                            The AI &amp; Machine Learning Club at Oriental College of Technology is a student-driven ecosystem dedicated to exploring the frontiers of Artificial Intelligence.
                         </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                            <div className="p-6 rounded-3xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/5">
-                                <h4 className="text-[var(--neon-lime-text)] font-bold mb-2 uppercase tracking-widest text-[10px]">Our Mission</h4>
-                                <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">To democratize complex AI concepts through hands-on engineering and collaborative research.</p>
-                            </div>
-                            <div className="p-6 rounded-3xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/5">
-                                <h4 className="text-[var(--electric-cyan-text)] font-bold mb-2 uppercase tracking-widest text-[10px]">The Vision</h4>
-                                <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">Building a legacy of technical excellence that connects Oriental with global industry standards.</p>
-                            </div>
-                        </div>
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 leading-relaxed">
+                            We don&apos;t just learn; we build. From workshops and hackathons to real-world projects, we provide the platform for students to turn theoretical knowledge into practical innovation.
+                        </p>
 
                         {/* Tags */}
                         <div className="flex flex-wrap gap-3">
                             {tags.map((tag, index) => (
-                                <motion.span
+                                <span
                                     key={index}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: index * 0.05 }}
-                                    className="px-6 py-2.5 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 text-sm font-bold hover:shadow-lg hover:shadow-[var(--neon-lime)]/10 hover:border-[var(--neon-lime)] transition-all cursor-default"
+                                    className="px-5 py-2 rounded-full border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900/50 text-neutral-700 dark:text-neutral-300 text-sm font-medium hover:border-[var(--neon-lime)] hover:text-[var(--neon-lime-text)] transition-colors cursor-default"
                                 >
                                     {tag}
-                                </motion.span>
+                                </span>
                             ))}
                         </div>
                     </motion.div>
@@ -139,17 +112,12 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative w-full aspect-video md:aspect-[4/3] lg:aspect-square max-h-[600px]"
+                        className="relative w-full aspect-video md:aspect-[4/3] lg:aspect-square max-h-[500px]"
                     >
-                        {/* Spatial Background particles */}
-                        <div className="absolute -inset-20 z-0">
-                            <NeuralNetwork className="opacity-20" />
-                        </div>
-
                         <GradientBorder
-                            containerClassName="w-full h-full rounded-[48px] shadow-2xl relative z-10"
+                            containerClassName="w-full h-full rounded-3xl"
                             className="w-full h-full bg-neutral-950 p-1 flex flex-col relative overflow-hidden"
-                            borderWidth={1.5}
+                            borderWidth={1}
                             duration={10}
                         >
                             {/* Inner Terminal Content */}
@@ -191,13 +159,7 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                 {/* Content Overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-[5]">
                                     <div className="w-8 h-1 bg-[var(--neon-lime)] mb-4 shadow-[0_0_10px_var(--neon-lime)]" />
-                                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Club Moments</h3>
-
-                                    {/* Intelligence Feed Integration */}
-                                    <div className="mb-6 p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-md">
-                                        <IntelligenceFeed />
-                                    </div>
-
+                                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">Club Moments</h3>
                                     <p className="text-xs sm:text-sm text-neutral-400">Capturing our journey of innovation</p>
 
                                     {/* Image indicator dots */}

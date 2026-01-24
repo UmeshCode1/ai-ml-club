@@ -10,10 +10,7 @@ interface Particle {
     vx: number;
     vy: number;
     size: number;
-    label?: string;
 }
-
-const PARAM_LABELS = ["w_idx", "bias", "relu", "optim", "loss", "epoch", "grad", "adam", "conv2d", "latent"];
 
 export const NeuralNetwork = ({ className }: { className?: string }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -57,7 +54,6 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                     vx: (Math.random() - 0.5) * (isMobile ? 0.15 : 0.25),
                     vy: (Math.random() - 0.5) * (isMobile ? 0.15 : 0.25),
                     size: Math.random() * (isMobile ? 1.2 : 1.8) + 0.8,
-                    label: Math.random() > 0.7 ? PARAM_LABELS[Math.floor(Math.random() * PARAM_LABELS.length)] : undefined
                 });
             }
         };
@@ -90,26 +86,17 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                // Mouse Interaction & Inference Lines
+                // Mouse Interaction (Softer Repulsion)
                 if (isMouseIn.current) {
                     const dx = mouse.current.x - p.x;
                     const dy = mouse.current.y - p.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    const repulsionRadius = 250;
+                    const repulsionRadius = 200;
 
                     if (distance < repulsionRadius) {
-                        // Drawing Inference Lines to mouse
-                        const opacity = (1 - distance / repulsionRadius) * 0.4;
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(mouse.current.x, mouse.current.y);
-                        ctx.strokeStyle = `rgba(163, 230, 53, ${opacity})`; // Neon Lime
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-
                         const force = (repulsionRadius - distance) / repulsionRadius;
                         const angle = Math.atan2(dy, dx);
-                        const push = force * 1.5;
+                        const push = force * 2; // Gentle push
                         p.x -= Math.cos(angle) * push;
                         p.y -= Math.sin(angle) * push;
                     }
@@ -119,13 +106,6 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fillStyle = particleFill;
                 ctx.fill();
-
-                // Draw Parameter Label
-                if (p.label && !isMobileRef.current) {
-                    ctx.font = "8px monospace";
-                    ctx.fillStyle = isDark ? "rgba(163, 230, 53, 0.4)" : "rgba(0, 0, 0, 0.3)";
-                    ctx.fillText(p.label, p.x + 5, p.y + 5);
-                }
 
                 // Connections - Skip on mobile for performance
                 if (!isMobileRef.current) {

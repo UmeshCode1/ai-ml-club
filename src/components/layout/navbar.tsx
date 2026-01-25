@@ -240,7 +240,7 @@ export const Navbar = () => {
                                 <React.Fragment key={item.name}>
                                     {item.children ? (
                                         <div className="px-4 py-2">
-                                            <span className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2 block ml-2">{item.name}</span>
+                                            <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-widest mb-2 block ml-2">{item.name}</span>
                                             <div className="flex flex-col gap-1 border-l border-white/10 ml-2 pl-2">
                                                 {item.children.map(child => (
                                                     <Link
@@ -248,9 +248,9 @@ export const Navbar = () => {
                                                         href={child.path}
                                                         target={child.external ? "_blank" : undefined}
                                                         onClick={() => { setIsOpen(false); trigger(); }}
-                                                        className="group flex items-center gap-3 px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
+                                                        className="group flex items-center gap-3 px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
                                                     >
-                                                        <child.icon className="w-4 h-4 text-neutral-500 group-hover:text-[var(--neon-lime-text)] transition-colors" />
+                                                        <child.icon className="w-4 h-4 text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)] transition-colors" />
                                                         {child.name}
                                                     </Link>
                                                 ))}
@@ -260,7 +260,7 @@ export const Navbar = () => {
                                         <Link
                                             href={item.path}
                                             onClick={() => { setIsOpen(false); trigger(); }}
-                                            className="block px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
+                                            className="block px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
                                         >
                                             {item.name}
                                         </Link>

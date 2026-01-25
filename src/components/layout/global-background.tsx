@@ -39,9 +39,9 @@ export function GlobalBackground() {
                     <>
                         {/* Only render Beams on desktop to prevent mobile heating */}
                         <div className="hidden md:block">
-                            <BackgroundBeams className="opacity-[0.15]" />
+                            <BackgroundBeams className="opacity-[0.1] will-change-transform" />
                         </div>
-                        <NeuralNetwork className="opacity-[0.25]" />
+                        <NeuralNetwork className="opacity-[0.2] will-change-transform" />
                     </>
                 )}
             </div>

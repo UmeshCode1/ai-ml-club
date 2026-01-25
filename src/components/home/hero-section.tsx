@@ -25,10 +25,12 @@ export function HeroSection() {
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 {/* Neural Network Particle Animation */}
-                <NeuralNetwork className="opacity-70 dark:opacity-40" />
+                <NeuralNetwork className="opacity-70 dark:opacity-40 will-change-transform" />
 
-                {/* Floating AI/ML Keywords */}
-                <FloatingKeywords />
+                {/* Floating AI/ML Keywords - Hidden on mobile to save CPU */}
+                <div className="hidden md:block">
+                    <FloatingKeywords />
+                </div>
 
                 {/* Micro-Gradient for Header Blending */}
                 <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-[var(--neon-lime)]/10 dark:from-[var(--neon-lime)]/5 to-transparent z-0" />

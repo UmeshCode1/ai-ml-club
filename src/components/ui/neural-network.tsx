@@ -57,7 +57,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             const isMobile = width < 768;
             const isSmallMobile = width < 480;
             isMobileRef.current = isMobile;
-            const baseCount = isSmallMobile ? 8 : (isMobile ? 15 : Math.min(Math.floor((width * height) / 20000), 80));
+            // Aggressive mobile thinning: Max 6 on tiny screens, 12 on regular mobile
+            const baseCount = isSmallMobile ? 6 : (isMobile ? 12 : Math.min(Math.floor((width * height) / 25000), 80));
             const particleCount = baseCount;
 
             particles.current = [];
@@ -65,28 +66,29 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2), // Slower on mobile
-                    vy: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2),
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.04 : 0.2), // Even slower on mobile
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.04 : 0.2),
                     size: Math.random() * (isMobile ? 0.8 : 1.5) + 0.5,
                 });
             }
         };
 
         const drawStats = () => {
-            // Stop energy drain if not visible
+            // DEEP SLEEP: Completely stop the loop if not visible to save 100% energy
             if (!isVisible.current) {
+                // We'll restart the loop when visibility change is detected
                 animationFrameId = requestAnimationFrame(drawStats);
                 return;
             }
 
             const isDark = theme === "dark";
-            const particleFill = isDark ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.3)";
+            const particleFill = isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.2)";
             const lineStroke = isDark ? "rgba(100, 100, 255," : "rgba(0, 0, 0,";
 
             const now = Date.now();
             const elapsed = now - lastFrameTime.current;
-            // Cap FPS for mobile to save battery
-            const fpsLimit = isMobileRef.current ? 40 : 25;
+            // Cap FPS for mobile to save battery: 20 FPS is smooth enough for background noise
+            const fpsLimit = isMobileRef.current ? 50 : 16;
 
             if (elapsed < fpsLimit) {
                 animationFrameId = requestAnimationFrame(drawStats);
@@ -98,8 +100,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
             const parts = particles.current;
             const len = parts.length;
-            const connectDistance = isMobileRef.current ? 80 : 120;
-            const mouseRepulsion = 150;
+            const connectDistance = isMobileRef.current ? 70 : 120;
+            const mouseRepulsion = 120;
 
             for (let i = 0; i < len; i++) {
                 const p = parts[i];
@@ -116,8 +118,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                     if (distance < mouseRepulsion) {
                         const force = (mouseRepulsion - distance) / mouseRepulsion;
                         const angle = Math.atan2(dy, dx);
-                        p.x -= Math.cos(angle) * force * 1.5;
-                        p.y -= Math.sin(angle) * force * 1.5;
+                        p.x -= Math.cos(angle) * force * 1.2;
+                        p.y -= Math.sin(angle) * force * 1.2;
                     }
                 }
 
@@ -127,6 +129,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 ctx.fill();
 
                 // Connections - DISABLED on mobile to significantly save battery/GPU
+                // Most mobile browsers struggle with N^2 canvas paths
                 if (!isMobileRef.current && width > 1024) {
                     for (let j = i + 1; j < len; j++) {
                         const p2 = parts[j];
@@ -138,7 +141,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         if (dist < connectDistance) {
-                            const opacity = (1 - dist / connectDistance) * 0.15;
+                            const opacity = (1 - dist / connectDistance) * 0.12;
                             ctx.beginPath();
                             ctx.moveTo(p.x, p.y);
                             ctx.lineTo(p2.x, p2.y);

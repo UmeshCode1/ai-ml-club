@@ -14,6 +14,7 @@ import { GlobalScrollProgress } from "@/components/layout/global-scroll-progress
 import { RouteTransition } from "@/components/layout/route-transition";
 import { PreLoader } from "@/components/layout/pre-loader";
 import { GlobalBackground } from "@/components/layout/global-background";
+import { ThemeColorUpdater } from "@/components/layout/theme-color-updater";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "AIML Club",
   },
 };
@@ -141,6 +142,7 @@ export default function RootLayout({
             <ScrollToTop />
             <PreLoader />
             <GlobalBackground />
+            <ThemeColorUpdater />
             <Navbar />
 
             <main className="relative min-h-screen">

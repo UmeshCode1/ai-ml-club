@@ -104,7 +104,23 @@ export default function RootLayout({
               __html: `
                 if ('serviceWorker' in navigator) {
                   window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('/sw.js');
+                    navigator.serviceWorker.register('/sw.js').then(function(reg) {
+                      // Check for updates whenever the app is brought to foreground
+                      document.addEventListener('visibilitychange', () => {
+                        if (document.visibilityState === 'visible') {
+                          reg.update();
+                        }
+                      });
+                    });
+                  });
+
+                  // Automatically reload when a new service worker takes control
+                  let refreshing = false;
+                  navigator.serviceWorker.addEventListener('controllerchange', () => {
+                    if (!refreshing) {
+                      refreshing = true;
+                      window.location.reload();
+                    }
                   });
                 }
               `,

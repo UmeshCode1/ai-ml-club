@@ -66,7 +66,7 @@ export const metadata: Metadata = {
       { url: "/aiml-club-logo-new.png", type: "image/png" },
     ],
     apple: [
-      { url: "/pwa-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
   manifest: "/manifest.json",

@@ -245,7 +245,7 @@ export const Footer = () => {
                             <WhatsAppIcon className="w-4.5 h-4.5 group-hover:scale-110 transition-transform" />
                             <span className="text-[10px] sm:text-xs font-bold text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Group</span>
                         </a>
-                        <a href={siteConfig.links.social} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95">
+                        <a href={siteConfig.links.social} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
                             <Link2 className="w-4.5 h-4.5 text-[var(--neon-lime)] group-hover:scale-110 transition-transform" />
                             <span className="text-[10px] sm:text-xs font-bold text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Links</span>
                         </a>

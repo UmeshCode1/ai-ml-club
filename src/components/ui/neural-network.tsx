@@ -35,7 +35,13 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
         // Visibility Observer to stop energy drain when not looking at it
         const observer = new IntersectionObserver(
             ([entry]) => {
+                const wasVisible = isVisible.current;
                 isVisible.current = entry.isIntersecting;
+                // If it becomes visible after being hidden, restart the loop
+                if (isVisible.current && !wasVisible) {
+                    lastFrameTime.current = Date.now();
+                    drawStats();
+                }
             },
             { threshold: 0.01 }
         );
@@ -57,8 +63,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             const isMobile = width < 768;
             const isSmallMobile = width < 480;
             isMobileRef.current = isMobile;
-            // Aggressive mobile thinning: Max 6 on tiny screens, 12 on regular mobile
-            const baseCount = isSmallMobile ? 6 : (isMobile ? 12 : Math.min(Math.floor((width * height) / 25000), 80));
+            // Aggressive mobile thinning: Max 4 on tiny screens, 10 on regular mobile
+            const baseCount = isSmallMobile ? 4 : (isMobile ? 10 : Math.min(Math.floor((width * height) / 25000), 80));
             const particleCount = baseCount;
 
             particles.current = [];
@@ -66,20 +72,15 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * (isMobile ? 0.04 : 0.2), // Even slower on mobile
-                    vy: (Math.random() - 0.5) * (isMobile ? 0.04 : 0.2),
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2),
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2),
                     size: Math.random() * (isMobile ? 0.8 : 1.5) + 0.5,
                 });
             }
         };
 
         const drawStats = () => {
-            // DEEP SLEEP: Completely stop the loop if not visible to save 100% energy
-            if (!isVisible.current) {
-                // We'll restart the loop when visibility change is detected
-                animationFrameId = requestAnimationFrame(drawStats);
-                return;
-            }
+            if (!isVisible.current) return; // Full stop of the loop
 
             const isDark = theme === "dark";
             const particleFill = isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.2)";
@@ -87,8 +88,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
             const now = Date.now();
             const elapsed = now - lastFrameTime.current;
-            // Cap FPS for mobile to save battery: 20 FPS is smooth enough for background noise
-            const fpsLimit = isMobileRef.current ? 50 : 16;
+            // Cap FPS for mobile: 30 FPS is plenty for background particles
+            const fpsLimit = isMobileRef.current ? 33 : 16;
 
             if (elapsed < fpsLimit) {
                 animationFrameId = requestAnimationFrame(drawStats);

@@ -15,25 +15,26 @@
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "/aiml-club-logo-new.png",
+            "src": "/pwa-icon.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/aiml-club-logo-new.png",
+            "src": "/pwa-icon.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "/aiml-club-logo-new.png",
+            "src": "/pwa-icon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/aiml-club-logo-new.png",
+            "src": "/pwa-icon.png",
+            "sizes": "/pwa-icon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"

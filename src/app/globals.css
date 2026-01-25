@@ -79,6 +79,14 @@
   /* Specialized Navigation Tokens */
   --nav-bg: rgba(5, 5, 5, 0.6);
   --menu-bg: linear-gradient(to bottom, #0A0A0A, #050505);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+.glass-premium {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
 }
 
 body {

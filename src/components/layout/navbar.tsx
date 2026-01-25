@@ -293,9 +293,12 @@ export const Navbar = () => {
 };
 
 function InstallMenuItem() {
-    const { install, isInstalled } = usePWAInstall();
+    const { install, isInstalled, isInstallable } = usePWAInstall();
 
-    if (isInstalled) return null;
+    // Hides if:
+    // 1. Already installed
+    // 2. Not installable yet (browser hasn't fired event)
+    if (isInstalled || !isInstallable) return null;
 
     return (
         <button

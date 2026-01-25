@@ -111,6 +111,11 @@ export default function RootLayout({
                           reg.update();
                         }
                       });
+
+                      // Periodic check every 1 hour
+                      setInterval(() => {
+                        reg.update();
+                      }, 3600000);
                     });
                   });
 

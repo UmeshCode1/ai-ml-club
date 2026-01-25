@@ -11,6 +11,7 @@ import Image from "next/image";
 export default function DownloadPage() {
     const [platform, setPlatform] = useState<"android" | "ios" | "desktop">("desktop");
     const [detectedPlatform, setDetectedPlatform] = useState<"android" | "ios" | "desktop" | null>(null);
+    const [isDownloading, setIsDownloading] = useState(false);
 
     useEffect(() => {
         const detect = () => {
@@ -27,6 +28,29 @@ export default function DownloadPage() {
         const timer = setTimeout(detect, 0);
         return () => clearTimeout(timer);
     }, []);
+
+    const handleDownloadQR = async () => {
+        if (isDownloading) return;
+        setIsDownloading(true);
+        try {
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=https://aimlclub.tech/download&bgcolor=ffffff&color=050505&margin=2&qzone=1`;
+            const response = await fetch(qrUrl);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "aiml-club-installer-qr.png";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Failed to download QR:", error);
+            alert("External resource blocked by browser. Please long-press the QR to save.");
+        } finally {
+            setIsDownloading(false);
+        }
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -205,7 +229,7 @@ export default function DownloadPage() {
                                         <h2 className="text-3xl font-black">Scan to Install</h2>
                                         <p className="text-neutral-400">Open your phone&apos;s camera and scan the code below to install the app on your mobile device instantly.</p>
 
-                                        <div className="flex justify-center py-4">
+                                        <div className="flex flex-col items-center gap-4 pt-4">
                                             <div className="p-6 bg-white rounded-3xl shadow-2xl relative group">
                                                 <Image
                                                     src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://aimlclub.tech/download&bgcolor=ffffff&color=050505&margin=2&qzone=1`}
@@ -218,6 +242,15 @@ export default function DownloadPage() {
                                                     <span className="text-[10px] font-black text-black/30 uppercase tracking-[0.4em]">AIML CLUB SECURE</span>
                                                 </div>
                                             </div>
+
+                                            <button
+                                                onClick={handleDownloadQR}
+                                                disabled={isDownloading}
+                                                className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-xs font-bold uppercase tracking-widest disabled:opacity-50 group active:scale-[0.98]"
+                                            >
+                                                <Download className={`w-4 h-4 text-[var(--neon-lime-text)] ${isDownloading ? "animate-bounce" : "group-hover:translate-y-0.5 transition-transform"}`} />
+                                                {isDownloading ? "Saving..." : "Download QR Code"}
+                                            </button>
                                         </div>
 
                                         <div className="flex items-center justify-center gap-10 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
@@ -289,7 +322,7 @@ export default function DownloadPage() {
 }
 
 // Simple internal Link proxy to handle external/internal safely
-function Link({ href, children, ...props }: { href: string; children: React.ReactNode;[key: string]: string | number | boolean | undefined | React.ReactNode | ((...args: any[]) => void) }) {
+function Link({ href, children, ...props }: { href: string; children: React.ReactNode;[key: string]: string | number | boolean | undefined | React.ReactNode | ((...args: unknown[]) => void) }) {
     if (href.startsWith("http")) {
         return <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
     }

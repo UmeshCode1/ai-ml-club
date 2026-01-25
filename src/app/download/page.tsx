@@ -156,27 +156,40 @@ export default function DownloadPage() {
                                         exit={{ opacity: 0, x: -20 }}
                                         className="space-y-6"
                                     >
-                                        <h2 className="text-3xl font-black">iPhone / iPad</h2>
-                                        <p className="text-neutral-400">Install the AIML Club portal as a native app on your home screen.</p>
+                                        <h2 className="text-3xl font-black">iOS • iPhone / iPad</h2>
+                                        <p className="text-neutral-400">Install the AIML Club portal as a native app on your home screen for the full 120Hz experience.</p>
 
-                                        <div className="bg-white/5 rounded-3xl p-6 space-y-6">
+                                        <div className="pt-2">
+                                            <div className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-white text-black font-black rounded-3xl group shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:scale-[1.03] transition-all cursor-default border border-white/20">
+                                                <Apple className="w-6 h-6" />
+                                                <span>Add to Home Screen</span>
+                                            </div>
+                                            <p className="text-center text-[10px] text-neutral-500 mt-4 px-4 uppercase tracking-tighter">
+                                                Zero-Install Technology • Requires Safari
+                                            </p>
+                                        </div>
+
+                                        <div className="bg-white/5 rounded-3xl p-6 space-y-5 border border-white/5 relative overflow-hidden group">
+                                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                                <Apple className="w-16 h-16" />
+                                            </div>
                                             <div className="flex items-start gap-4">
-                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
+                                                <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-xs font-black flex-shrink-0">01</div>
                                                 <p className="text-sm text-neutral-300">Tap the <Share className="w-4 h-4 inline mx-1 text-blue-400" /> <strong>Share</strong> icon in the Safari bottom bar.</p>
                                             </div>
                                             <div className="flex items-start gap-4">
-                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
+                                                <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-xs font-black flex-shrink-0">02</div>
                                                 <p className="text-sm text-neutral-300">Scroll down and select <PlusSquare className="w-4 h-4 inline mx-1 text-[var(--neon-lime-text)]" /> <strong>Add to Home Screen</strong>.</p>
                                             </div>
                                             <div className="flex items-start gap-4">
-                                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
-                                                <p className="text-sm text-neutral-300">Launch the app from your home screen for the full immersive experience!</p>
+                                                <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-xs font-black flex-shrink-0">03</div>
+                                                <p className="text-sm text-neutral-300">Confirm by tapping <strong>Add</strong> in the top right corner.</p>
                                             </div>
                                         </div>
 
-                                        <div className="pt-4 flex items-center justify-center gap-3 text-[var(--neon-lime-text)] animate-pulse">
+                                        <div className="flex items-center justify-center gap-3 text-[var(--neon-lime-text)] animate-pulse">
                                             <Info className="w-4 h-4" />
-                                            <span className="text-xs font-bold uppercase tracking-widest">No App Store Login Required</span>
+                                            <span className="text-[10px] font-black uppercase tracking-widest">No App Store Account Required</span>
                                         </div>
                                     </motion.div>
                                 )}

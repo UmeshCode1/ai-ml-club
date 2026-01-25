@@ -28,7 +28,7 @@ const DEFAULT_MEMBERS: TeamMember[] = [
     { name: "Loading...", role: "Team Member", image: "" },
 ];
 
-export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 2500 }: TeamSectionProps) {
+export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 2000 }: TeamSectionProps) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
@@ -136,7 +136,7 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 250
                                                 zIndex: zIndex,
                                                 filter: isActive ? 'blur(0px)' : 'blur(4px)',
                                             }}
-                                            transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+                                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                                             className={`absolute top-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-64 md:w-80 ${isActive ? 'cursor-pointer' : ''} will-change-transform`}
                                             onClick={() => isActive && handleMemberClick(member)}
                                         >

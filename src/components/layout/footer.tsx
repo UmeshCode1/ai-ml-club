@@ -49,7 +49,7 @@ export const Footer = () => {
     };
 
     return (
-        <footer className="w-full bg-white dark:bg-black border-t border-neutral-200/50 dark:border-white/10 relative pt-12 sm:pt-16 pb-6 sm:pb-8 transition-colors duration-500">
+        <footer className="w-full bg-white dark:bg-black border-t border-neutral-200/50 dark:border-white/10 relative pt-12 sm:pt-16 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:pb-8 transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Main Footer Grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-10 sm:mb-16">

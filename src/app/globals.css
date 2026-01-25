@@ -91,6 +91,17 @@
 
 html {
   background: var(--background);
+  touch-action: manipulation;
+  user-select: none;
+  /* Recommended for a native app feel, prevents text selection on long press */
+}
+
+/* Allow text selection only in specific areas like content or inputs if needed, 
+   but for a "perfect" UI, sometimes it's best to keep it off globally and on for inputs */
+input,
+textarea,
+[contenteditable="true"] {
+  user-select: text;
 }
 
 body {

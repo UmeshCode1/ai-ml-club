@@ -61,7 +61,7 @@ export function InstallPWA() {
                     initial={{ y: -100, opacity: 0, x: -50, scale: 0.9 }}
                     animate={{ y: 0, opacity: 1, x: 0, scale: 1 }}
                     exit={{ y: -50, opacity: 0, scale: 0.9 }}
-                    className="fixed top-4 left-4 z-[100] md:left-8 md:top-6 w-auto max-w-[320px] pointer-events-none"
+                    className="fixed top-[max(1rem,env(safe-area-inset-top))] left-4 z-[99999] md:left-8 md:top-[max(1.5rem,env(safe-area-inset-top))] w-auto max-w-[320px] pointer-events-none"
                 >
                     <div className="bg-neutral-900/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex items-center gap-3 pointer-events-auto relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
                         {/* Background Glow */}

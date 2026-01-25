@@ -3,11 +3,12 @@ import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone } from "lucide-react";
+import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone, Share2 } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { createSubscription } from "@/lib/database";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
+import { useShareApp } from "@/hooks/use-share-app";
 
 export const Footer = () => {
     const [name, setName] = useState("");
@@ -16,6 +17,7 @@ export const Footer = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState("");
+    const { share } = useShareApp();
 
     const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -98,6 +100,15 @@ export const Footer = () => {
                                 </li>
                             ))}
                             <InstallFooterItem />
+                            <li>
+                                <button
+                                    onClick={share}
+                                    className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors flex items-center gap-2 group"
+                                >
+                                    Share Platform
+                                    <Share2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                                </button>
+                            </li>
                         </ul>
                     </div>
 

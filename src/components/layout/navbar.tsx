@@ -7,13 +7,14 @@ import { usePathname } from "next/navigation";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
 
 import { Variants } from "framer-motion";
-import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText, Github, Smartphone } from "lucide-react";
+import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText, Github, Smartphone, Share2 } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
 import { siteConfig } from "@/config/site";
 import { useHaptic } from "@/hooks/use-haptic";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
+import { useShareApp } from "@/hooks/use-share-app";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +22,7 @@ export const Navbar = () => {
     const pathname = usePathname();
     const { trigger } = useHaptic();
     const { scrollToId } = useSmoothScroll();
+    const { share } = useShareApp();
 
     // Custom nav links for this layout
     const navLinks = [
@@ -291,7 +293,19 @@ export const Navbar = () => {
 
                             {/* Mobile Actions Section */}
                             <div className="mt-6 p-4 pt-6 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-4 relative z-10">
-                                <InstallMenuItem />
+                                <div className="grid grid-cols-2 gap-3">
+                                    <InstallMenuItem />
+                                    <button
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            share();
+                                        }}
+                                        className="flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
+                                    >
+                                        <Share2 className="w-5 h-5" />
+                                        <span>Share</span>
+                                    </button>
+                                </div>
                                 <button
                                     onClick={() => {
                                         setIsOpen(false);

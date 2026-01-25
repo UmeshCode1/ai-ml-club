@@ -30,7 +30,6 @@ export function usePWAInstall() {
         const platformTimer = setTimeout(() => setPlatform({ isIOS, isChrome }), 0);
 
         const handleBeforeInstallPrompt = (e: Event) => {
-            console.log("PWA: [Event] beforeinstallprompt captured");
             // Prevent automatic prompt to stay in control of the UX
             e.preventDefault();
             // Store the event so it can be called later
@@ -39,7 +38,6 @@ export function usePWAInstall() {
         };
 
         const handleAppInstalled = () => {
-            console.log("PWA: [Event] appinstalled - Installation success");
             setIsInstalled(true);
             setIsInstallable(false);
             setInstallPrompt(null);
@@ -51,14 +49,12 @@ export function usePWAInstall() {
         // Check if already in standalone mode
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
         if (isStandalone) {
-            console.log("PWA: App is already running in standalone mode");
             setTimeout(() => setIsInstalled(true), 0);
         }
 
         // Feature: For iOS, we can't show a native prompt, so we mark it as 
         // "installable" to show our custom instruction banner.
         if (isIOS && !isStandalone) {
-            console.log("PWA: iOS detected - Enabling instruction mode");
             setTimeout(() => setIsInstallable(true), 0);
         }
 
@@ -93,15 +89,12 @@ export function usePWAInstall() {
         }
 
         try {
-            console.log("PWA: Triggering native prompt");
             await installPrompt.prompt();
             const { outcome } = await installPrompt.userChoice;
-            console.log(`PWA: User response: ${outcome}`);
 
             setInstallPrompt(null);
             setIsInstallable(false);
         } catch (error) {
-            console.error("PWA: Installation failed:", error);
             alert("Installation failed. Please try adding to home screen manually from the browser menu.");
         }
     }, [installPrompt, platform.isIOS, isInstallable, isInstalled]);

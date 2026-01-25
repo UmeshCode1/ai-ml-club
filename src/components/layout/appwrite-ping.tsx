@@ -13,10 +13,10 @@ export function AppwritePing() {
     useEffect(() => {
         const pingAppwrite = async () => {
             try {
-                const response = await client.ping();
-                console.log("✅ Appwrite connection successful!", response);
-            } catch (error) {
-                console.error("❌ Appwrite connection failed:", error);
+                await client.ping();
+            } catch (/* error */) {
+                // Silently fail as per design, no console logs needed.
+                // The error is intentionally ignored here.
             }
         };
 

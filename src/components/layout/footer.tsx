@@ -3,10 +3,11 @@ import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2 } from "lucide-react";
+import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { createSubscription } from "@/lib/database";
+import { usePWAInstall } from "@/hooks/use-pwa-install";
 
 export const Footer = () => {
     const [name, setName] = useState("");
@@ -96,6 +97,7 @@ export const Footer = () => {
                                     </Link>
                                 </li>
                             ))}
+                            <InstallFooterItem />
                         </ul>
                     </div>
 
@@ -258,3 +260,21 @@ export const Footer = () => {
         </footer>
     );
 };
+
+function InstallFooterItem() {
+    const { install, isInstalled, isInstallable } = usePWAInstall();
+
+    if (isInstalled || !isInstallable) return null;
+
+    return (
+        <li>
+            <button
+                onClick={() => install()}
+                className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors flex items-center gap-2 group"
+            >
+                Install App
+                <Smartphone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+            </button>
+        </li>
+    );
+}

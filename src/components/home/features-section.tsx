@@ -58,7 +58,7 @@ export function FeaturesSection() {
                         <FloatingCard key={index} delay={index * 0.1}>
                             <GradientBorder
                                 containerClassName="h-full rounded-3xl transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] group"
-                                className="bg-white/95 dark:bg-black/40 backdrop-blur-xl p-8 flex flex-col items-start text-left h-full border border-neutral-200 dark:border-white/5"
+                                className="bg-[var(--card-bg)] backdrop-blur-xl p-8 flex flex-col items-start text-left h-full border border-neutral-200 dark:border-white/5"
                                 duration={index % 2 === 0 ? 8 : 10}
                             >
                                 <div className={`relative w-14 h-14 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>

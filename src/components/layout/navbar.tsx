@@ -227,43 +227,49 @@ export const Navbar = () => {
             </div>
 
             {/* Mobile Nav Dropdown (Floating below) */}
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 0, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, scale: 1, y: 15, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, scale: 0.9, y: 0, filter: "blur(10px)" }}
+                        initial={{ opacity: 0, scale: 0.9, y: 10, filter: "blur(10px)" }}
+                        animate={{ opacity: 1, scale: 1, y: 20, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, scale: 0.9, y: 10, filter: "blur(10px)" }}
                         transition={{
                             type: "spring",
-                            stiffness: 350,
+                            stiffness: 400,
                             damping: 30,
                             mass: 0.8
                         }}
-                        className="fixed top-[70px] inset-x-4 z-40"
+                        className="fixed top-[70px] inset-x-6 z-40"
                     >
-                        <div className="bg-white/95 dark:bg-[#0b0b0b]/95 border-2 border-neutral-200 dark:border-white/10 rounded-[2rem] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-2xl max-h-[75vh] overflow-y-auto hide-scrollbar">
-                            <div className="flex flex-col gap-1">
+                        <div className="relative overflow-hidden bg-white/95 dark:bg-neutral-900/95 border-2 border-neutral-200 dark:border-white/10 rounded-[2.5rem] p-4 shadow-[0_30px_60px_rgba(0,0,0,0.3)] backdrop-blur-3xl max-h-[70vh] overflow-y-auto hide-scrollbar">
+                            {/* Technical Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none" />
+
+                            <div className="relative z-10 flex flex-col gap-2">
                                 {navLinks.map((item, idx) => (
                                     <motion.div
                                         key={item.name}
-                                        initial={{ opacity: 0, x: -10 }}
+                                        initial={{ opacity: 0, x: -15 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.05 + idx * 0.03 }}
+                                        transition={{ delay: 0.05 + idx * 0.04 }}
                                     >
                                         {item.children ? (
-                                            <div className="px-4 py-3">
-                                                <span className="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.2em] mb-3 block ml-1">{item.name}</span>
-                                                <div className="grid grid-cols-1 gap-1">
+                                            <div className="px-4 py-4 mb-2">
+                                                <div className="flex items-center gap-2 mb-4">
+                                                    <div className="h-[1px] w-4 bg-[var(--neon-lime)]/50" />
+                                                    <span className="text-[10px] font-black text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.3em]">{item.name}</span>
+                                                </div>
+                                                <div className="grid grid-cols-1 gap-2">
                                                     {item.children.map(child => (
                                                         <Link
                                                             key={child.path}
                                                             href={child.path}
                                                             target={child.external ? "_blank" : undefined}
                                                             onClick={() => { setIsOpen(false); trigger(); }}
-                                                            className="group flex items-center gap-4 px-4 py-3.5 text-sm font-semibold text-neutral-700 dark:text-neutral-200 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl transition-all"
+                                                            className="group flex items-center gap-5 px-5 py-4 text-base font-bold text-neutral-800 dark:text-neutral-100 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-3xl transition-all"
                                                         >
-                                                            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl bg-neutral-100 dark:bg-white/5 group-hover:bg-[var(--neon-lime)]/20 transition-colors">
-                                                                <child.icon className="w-4.5 h-4.5 text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)] transition-colors" />
+                                                            <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-2xl bg-neutral-100 dark:bg-white/5 group-hover:bg-[var(--neon-lime)]/20 transition-all group-hover:scale-110 shadow-sm">
+                                                                <child.icon className="w-5 h-5 text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)] transition-colors" />
                                                             </div>
                                                             {child.name}
                                                         </Link>
@@ -274,7 +280,7 @@ export const Navbar = () => {
                                             <Link
                                                 href={item.path}
                                                 onClick={() => { setIsOpen(false); trigger(); }}
-                                                className="block px-6 py-4 text-base font-bold text-neutral-800 dark:text-neutral-100 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl transition-all"
+                                                className="block px-8 py-5 text-lg font-black text-neutral-900 dark:text-white hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-[2rem] transition-all"
                                             >
                                                 {item.name}
                                             </Link>
@@ -284,7 +290,7 @@ export const Navbar = () => {
                             </div>
 
                             {/* Mobile Actions Section */}
-                            <div className="mt-4 p-2 pt-4 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-3">
+                            <div className="mt-6 p-4 pt-6 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-4 relative z-10">
                                 <InstallMenuItem />
                                 <button
                                     onClick={() => {
@@ -292,11 +298,10 @@ export const Navbar = () => {
                                         trigger();
                                         scrollToId("newsletter", 2500);
                                     }}
-                                    className="w-full relative overflow-hidden flex items-center justify-center px-6 py-4 text-base font-black text-black dark:text-black bg-[var(--neon-lime)] rounded-2xl group active:scale-[0.98] transition-transform"
+                                    className="w-full relative overflow-hidden flex items-center justify-center px-8 py-5 text-lg font-black text-black bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)] rounded-[2rem] group active:scale-[0.96] transition-transform shadow-[0_10px_20px_rgba(212,255,0,0.2)]"
                                 >
-                                    <span className="relative z-10">Join the Club</span>
-                                    {/* Glass shimmer */}
-                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/50 to-transparent z-0" />
+                                    <span className="relative z-10 drop-shadow-sm">Join the Club</span>
+                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/60 to-transparent z-0" />
                                 </button>
                             </div>
                         </div>

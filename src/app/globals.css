@@ -66,14 +66,19 @@
   --neon-lime: #D4FF00;
   --electric-cyan: #00F0FF;
 
-  /* Text Contrast Variants (Same as Neon) */
+  /* Text Contrast Variants (Vibrant) */
   --neon-lime-text: #D4FF00;
   --electric-cyan-text: #00F0FF;
 
-  /* Semantic Tokens */
-  --card-bg: rgba(255, 255, 255, 0.05);
+  /* Semantic Tokens - Refined for "Lifting" effect */
+  --card-bg: rgba(255, 255, 255, 0.08);
+  /* Slightly more opaque for mobile/low-blur visibility */
   --card-border: rgba(255, 255, 255, 0.1);
   --card-foreground: #fafafa;
+
+  /* Specialized Navigation Tokens */
+  --nav-bg: rgba(10, 10, 10, 0.4);
+  --menu-bg: linear-gradient(to bottom, rgba(15, 15, 15, 0.98), rgba(0, 0, 0, 0.98));
 }
 
 body {

@@ -103,7 +103,7 @@ export function HeroSection() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
                     <h1 className="max-w-6xl mx-auto text-[clamp(2.25rem,6vw,5.5rem)] md:text-[clamp(3.5rem,7vw,8rem)] font-bold tracking-tighter text-neutral-900 dark:text-white mb-0 leading-[1.05]">
-                        AI <span className="text-neutral-300 dark:text-neutral-700 mx-1">&</span> MACHINE
+                        AI <span className="text-neutral-400 dark:text-neutral-500 mx-1">&</span> MACHINE
                     </h1>
                     <h1 className="max-w-6xl mx-auto text-[clamp(2.25rem,6vw,5.5rem)] md:text-[clamp(3.5rem,7vw,8rem)] font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] via-[var(--neon-lime-text)] to-[var(--electric-cyan-text)] mb-8 pb-1 leading-[1.05]">
                         LEARNING CLUB

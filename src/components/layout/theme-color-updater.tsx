@@ -24,8 +24,14 @@ export function ThemeColorUpdater() {
 
         meta.setAttribute('content', themeColor);
 
-        // Also update the manifest theme_color if possible (optional but good for some browsers)
-        // Note: Browsers usually don't re-read manifest after load, but changing meta is effective.
+        // Update Apple status bar style for PWA
+        let appleMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+        if (!appleMeta) {
+            appleMeta = document.createElement('meta');
+            appleMeta.setAttribute('name', 'apple-mobile-web-app-status-bar-style');
+            document.head.appendChild(appleMeta);
+        }
+        appleMeta.setAttribute('content', resolvedTheme === "dark" ? "black-translucent" : "default");
     }, [resolvedTheme]);
 
     return null;

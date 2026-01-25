@@ -78,10 +78,6 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -94,6 +90,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme');
+                  const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const isDark = theme === 'dark' || (theme === 'system' && supportDarkMode) || (!theme && supportDarkMode);
+                  const color = isDark ? '#050505' : '#F8FAFC';
+                  
+                  const meta = document.createElement('meta');
+                  meta.name = 'theme-color';
+                  meta.content = color;
+                  document.head.appendChild(meta);
+                  
+                  // Also set Apple status bar color
+                  const appleMeta = document.createElement('meta');
+                  appleMeta.name = 'apple-mobile-web-app-status-bar-style';
+                  appleMeta.content = isDark ? 'black-translucent' : 'default';
+                  document.head.appendChild(appleMeta);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body suppressHydrationWarning className={cn(
         "min-h-screen font-sans antialiased bg-[var(--background)] overflow-x-hidden relative",
         inter.variable,

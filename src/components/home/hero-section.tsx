@@ -122,7 +122,7 @@ export function HeroSection() {
                     <BlurReveal
                         text="Innovate • Implement • Inspire"
                         delay={0.5}
-                        duration={1.2}
+                        duration={2.5}
                         className="justify-center text-[var(--neon-lime-text)] tracking-widest font-mono uppercase"
                     />
                 </motion.div>
@@ -162,7 +162,7 @@ export function HeroSection() {
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2, duration: 1 }}
+                    transition={{ delay: 1.2, duration: 2.5 }}
                     className="absolute bottom-[-100px] md:bottom-[-90px] left-1/2 -translate-x-1/2 z-20 pointer-events-none hidden md:block"
                 >
                     <MagneticButton>

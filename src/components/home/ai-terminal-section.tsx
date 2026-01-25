@@ -42,7 +42,7 @@ export function AITerminalSection() {
             codeLines.forEach((_, index) => {
                 setTimeout(() => {
                     setVisibleLines((prev) => [...prev, index]);
-                }, index * 400);
+                }, index * 800);
             });
         }
     }, [isInView]);
@@ -104,7 +104,7 @@ export function AITerminalSection() {
                                     <span className={getColorClass(line.color)}>
                                         {line.text}
                                         {visibleLines.length === index + 1 && (
-                                            <span className="inline-block w-2 h-4 bg-[var(--neon-lime)] ml-1 animate-pulse" />
+                                            <span className="inline-block w-2 h-4 bg-[var(--neon-lime)] ml-1 animate-[pulse_2.5s_infinite]" />
                                         )}
                                     </span>
                                 </motion.div>

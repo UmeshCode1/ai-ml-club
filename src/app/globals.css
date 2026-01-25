@@ -339,7 +339,6 @@ html.no-transitions *::after {
     opacity: 0.98;
   }
 
-  /* GPU-Efficient Blurring for Mobile */
   .backdrop-blur-md,
   .backdrop-blur-lg,
   .backdrop-blur-xl,
@@ -350,38 +349,6 @@ html.no-transitions *::after {
     /* Blend with solid color to reduce GPU sampling effort */
     background-color: var(--card-bg) !important;
   }
-
-  /* Disable expensive pseudo-elements on mobile */
-  body::before {
-    display: none !important;
-  }
-}
-
-/* Elite Light Mode Refinements - Luminous Azure & Vivid Cyan */
-:root {
-  --background: #F8FAFC;
-  --foreground: #020617;
-  /* Slate-950 for elite contrast */
-
-  /* Light Mode Theme: Luminous Azure & Vivid Cyan (Elite Parity) */
-  --neon-lime: #3B82F6;
-  /* Luminous Blue */
-  --electric-cyan: #06B6D4;
-  /* Vivid Cyan */
-
-  /* Text Contrast Variants - WCAG AA+ Target */
-  --neon-lime-text: #2563EB;
-  /* Vibrant Blue */
-  --electric-cyan-text: #0891B2;
-  /* Vibrant Cyan */
-
-  /* Semantic Tokens */
-  --card-bg: #FFFFFF;
-  --card-border: #E2E8F0;
-  --card-foreground: #020617;
-
-  /* Premium Shadows */
-  --shadow-glow: 0 0 30px rgba(37, 99, 235, 0.1);
 }
 
 /* Stable backgrounds during hydration */

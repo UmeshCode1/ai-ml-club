@@ -98,9 +98,8 @@ export default function EventsPageClient({ events }: EventsPageClientProps) {
         <div className="min-h-screen relative w-full overflow-hidden bg-neutral-50 dark:bg-black">
             {/* 1. HERO SECTION */}
             <div className="relative pt-24 pb-16 md:pt-32 md:pb-24 px-6 overflow-hidden">
-                {/* Thermal Optimized Glows: Hidden on mobile, subtled on desktop */}
-                <div className="hidden md:block absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--neon-lime)]/5 rounded-full blur-[120px] -z-10 animate-pulse" />
-                <div className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[400px] bg-[var(--electric-cyan)]/5 rounded-full blur-[100px] -z-10" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--neon-lime)]/5 rounded-full blur-[120px] -z-10 animate-pulse" />
+                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[var(--electric-cyan)]/5 rounded-full blur-[100px] -z-10" />
 
                 <div className="max-w-7xl mx-auto relative z-10">
                     <motion.div

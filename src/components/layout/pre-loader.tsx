@@ -31,7 +31,7 @@ export const PreLoader = () => {
     useEffect(() => {
         if (index === COMMANDS.length) {
             // After the words, provide a longer pause for "Inspire" before exit for a premium feel
-            const exitTimer = setTimeout(() => setIsLoading(false), 1200);
+            const exitTimer = setTimeout(() => setIsLoading(false), 2500);
             return () => clearTimeout(exitTimer);
         }
 
@@ -39,7 +39,7 @@ export const PreLoader = () => {
             () => {
                 setIndex((prev) => prev + 1);
             },
-            index === 0 ? 1200 : 1500 // 2nd and 3rd words now stay longer
+            2500 // Each word now stays for a cinematic 2.5s
         );
         return () => clearTimeout(timeout);
     }, [index]);
@@ -53,7 +53,7 @@ export const PreLoader = () => {
                     exit={{
                         opacity: 0,
                         y: "-100%", // Slide up effect for premium feel
-                        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+                        transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] }
                     }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--background)] overflow-hidden"
                 >
@@ -65,7 +65,7 @@ export const PreLoader = () => {
                         <motion.div
                             initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
                             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                            transition={{ duration: 1, delay: 0.2 }}
+                            transition={{ duration: 2.5, delay: 0.2 }}
                             className="space-y-1"
                         >
                             <span className="block text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase text-neutral-500">
@@ -102,13 +102,13 @@ export const PreLoader = () => {
                                         filter: "blur(15px)"
                                     }}
                                     transition={{
-                                        duration: 0.6,
+                                        duration: 0.8,
                                         ease: [0.25, 0.46, 0.45, 0.94]
                                     }}
                                     className="absolute"
                                 >
                                     <h1 className="font-mono text-7xl md:text-[10rem] font-black tracking-tighter leading-none">
-                                        <span className="text-[var(--neon-lime)] drop-shadow-[0_0_50px_rgba(212,255,0,0.4)]">
+                                        <span className="text-[var(--neon-lime-text)] dark:text-[var(--neon-lime)] drop-shadow-[0_0_50px_rgba(212,255,0,0.2)] dark:drop-shadow-[0_0_50px_rgba(212,255,0,0.4)]">
                                             {COMMANDS[index]}
                                         </span>
                                     </h1>
@@ -122,7 +122,7 @@ export const PreLoader = () => {
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5 }}
+                            transition={{ delay: 1, duration: 1.5 }}
                             className="flex items-center gap-2"
                         >
                             {[0, 1, 2].map((i) => (
@@ -133,9 +133,9 @@ export const PreLoader = () => {
                                         scale: [1, 1.25, 1],
                                     }}
                                     transition={{
-                                        duration: 1.2,
+                                        duration: 2.5,
                                         repeat: Infinity,
-                                        delay: i * 0.15,
+                                        delay: i * 0.3,
                                     }}
                                     className="w-1.5 h-1.5 rounded-full bg-[var(--neon-lime)] shadow-[0_0_10px_rgba(212,255,0,0.5)]"
                                 />

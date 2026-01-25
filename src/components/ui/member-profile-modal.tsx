@@ -65,7 +65,7 @@ export function MemberProfileModal({ member, isOpen, onClose }: MemberProfileMod
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                            className="relative w-full max-w-2xl bg-white dark:bg-[#0a0a0a] rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-white/10"
+                            className="relative w-full max-w-2xl bg-[var(--card-bg)] rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-white/10"
                         >
                             {/* Decorative Background Glows */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--neon-lime)]/10 rounded-full blur-[100px] pointer-events-none" />

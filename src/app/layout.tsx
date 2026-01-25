@@ -143,10 +143,10 @@ export default function RootLayout({
                         }
                       });
 
-                      // Periodic check every 1 hour
+                      // Periodic check every 15 minutes for "perfection"
                       setInterval(() => {
                         reg.update();
-                      }, 3600000);
+                      }, 900000);
                     });
                   });
 

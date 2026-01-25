@@ -316,7 +316,7 @@ export const Navbar = () => {
                                     </button>
                                 </div>
                                 <div className="grid grid-cols-1 gap-3">
-                                    <InstallMenuItem />
+                                    <InstallMenuItem onClose={() => setIsOpen(false)} />
                                 </div>
                                 <button
                                     onClick={() => {
@@ -338,8 +338,8 @@ export const Navbar = () => {
     );
 };
 
-function InstallMenuItem() {
-    const { install, isInstalled, isInstallable } = usePWAInstall();
+function InstallMenuItem({ onClose }: { onClose: () => void }) {
+    const { isInstalled, isInstallable } = usePWAInstall();
     const { trigger } = useHaptic();
 
     // Hides if:
@@ -348,15 +348,16 @@ function InstallMenuItem() {
     if (isInstalled || !isInstallable) return null;
 
     return (
-        <button
+        <Link
+            href="/download"
             onClick={() => {
                 trigger();
-                install();
+                onClose();
             }}
             className="w-full flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
         >
             <Smartphone className="w-5 h-5" />
             <span>Install App</span>
-        </button>
+        </Link>
     );
 }

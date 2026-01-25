@@ -280,19 +280,19 @@ export const Footer = () => {
 };
 
 function InstallFooterItem() {
-    const { install, isInstalled, isInstallable } = usePWAInstall();
+    const { isInstalled, isInstallable } = usePWAInstall();
 
     if (isInstalled || !isInstallable) return null;
 
     return (
         <li>
-            <button
-                onClick={() => install()}
+            <Link
+                href="/download"
                 className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors flex items-center gap-2 group"
             >
                 Install App
                 <Smartphone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-            </button>
+            </Link>
         </li>
     );
 }

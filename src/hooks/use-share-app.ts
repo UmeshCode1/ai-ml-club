@@ -18,7 +18,7 @@ export const useShareApp = () => {
             text: isApk
                 ? "Get the official AIML CLUB members app for Android! 🚀✨"
                 : "Join the most innovative student tech community at Oriental College Of Technology, Bhopal! 🚀✨",
-            url: isApk ? siteConfig.links.apk : siteConfig.links.website,
+            url: isApk ? `${siteConfig.url}/download` : siteConfig.url,
         };
 
         try {

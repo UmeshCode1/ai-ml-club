@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
 
 import { Variants } from "framer-motion";
-import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText, Github, Smartphone, Share2 } from "lucide-react";
+import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText, Github, Smartphone, Share2, Globe } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
@@ -294,17 +294,29 @@ export const Navbar = () => {
                             {/* Mobile Actions Section */}
                             <div className="mt-6 p-4 pt-6 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-4 relative z-10">
                                 <div className="grid grid-cols-2 gap-3">
-                                    <InstallMenuItem />
                                     <button
                                         onClick={() => {
                                             setIsOpen(false);
-                                            share();
+                                            share("apk");
                                         }}
                                         className="flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
                                     >
                                         <Share2 className="w-5 h-5" />
-                                        <span>Share APK</span>
+                                        <span>APK</span>
                                     </button>
+                                    <button
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            share("web");
+                                        }}
+                                        className="flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
+                                    >
+                                        <Globe className="w-5 h-5" />
+                                        <span>Web</span>
+                                    </button>
+                                </div>
+                                <div className="grid grid-cols-1 gap-3">
+                                    <InstallMenuItem />
                                 </div>
                                 <button
                                     onClick={() => {

@@ -2,17 +2,23 @@
 
 import { useCallback } from "react";
 import { useHaptic } from "./use-haptic";
+import { siteConfig } from "@/config/site";
+
+export type ShareType = "apk" | "web";
 
 export const useShareApp = () => {
     const { trigger } = useHaptic();
 
-    const share = useCallback(async () => {
+    const share = useCallback(async (type: ShareType = "web") => {
         trigger();
 
+        const isApk = type === "apk";
         const shareData = {
-            title: "AIML CLUB OCT",
-            text: "Join the most innovative student tech community at Oriental College Of Technology, Bhopal! 🚀✨",
-            url: window.location.origin,
+            title: isApk ? "Download AIML CLUB APK" : "Visit AIML CLUB Website",
+            text: isApk
+                ? "Get the official AIML CLUB members app for Android! 🚀✨"
+                : "Join the most innovative student tech community at Oriental College Of Technology, Bhopal! 🚀✨",
+            url: isApk ? siteConfig.links.apk : siteConfig.links.website,
         };
 
         try {
@@ -20,8 +26,8 @@ export const useShareApp = () => {
                 await navigator.share(shareData);
             } else {
                 // Fallback: Copy to clipboard
-                await navigator.clipboard.writeText(window.location.origin);
-                alert("Link copied to clipboard! 🚀 Share it with your friends.");
+                await navigator.clipboard.writeText(shareData.url);
+                alert(`${isApk ? "APK Link" : "Website Link"} copied to clipboard! 🚀 Share it with your friends.`);
             }
         } catch (err) {
             console.error("Error sharing:", err);

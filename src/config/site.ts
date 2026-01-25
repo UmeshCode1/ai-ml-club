@@ -118,7 +118,7 @@ export const siteConfig = {
 
         // Other
         drive: "https://drive.google.com/drive/folders/155hvNMdI83jLOUUZs4U7WaivtRdFsqb4?usp=sharing",
-        apk: "https://drive.google.com/file/d/1kVLRlT_isdimLWBZ4YDzNzKZ4FA6zgxb/view?usp=sharing",
+        apk: "https://drive.google.com/file/d/1kVLRlT_isdimLWBZ4YDzNzKZ4FA6zgxb/view?usp=drive_link",
 
         // Contact
         email: "aimlcluboct@gmail.com",

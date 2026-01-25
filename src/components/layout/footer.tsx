@@ -3,7 +3,7 @@ import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone, Share2 } from "lucide-react";
+import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone, Share2, Globe } from "lucide-react";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { createSubscription } from "@/lib/database";
@@ -102,11 +102,20 @@ export const Footer = () => {
                             <InstallFooterItem />
                             <li>
                                 <button
-                                    onClick={share}
+                                    onClick={() => share("apk")}
                                     className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors flex items-center gap-2 group"
                                 >
                                     Share APK
                                     <Share2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    onClick={() => share("web")}
+                                    className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors flex items-center gap-2 group"
+                                >
+                                    Share Website
+                                    <Globe className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                                 </button>
                             </li>
                         </ul>

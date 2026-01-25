@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "cloud.appwrite.io",
+        hostname: "api.qrserver.com",
       },
     ],
   },

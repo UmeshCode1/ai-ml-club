@@ -10,20 +10,21 @@ import Image from "next/image";
 
 export default function DownloadPage() {
     const [platform, setPlatform] = useState<"android" | "ios" | "desktop">("desktop");
+    const [detectedPlatform, setDetectedPlatform] = useState<"android" | "ios" | "desktop" | null>(null);
 
     useEffect(() => {
-        const detectPlatform = () => {
+        const detect = () => {
             const ua = navigator.userAgent.toLowerCase();
-            if (/android/.test(ua)) {
-                setPlatform("android");
-            } else if (/iphone|ipad|ipod/.test(ua)) {
-                setPlatform("ios");
-            } else {
-                setPlatform("desktop");
-            }
+            let detected: "android" | "ios" | "desktop" = "desktop";
+            if (/android/.test(ua)) detected = "android";
+            else if (/iphone|ipad|ipod/.test(ua)) detected = "ios";
+
+            setPlatform(detected);
+            setDetectedPlatform(detected);
         };
-        // Subtle delay to avoid "cascading render" lint warning
-        const timer = setTimeout(detectPlatform, 0);
+
+        // Use a micro-task to avoid cascading render lint during mount
+        const timer = setTimeout(detect, 0);
         return () => clearTimeout(timer);
     }, []);
 
@@ -97,9 +98,11 @@ export default function DownloadPage() {
                                         platform === "ios" ? <Apple className="w-8 h-8 text-white" /> :
                                             <Globe className="w-8 h-8 text-[var(--electric-cyan)]" />}
                                 </div>
-                                <div className="px-3 py-1 rounded-full bg-[var(--neon-lime)]/20 text-[var(--neon-lime-text)] text-xs font-black uppercase tracking-widest">
-                                    Recommended
-                                </div>
+                                {detectedPlatform === platform && (
+                                    <div className="px-3 py-1 rounded-full bg-[var(--neon-lime)]/20 text-[var(--neon-lime-text)] text-xs font-black uppercase tracking-widest animate-pulse">
+                                        Detecting Device... Recommended
+                                    </div>
+                                )}
                             </div>
 
                             <AnimatePresence mode="wait">
@@ -132,10 +135,10 @@ export default function DownloadPage() {
                                         <div className="pt-6">
                                             <a href={siteConfig.links.apk} download>
                                                 <MagneticButton>
-                                                    <button className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-[var(--neon-lime)] text-black font-black rounded-3xl group shadow-[0_20px_40px_rgba(212,255,0,0.2)] hover:scale-[1.02] transition-transform">
-                                                        <Download className="w-6 h-6" />
-                                                        <span>Download APK</span>
-                                                    </button>
+                                                    <div className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-[var(--neon-lime)] text-black font-black rounded-3xl group shadow-[0_20px_40px_rgba(212,255,0,0.3)] hover:scale-[1.03] transition-all cursor-pointer">
+                                                        <Download className="w-6 h-6 group-hover:bounce" />
+                                                        <span>Download APK Now</span>
+                                                    </div>
                                                 </MagneticButton>
                                             </a>
                                             <p className="text-center text-[10px] text-neutral-500 mt-4 px-4 uppercase tracking-tighter">
@@ -192,14 +195,14 @@ export default function DownloadPage() {
                                         <div className="flex justify-center py-4">
                                             <div className="p-6 bg-white rounded-3xl shadow-2xl relative group">
                                                 <Image
-                                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://aimlclub.tech/download&bgcolor=ffffff&color=050505&margin=2`}
+                                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://aimlclub.tech/download&bgcolor=ffffff&color=050505&margin=2&qzone=1`}
                                                     alt="Scan to Download"
-                                                    width={200}
-                                                    height={200}
-                                                    className="rounded-xl group-hover:scale-105 transition-transform duration-500"
+                                                    width={250}
+                                                    height={250}
+                                                    className="rounded-xl group-hover:scale-105 transition-transform duration-500 shadow-xl"
                                                 />
-                                                <div className="absolute inset-x-0 bottom-2 text-center">
-                                                    <span className="text-[8px] font-black text-black/20 uppercase tracking-[0.3em]">AIML CLUB SECURE SCAN</span>
+                                                <div className="absolute inset-x-0 bottom-2 text-center pointer-events-none">
+                                                    <span className="text-[10px] font-black text-black/30 uppercase tracking-[0.4em]">AIML CLUB SECURE</span>
                                                 </div>
                                             </div>
                                         </div>

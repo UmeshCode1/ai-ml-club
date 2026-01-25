@@ -133,7 +133,7 @@ export const Footer = () => {
                         <GradientBorder
                             id="newsletter"
                             containerClassName="rounded-2xl sm:rounded-3xl shadow-lg"
-                            className="p-4 sm:p-6 bg-neutral-50/80 dark:bg-neutral-900/80 backdrop-blur-xl"
+                            className="p-4 sm:p-6 bg-white dark:bg-neutral-900/90 backdrop-blur-xl border border-neutral-200 dark:border-white/10"
                             duration={10}
                         >
                             <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-3 sm:mb-4">Stay Updated</h3>

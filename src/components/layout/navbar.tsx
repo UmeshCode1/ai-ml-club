@@ -235,7 +235,7 @@ export const Navbar = () => {
                         exit={{ opacity: 0, scale: 0.95, y: -10 }}
                         className="absolute top-full left-0 right-0 p-2 mt-2"
                     >
-                        <div className="bg-white/90 dark:bg-[#0b0b0b]/90 border border-neutral-200 dark:border-white/10 rounded-2xl p-2 shadow-2xl backdrop-blur-xl max-h-[80vh] overflow-y-auto">
+                        <div className="bg-white/95 dark:bg-[#0b0b0b]/95 border border-neutral-200/50 dark:border-white/5 rounded-2xl p-2 shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl max-h-[80vh] overflow-y-auto ring-1 ring-black/5 dark:ring-white/5">
                             {navLinks.map((item) => (
                                 <React.Fragment key={item.name}>
                                     {item.children ? (
@@ -277,7 +277,7 @@ export const Navbar = () => {
                                         trigger();
                                         scrollToId("newsletter", 2500);
                                     }}
-                                    className="w-full relative overflow-hidden flex items-center justify-center px-6 py-4 text-base font-bold text-[var(--background)] bg-[var(--neon-lime)] rounded-xl group"
+                                    className="w-full relative overflow-hidden flex items-center justify-center px-6 py-3.5 text-base font-bold text-black bg-[var(--neon-lime)] dark:text-neutral-900 rounded-xl group shadow-[0_0_20px_rgba(212,255,0,0.2)] active:scale-[0.98] transition-all"
                                 >
                                     <span className="relative z-10">Join the Club</span>
                                     <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-0" />

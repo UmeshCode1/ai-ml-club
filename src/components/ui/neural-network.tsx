@@ -44,7 +44,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
         const resize = () => {
             width = window.innerWidth;
             height = window.innerHeight;
-            const dpr = window.devicePixelRatio || 1;
+            const isMobile = width < 768;
+            // Lower resolution on mobile to save GPU fill rate
+            const dpr = isMobile ? Math.min(window.devicePixelRatio, 1.5) : (window.devicePixelRatio || 1);
             canvas.width = width * dpr;
             canvas.height = height * dpr;
             canvas.style.width = `${width}px`;
@@ -57,7 +59,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             const isMobile = width < 768;
             const isSmallMobile = width < 480;
             isMobileRef.current = isMobile;
-            const baseCount = isSmallMobile ? 8 : (isMobile ? 15 : Math.min(Math.floor((width * height) / 20000), 80));
+            // Dramatically fewer particles on mobile
+            const baseCount = isSmallMobile ? 6 : (isMobile ? 12 : Math.min(Math.floor((width * height) / 20000), 80));
             const particleCount = baseCount;
 
             particles.current = [];
@@ -65,9 +68,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2), // Slower on mobile
-                    vy: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2),
-                    size: Math.random() * (isMobile ? 0.8 : 1.5) + 0.5,
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.03 : 0.2), // Even slower on mobile
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.03 : 0.2),
+                    size: Math.random() * (isMobile ? 0.6 : 1.5) + 0.4,
                 });
             }
         };
@@ -80,13 +83,13 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             }
 
             const isDark = theme === "dark";
-            const particleFill = isDark ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.3)";
+            const particleFill = isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.2)";
             const lineStroke = isDark ? "rgba(100, 100, 255," : "rgba(0, 0, 0,";
 
             const now = Date.now();
             const elapsed = now - lastFrameTime.current;
             // Cap FPS for mobile to save battery
-            const fpsLimit = isMobileRef.current ? 40 : 25;
+            const fpsLimit = isMobileRef.current ? 60 : 25; // ~16ms vs ~40ms
 
             if (elapsed < fpsLimit) {
                 animationFrameId = requestAnimationFrame(drawStats);
@@ -98,8 +101,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
             const parts = particles.current;
             const len = parts.length;
-            const connectDistance = isMobileRef.current ? 80 : 120;
-            const mouseRepulsion = 150;
+            const connectDistance = isMobileRef.current ? 0 : 120; // NO connections on mobile
 
             for (let i = 0; i < len; i++) {
                 const p = parts[i];
@@ -109,26 +111,13 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                if (isMouseIn.current) {
-                    const dx = mouse.current.x - p.x;
-                    const dy = mouse.current.y - p.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouseRepulsion) {
-                        const force = (mouseRepulsion - distance) / mouseRepulsion;
-                        const angle = Math.atan2(dy, dx);
-                        p.x -= Math.cos(angle) * force * 1.5;
-                        p.y -= Math.sin(angle) * force * 1.5;
-                    }
-                }
-
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fillStyle = particleFill;
                 ctx.fill();
 
                 // Connections - Only for desktop to significantly save power
-                if (!isMobileRef.current) {
-                    // Optimization: Only check half the connections to reduce CPU Load
+                if (connectDistance > 0) {
                     for (let j = i + 1; j < len; j++) {
                         const p2 = parts[j];
                         const dx = p.x - p2.x;

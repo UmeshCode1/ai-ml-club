@@ -37,7 +37,9 @@ export function GlobalBackground() {
             >
                 {isReady && (
                     <>
-                        <BackgroundBeams className="opacity-30" />
+                        <div className="hidden md:block">
+                            <BackgroundBeams className="opacity-30" />
+                        </div>
                         <NeuralNetwork className="opacity-40" />
                     </>
                 )}

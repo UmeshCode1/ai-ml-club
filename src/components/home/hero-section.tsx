@@ -21,7 +21,7 @@ export function HeroSection() {
     const scale = useTransform(smoothY, [0, 400], [1, 0.98]);
 
     return (
-        <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-24 pb-20 px-4">
+        <section className="relative min-h-[100svh] flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden gpu-accelerated">
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 {/* Neural Network Particle Animation */}
@@ -148,7 +148,7 @@ export function HeroSection() {
                     <MagneticButton>
                         <Link
                             href="/events"
-                            className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-neutral-700 dark:text-white transition-all duration-300 bg-white/80 dark:bg-white/5 backdrop-blur-md border border-neutral-200 dark:border-white/10 rounded-full hover:bg-neutral-100 dark:hover:bg-white/10 hover:border-neutral-300 dark:hover:border-white/20 hover:-translate-y-1 shadow-[var(--shadow-sm)]"
+                            className="flex items-center gap-2 px-10 py-4 text-base font-bold text-neutral-700 dark:text-neutral-200 transition-all duration-300 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-neutral-200/50 dark:border-white/10 rounded-full hover:bg-neutral-100 dark:hover:bg-white/10 hover:border-neutral-300 dark:hover:border-white/20 hover:-translate-y-1 shadow-[var(--shadow-sm)]"
                         >
                             <Play className="w-4 h-4 mr-2 fill-current" />
                             See Our Work

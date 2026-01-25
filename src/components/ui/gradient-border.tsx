@@ -42,18 +42,17 @@ export function GradientBorder({
             {...props}
         >
             {/* Rotating Gradient Border */}
+            {/* Rotating Gradient Border - GPU Optimized */}
             <div
-                className="absolute inset-0 z-0 rounded-[inherit]"
+                className="absolute left-1/2 top-1/2 -z-10 h-[200%] w-[200%] -translate-x-1/2 -translate-y-1/2"
                 style={{
-                    padding: borderWidth,
-                    background: `conic-gradient(from var(--angle) at 50% 50%, transparent 75%, ${colors ? colors[0] : "var(--neon-lime)"} 90%, ${colors ? colors[1] : "var(--electric-cyan)"} 100%)`,
-                    animation: `rotate ${duration}s linear infinite`,
-                    mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                    maskComposite: "exclude",
-                    WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                    WebkitMaskComposite: "xor",
+                    background: `conic-gradient(from 0deg, transparent 0 340deg, ${colors ? colors[1] : "var(--electric-cyan)"} 360deg)`,
+                    animation: `spin ${duration}s linear infinite`,
                 }}
             />
+
+            {/* Masking Layer to create the border effect */}
+            <div className="absolute inset-[2px] rounded-[inherit] bg-transparent z-0" />
 
             {/* Inner Content Background */}
             <div className={cn("relative z-10 rounded-[inherit] w-full h-full", className)}>

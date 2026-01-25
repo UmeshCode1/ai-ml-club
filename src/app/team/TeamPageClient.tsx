@@ -75,7 +75,7 @@ const MemberCard = memo(({ member, isLeadership = false, onClick }: { member: Ap
                 {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon-lime)]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative p-6 bg-white/40 dark:bg-neutral-900/40 backdrop-blur-md rounded-3xl border border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-all duration-500 hover:-translate-y-1">
+                <div className="relative p-6 bg-[var(--card-bg)] backdrop-blur-md rounded-3xl border border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-all duration-500 hover:-translate-y-1">
                     {/* Noise Texture */}
                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none rounded-3xl" />
 
@@ -145,7 +145,7 @@ const MemberCard = memo(({ member, isLeadership = false, onClick }: { member: Ap
             onClick={handleClick}
             className="group cursor-pointer will-change-transform"
         >
-            <div className="relative p-4 bg-black/[0.03] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon-lime)]/30 transition-all duration-300 hover:-translate-y-1">
+            <div className="relative p-4 bg-[var(--card-bg)] hover:bg-black/[0.05] dark:hover:bg-white/5 backdrop-blur-sm rounded-2xl border border-black/5 dark:border-white/5 hover:border-[var(--neon-lime)]/30 transition-all duration-300 hover:-translate-y-1">
                 <div className="flex items-center gap-4">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-black/10 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors">
                         {hasImage ? (
@@ -390,9 +390,9 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
                     {/* PHOTOPIA Section */}
                     {photopiaMembers.length > 0 && (
                         <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative">
-                            <div className="relative mb-8 p-6 md:p-8 rounded-3xl bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 border border-white/10 overflow-hidden">
-                                <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[var(--neon-lime)]/20 to-transparent blur-3xl" />
-                                <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-[var(--electric-cyan)]/20 to-transparent blur-3xl" />
+                            <div className="relative mb-8 p-6 md:p-8 rounded-3xl bg-[var(--card-bg)] border border-white/10 overflow-hidden shadow-2xl">
+                                <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[var(--neon-lime)]/10 to-transparent blur-3xl" />
+                                <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-[var(--electric-cyan)]/10 to-transparent blur-3xl" />
 
                                 <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
                                     <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-[var(--neon-lime)] to-[var(--electric-cyan)] flex items-center justify-center shadow-2xl shadow-[var(--neon-lime)]/30">
@@ -445,7 +445,7 @@ export default function TeamPageClient({ members }: { members: AppwriteMember[] 
                     )}
 
                     {/* Stats Footer */}
-                    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mb-16 py-10 px-6 md:px-8 bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 rounded-3xl border border-white/10">
+                    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="mb-16 py-10 px-6 md:px-8 bg-[var(--card-bg)] rounded-3xl border border-white/10 shadow-xl">
                         <h3 className="text-center text-neutral-400 uppercase tracking-wider text-sm font-medium mb-8">
                             {selectedYear} Team at a Glance
                         </h3>

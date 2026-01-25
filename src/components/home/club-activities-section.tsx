@@ -62,7 +62,7 @@ export function ClubActivitiesSection() {
                         >
                             <GradientBorder
                                 containerClassName="rounded-[2rem] h-full group hover:shadow-2xl transition-shadow duration-500"
-                                className="bg-white/95 dark:bg-black/60 overflow-hidden h-full border border-neutral-200 dark:border-white/5"
+                                className="bg-[var(--card-bg)] overflow-hidden h-full border border-neutral-200 dark:border-white/5"
                                 duration={10 + index}
                             >
                                 {/* Image */}

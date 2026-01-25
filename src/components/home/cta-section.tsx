@@ -20,7 +20,7 @@ export function CTASection() {
             <div className="container mx-auto px-4 relative z-10">
                 <GradientBorder
                     containerClassName="rounded-[3rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_30px_60px_rgba(0,0,0,0.4)]"
-                    className="bg-white/95 dark:bg-black/40 backdrop-blur-xl p-12 md:p-24 text-center relative overflow-hidden"
+                    className="bg-[var(--card-bg)] backdrop-blur-xl p-12 md:p-24 text-center relative overflow-hidden"
                     borderWidth={1}
                     duration={15}
                 >

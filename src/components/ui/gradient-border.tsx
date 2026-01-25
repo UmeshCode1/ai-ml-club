@@ -55,7 +55,7 @@ export function GradientBorder({
             <div className="absolute inset-[2px] rounded-[inherit] bg-transparent z-0" />
 
             {/* Inner Content Background */}
-            <div className={cn("relative z-10 rounded-[inherit] w-full h-full", className)}>
+            <div className={cn("relative z-10 rounded-[inherit] w-full h-full bg-[var(--card-bg)]", className)}>
                 {children}
             </div>
         </motion.div>

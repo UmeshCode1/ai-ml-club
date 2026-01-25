@@ -132,9 +132,9 @@ export const Footer = () => {
                     <div className="col-span-2 sm:col-span-2 lg:col-span-1">
                         <GradientBorder
                             id="newsletter"
-                            containerClassName="rounded-2xl sm:rounded-3xl shadow-lg"
-                            className="p-4 sm:p-6 bg-white dark:bg-neutral-900/90 backdrop-blur-xl border border-neutral-200 dark:border-white/10"
-                            duration={10}
+                            containerClassName="rounded-2xl sm:rounded-3xl shadow-2xl"
+                            className="p-4 sm:p-6 bg-[var(--card-bg)] border border-neutral-200 dark:border-white/10"
+                            duration={15}
                         >
                             <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-3 sm:mb-4">Stay Updated</h3>
                             <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed">
@@ -156,21 +156,21 @@ export const Footer = () => {
                                         placeholder="Your name"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white dark:bg-black/50 border border-neutral-200 dark:border-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all"
+                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all font-medium"
                                     />
                                     <input
                                         type="email"
                                         placeholder="Your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white dark:bg-black/50 border border-neutral-200 dark:border-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all"
+                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all font-medium"
                                     />
                                     <input
                                         type="tel"
                                         placeholder="WhatsApp No. (optional)"
                                         value={phone}
                                         onChange={(e) => setPhone(e.target.value)}
-                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white dark:bg-black/50 border border-neutral-200 dark:border-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all"
+                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all font-medium"
                                     />
                                     <button
                                         type="submit"

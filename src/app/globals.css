@@ -272,8 +272,8 @@ h6 {
   .backdrop-blur-2xl,
   .backdrop-blur-3xl {
     backdrop-filter: blur(4px);
-    background-color: rgba(0, 0, 0, 0.8) !important;
-    /* Solider bg for legibility without heavy blur */
+    /* Use theme-aware background instead of forced black */
+    background-color: var(--card-bg) !important;
   }
 
   .blur-\[120px\],

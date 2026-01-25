@@ -37,6 +37,7 @@ export function GlobalBackground() {
             >
                 {isReady && (
                     <>
+                        {/* Only render Beams on desktop to prevent mobile heating */}
                         <div className="hidden md:block">
                             <BackgroundBeams className="opacity-30" />
                         </div>
@@ -47,7 +48,7 @@ export function GlobalBackground() {
 
             {/* Light Mode Background */}
             <div
-                className="absolute inset-0 h-full w-full bg-neutral-50 opacity-100 dark:opacity-0 transition-opacity duration-0"
+                className="absolute inset-0 h-full w-full bg-[#F8FAFC] opacity-100 dark:opacity-0 transition-opacity duration-0"
                 aria-hidden="true"
             >
                 <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />

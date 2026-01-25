@@ -88,10 +88,12 @@ export const Navbar = () => {
                     <div className="flex items-center gap-3">
                         <div className="relative w-10 h-10 md:w-12 md:h-12 transition-transform duration-300 group-hover:scale-110">
                             <Image
-                                src="/icon.png"
-                                alt="Logo"
+                                src="/aiml-club-logo-new.png"
+                                alt="AIML Club"
                                 fill
-                                className="object-cover"
+                                sizes="48px"
+                                priority
+                                className="object-contain"
                             />
                         </div>
                         <div className="h-8 w-[1px] bg-black/10 dark:bg-white/10" />
@@ -228,46 +230,61 @@ export const Navbar = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                        animate={{ opacity: 1, scale: 1, y: 10 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                        className="absolute top-full left-0 right-0 p-2 mt-2"
+                        initial={{ opacity: 0, scale: 0.9, y: 0, filter: "blur(10px)" }}
+                        animate={{ opacity: 1, scale: 1, y: 15, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, scale: 0.9, y: 0, filter: "blur(10px)" }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 350,
+                            damping: 30,
+                            mass: 0.8
+                        }}
+                        className="fixed top-[70px] inset-x-4 z-40"
                     >
-                        <div className="bg-white/95 dark:bg-[#0b0b0b]/95 border border-neutral-200/50 dark:border-white/5 rounded-2xl p-2 shadow-[0_20px_40px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl max-h-[80vh] overflow-y-auto ring-1 ring-black/5 dark:ring-white/5">
-                            {navLinks.map((item) => (
-                                <React.Fragment key={item.name}>
-                                    {item.children ? (
-                                        <div className="px-4 py-2">
-                                            <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-widest mb-2 block ml-2">{item.name}</span>
-                                            <div className="flex flex-col gap-1 border-l border-white/10 ml-2 pl-2">
-                                                {item.children.map(child => (
-                                                    <Link
-                                                        key={child.path}
-                                                        href={child.path}
-                                                        target={child.external ? "_blank" : undefined}
-                                                        onClick={() => { setIsOpen(false); trigger(); }}
-                                                        className="group flex items-center gap-3 px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
-                                                    >
-                                                        <child.icon className="w-4 h-4 text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)] transition-colors" />
-                                                        {child.name}
-                                                    </Link>
-                                                ))}
+                        <div className="bg-white/95 dark:bg-[#0b0b0b]/95 border-2 border-neutral-200 dark:border-white/10 rounded-[2rem] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-2xl max-h-[75vh] overflow-y-auto hide-scrollbar">
+                            <div className="flex flex-col gap-1">
+                                {navLinks.map((item, idx) => (
+                                    <motion.div
+                                        key={item.name}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.05 + idx * 0.03 }}
+                                    >
+                                        {item.children ? (
+                                            <div className="px-4 py-3">
+                                                <span className="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.2em] mb-3 block ml-1">{item.name}</span>
+                                                <div className="grid grid-cols-1 gap-1">
+                                                    {item.children.map(child => (
+                                                        <Link
+                                                            key={child.path}
+                                                            href={child.path}
+                                                            target={child.external ? "_blank" : undefined}
+                                                            onClick={() => { setIsOpen(false); trigger(); }}
+                                                            className="group flex items-center gap-4 px-4 py-3.5 text-sm font-semibold text-neutral-700 dark:text-neutral-200 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl transition-all"
+                                                        >
+                                                            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl bg-neutral-100 dark:bg-white/5 group-hover:bg-[var(--neon-lime)]/20 transition-colors">
+                                                                <child.icon className="w-4.5 h-4.5 text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)] transition-colors" />
+                                                            </div>
+                                                            {child.name}
+                                                        </Link>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) : (
-                                        <Link
-                                            href={item.path}
-                                            onClick={() => { setIsOpen(false); trigger(); }}
-                                            className="block px-4 py-3 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
-                                        >
-                                            {item.name}
-                                        </Link>
-                                    )}
-                                </React.Fragment>
-                            ))}
+                                        ) : (
+                                            <Link
+                                                href={item.path}
+                                                onClick={() => { setIsOpen(false); trigger(); }}
+                                                className="block px-6 py-4 text-base font-bold text-neutral-800 dark:text-neutral-100 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl transition-all"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        )}
+                                    </motion.div>
+                                ))}
+                            </div>
 
-                            {/* Mobile Join Button */}
-                            <div className="mt-4 p-2 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-2">
+                            {/* Mobile Actions Section */}
+                            <div className="mt-4 p-2 pt-4 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-3">
                                 <InstallMenuItem />
                                 <button
                                     onClick={() => {
@@ -275,10 +292,11 @@ export const Navbar = () => {
                                         trigger();
                                         scrollToId("newsletter", 2500);
                                     }}
-                                    className="w-full relative overflow-hidden flex items-center justify-center px-6 py-3.5 text-base font-bold text-black bg-[var(--neon-lime)] dark:text-neutral-900 rounded-xl group shadow-[0_0_20px_rgba(212,255,0,0.2)] active:scale-[0.98] transition-all"
+                                    className="w-full relative overflow-hidden flex items-center justify-center px-6 py-4 text-base font-black text-black dark:text-black bg-[var(--neon-lime)] rounded-2xl group active:scale-[0.98] transition-transform"
                                 >
                                     <span className="relative z-10">Join the Club</span>
-                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent z-0" />
+                                    {/* Glass shimmer */}
+                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/50 to-transparent z-0" />
                                 </button>
                             </div>
                         </div>
@@ -291,6 +309,7 @@ export const Navbar = () => {
 
 function InstallMenuItem() {
     const { install, isInstalled, isInstallable } = usePWAInstall();
+    const { trigger } = useHaptic();
 
     // Hides if:
     // 1. Already installed
@@ -299,10 +318,13 @@ function InstallMenuItem() {
 
     return (
         <button
-            onClick={() => install()}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all font-mono"
+            onClick={() => {
+                trigger();
+                install();
+            }}
+            className="w-full flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
         >
-            <Smartphone size={18} />
+            <Smartphone className="w-5 h-5" />
             <span>Install App</span>
         </button>
     );

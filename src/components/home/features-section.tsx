@@ -57,19 +57,19 @@ export function FeaturesSection() {
                     {features.map((feature, index) => (
                         <FloatingCard key={index} delay={index * 0.1}>
                             <GradientBorder
-                                containerClassName="h-full rounded-3xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_40px_rgba(255,255,255,0.05)] group"
-                                className="bg-white/80 dark:bg-black/40 backdrop-blur-xl p-8 flex flex-col items-start text-left h-full"
-                                duration={index % 2 === 0 ? 8 : 10} // Varied duration for organic feel
+                                containerClassName="h-full rounded-3xl transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] group"
+                                className="bg-white/95 dark:bg-black/40 backdrop-blur-xl p-8 flex flex-col items-start text-left h-full border border-neutral-200 dark:border-white/5"
+                                duration={index % 2 === 0 ? 8 : 10}
                             >
-                                <div className={`relative w-14 h-14 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                    {/* Pulse Glow Effect */}
-                                    <div className="absolute inset-0 rounded-2xl bg-current opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500" />
+                                <div className={`relative w-14 h-14 rounded-2xl ${feature.bg} ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                                    {/* GPU Optimized Glow */}
+                                    <div className="absolute inset-0 rounded-2xl bg-current opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500 will-change-[filter,opacity]" />
                                     <feature.icon className="w-7 h-7 relative z-10" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-3">
                                     {feature.title}
                                 </h3>
-                                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed font-medium">
                                     {feature.description}
                                 </p>
                             </GradientBorder>

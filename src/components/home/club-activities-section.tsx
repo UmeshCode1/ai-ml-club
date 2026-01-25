@@ -61,8 +61,8 @@ export function ClubActivitiesSection() {
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                         >
                             <GradientBorder
-                                containerClassName="rounded-2xl h-full group hover:shadow-2xl transition-shadow duration-500"
-                                className="bg-[var(--card-bg)] overflow-hidden h-full"
+                                containerClassName="rounded-[2rem] h-full group hover:shadow-2xl transition-shadow duration-500"
+                                className="bg-white/95 dark:bg-black/60 overflow-hidden h-full border border-neutral-200 dark:border-white/5"
                                 duration={10 + index}
                             >
                                 {/* Image */}
@@ -71,27 +71,28 @@ export function ClubActivitiesSection() {
                                         src={activity.image}
                                         alt={activity.title}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, 33vw"
                                         className="object-cover group-hover:scale-110 transition-transform duration-700"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
                                     {/* Stats Badge */}
-                                    <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-[var(--neon-lime)]/90 text-black text-xs font-bold">
+                                    <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full bg-[var(--neon-lime)] text-black text-[10px] font-black uppercase tracking-wider shadow-lg">
                                         {activity.stats}
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="p-6">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-10 h-10 rounded-xl bg-[var(--neon-lime)]/10 flex items-center justify-center">
-                                            <activity.icon className="w-5 h-5 text-[var(--neon-lime-text)]" />
+                                <div className="p-7">
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="w-12 h-12 rounded-2xl bg-[var(--neon-lime)]/10 flex items-center justify-center">
+                                            <activity.icon className="w-6 h-6 text-[var(--neon-lime-text)]" />
                                         </div>
-                                        <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
+                                        <h3 className="text-2xl font-black text-neutral-900 dark:text-white tracking-tight">
                                             {activity.title}
                                         </h3>
                                     </div>
-                                    <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                                    <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-medium">
                                         {activity.description}
                                     </p>
                                 </div>

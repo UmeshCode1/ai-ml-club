@@ -15,25 +15,25 @@
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "/icon.png",
+            "src": "/aiml-club-logo-new.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/icon-192x192.png",
+            "src": "/aiml-club-logo-new.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "/icon.png",
+            "src": "/aiml-club-logo-new.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "/icon-512x512.png",
+            "src": "/aiml-club-logo-new.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
@@ -60,14 +60,14 @@
     ],
     "screenshots": [
         {
-            "src": "/icon-512x512.png",
+            "src": "/aiml-club-logo-new.png",
             "sizes": "512x512",
             "type": "image/png",
             "form_factor": "wide",
             "label": "AIML Club Home"
         },
         {
-            "src": "/icon-512x512.png",
+            "src": "/aiml-club-logo-new.png",
             "sizes": "512x512",
             "type": "image/png",
             "form_factor": "narrow",

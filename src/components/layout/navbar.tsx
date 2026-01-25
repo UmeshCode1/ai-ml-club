@@ -81,7 +81,7 @@ export const Navbar = () => {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, type: "spring", bounce: 0.2 }}
-            className="fixed top-5 sm:top-[calc(1.25rem+env(safe-area-inset-top,0px))] inset-x-0 mx-auto w-max max-w-[calc(100vw-2rem)] md:max-w-max z-50 px-2 sm:px-0"
+            className="fixed top-[calc(1.25rem+env(safe-area-inset-top,0px))] inset-x-0 mx-auto w-max max-w-[calc(100vw-2rem)] md:max-w-max z-50 px-2 sm:px-0"
         >
             <div className="flex items-center gap-3 md:gap-4 px-3 sm:px-4 h-12 sm:h-14 rounded-full border border-black/5 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300">
 

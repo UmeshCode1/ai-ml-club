@@ -88,12 +88,10 @@ export const Navbar = () => {
                     <div className="flex items-center gap-3">
                         <div className="relative w-10 h-10 md:w-12 md:h-12 transition-transform duration-300 group-hover:scale-110">
                             <Image
-                                src="/aiml-club-logo-new.png"
-                                alt="AIML Club"
+                                src="/icon.png"
+                                alt="Logo"
                                 fill
-                                sizes="48px"
-                                priority
-                                className="object-contain"
+                                className="object-cover"
                             />
                         </div>
                         <div className="h-8 w-[1px] bg-black/10 dark:bg-white/10" />

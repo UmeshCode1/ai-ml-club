@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "tech.aimlclub.www.twa",
+        "sha256_cert_fingerprints": ["DD:05:9C:BC:5E:6C:51:23:41:A7:D6:19:A6:B6:86:61:F9:51:9C:3C:EB:D4:BF:DE:FA:20:0C:2F:1E:72:3D:FD"]
+      }
+    }]

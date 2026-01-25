@@ -89,6 +89,10 @@
   border: 1px solid var(--glass-border);
 }
 
+html {
+  background: var(--background);
+}
+
 body {
   background: var(--background);
   /* Light Mode: Technical Dot Grid */
@@ -108,6 +112,10 @@ body {
   padding-right: env(safe-area-inset-right, 0);
 
   overflow-x: hidden;
+
+  /* Scroll bar positioning defaults */
+  --scroll-bar-top: 0px;
+  --scroll-bar-bottom: auto;
 }
 
 ::selection {
@@ -200,6 +208,8 @@ h6 {
 @media (max-width: 640px) {
   body {
     background-size: 20px 20px;
+    --scroll-bar-top: auto;
+    --scroll-bar-bottom: 0px;
   }
 
   .container {

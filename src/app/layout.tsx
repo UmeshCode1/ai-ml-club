@@ -110,14 +110,14 @@ export default function RootLayout({
                   }
                   meta.content = color;
                   
-                  // Force black-translucent for edge-to-edge blending
+                  // Blending logic: black-translucent for dark (white icons), default for light (black icons)
                   let appleMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
                   if (!appleMeta) {
                     appleMeta = document.createElement('meta');
                     appleMeta.name = 'apple-mobile-web-app-status-bar-style';
                     document.head.appendChild(appleMeta);
                   }
-                  appleMeta.content = 'black-translucent';
+                  appleMeta.content = isDark ? 'black-translucent' : 'default';
                 } catch (e) {}
               })();
             `,

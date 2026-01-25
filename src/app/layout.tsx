@@ -72,8 +72,13 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "AIML Club",
+    startupImage: [
+      {
+        url: "/apple-icon.png",
+      },
+    ],
   },
 };
 

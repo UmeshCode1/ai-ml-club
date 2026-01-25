@@ -341,11 +341,19 @@ export const Navbar = () => {
 function InstallMenuItem({ onClose }: { onClose: () => void }) {
     const { isInstalled, isInstallable } = usePWAInstall();
     const { trigger } = useHaptic();
+    const [isIOS, setIsIOS] = React.useState(false);
 
-    // Hides if:
-    // 1. Already installed
-    // 2. Not installable yet (browser hasn't fired event)
-    if (isInstalled || !isInstallable) return null;
+    React.useEffect(() => {
+        setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+    }, []);
+
+    // Hides if already installed
+    if (isInstalled) return null;
+
+    // Show if: 
+    // 1. Native isInstallable (Android/Chrome)
+    // 2. OR it's an iOS device (we guide them to the instruction page)
+    if (!isInstallable && !isIOS) return null;
 
     return (
         <Link

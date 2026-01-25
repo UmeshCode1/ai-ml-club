@@ -357,23 +357,23 @@ html.no-transitions *::after {
   }
 }
 
-/* Elite Light Mode Refinements - Azure & Teal Palette */
+/* Elite Light Mode Refinements - Luminous Azure & Vivid Cyan */
 :root {
   --background: #F8FAFC;
   --foreground: #020617;
   /* Slate-950 for elite contrast */
 
-  /* Light Mode Theme: Professional Azure & Fresh Teal */
-  --neon-lime: #2563EB;
-  /* Royal Blue */
-  --electric-cyan: #0D9488;
-  /* Teal-600 */
+  /* Light Mode Theme: Luminous Azure & Vivid Cyan (Pops on white) */
+  --neon-lime: #3B82F6;
+  /* Luminous Blue */
+  --electric-cyan: #06B6D4;
+  /* Vivid Cyan */
 
-  /* Text Contrast Variants - WCAG AAA Target */
-  --neon-lime-text: #1E40AF;
-  /* Blue-800 */
-  --electric-cyan-text: #0F766E;
-  /* Teal-700 */
+  /* Text Contrast Variants - WCAG AA+ Target */
+  --neon-lime-text: #2563EB;
+  /* Vibrant Blue */
+  --electric-cyan-text: #0891B2;
+  /* Vibrant Cyan */
 
   /* Semantic Tokens */
   --card-bg: #FFFFFF;

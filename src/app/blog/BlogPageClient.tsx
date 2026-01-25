@@ -322,5 +322,6 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                     )}
                 </AnimatePresence>
             </div>
-            );
+        </div>
+    );
 }

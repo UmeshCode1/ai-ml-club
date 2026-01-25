@@ -62,9 +62,11 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
         const initParticles = () => {
             const isMobile = width < 768;
             const isSmallMobile = width < 480;
+            const isTinyMobile = width < 380;
             isMobileRef.current = isMobile;
-            // Aggressive mobile thinning: Max 4 on tiny screens, 10 on regular mobile
-            const baseCount = isSmallMobile ? 4 : (isMobile ? 10 : Math.min(Math.floor((width * height) / 25000), 80));
+
+            // Ultra-low power mode for tiny devices
+            const baseCount = isTinyMobile ? 3 : (isSmallMobile ? 6 : (isMobile ? 12 : Math.min(Math.floor((width * height) / 25000), 80)));
             const particleCount = baseCount;
 
             particles.current = [];

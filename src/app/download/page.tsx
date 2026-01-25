@@ -156,19 +156,27 @@ export default function DownloadPage() {
                                             </div>
                                         </div>
 
-                                        <div className="pt-6">
-                                            <a href={siteConfig.links.apk} download>
+                                        <div className="flex gap-4 pt-6">
+                                            <a href={siteConfig.links.apk} download="aiml-club.apk" className="flex-1">
                                                 <MagneticButton>
-                                                    <div className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-[var(--neon-lime)] text-black font-black rounded-3xl group shadow-[0_20px_40px_rgba(212,255,0,0.3)] hover:scale-[1.03] transition-all cursor-pointer">
+                                                    <div className="w-full flex items-center justify-center gap-3 px-6 py-5 bg-[var(--neon-lime)] text-black font-black rounded-3xl group shadow-[0_20px_40px_rgba(212,255,0,0.3)] hover:scale-[1.03] transition-all cursor-pointer">
                                                         <Download className="w-6 h-6 group-hover:bounce" />
-                                                        <span>Download APK Now</span>
+                                                        <span>APK</span>
                                                     </div>
                                                 </MagneticButton>
                                             </a>
-                                            <p className="text-center text-[10px] text-neutral-500 mt-4 px-4 uppercase tracking-tighter">
-                                                Latest Build: v1.0.2 • Verified by AIML Debug Lab
-                                            </p>
+                                            <a href={siteConfig.links.aab} download="aiml-club.aab" className="flex-1">
+                                                <MagneticButton>
+                                                    <div className="w-full flex items-center justify-center gap-3 px-6 py-5 bg-white/5 border border-white/10 text-white font-black rounded-3xl group hover:bg-white/10 hover:scale-[1.03] transition-all cursor-pointer">
+                                                        <Download className="w-6 h-6 group-hover:bounce text-[var(--electric-cyan-text)]" />
+                                                        <span>AAB</span>
+                                                    </div>
+                                                </MagneticButton>
+                                            </a>
                                         </div>
+                                        <p className="text-center text-[10px] text-neutral-500 mt-4 px-4 uppercase tracking-tighter">
+                                            Latest Build: v1.0.2 • Verified Ecosystem Packages
+                                        </p>
                                     </motion.div>
                                 )}
 

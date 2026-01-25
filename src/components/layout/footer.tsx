@@ -103,7 +103,7 @@ export const Footer = () => {
 
                     {/* Quick Links */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[10px]">Quick Links</h3>
+                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[9px] opacity-70">Quick Links</h3>
                         <ul className="space-y-3 sm:space-y-4">
                             {[
                                 { name: "Home", href: "/" },
@@ -128,7 +128,7 @@ export const Footer = () => {
 
                     {/* Resources */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[10px]">Resources</h3>
+                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[9px] opacity-70">Resources</h3>
                         <ul className="space-y-3 sm:space-y-4">
                             {[
                                 { name: "Latest Updates", href: siteConfig.links.info, external: true },
@@ -222,7 +222,7 @@ export const Footer = () => {
 
                 {/* Connect Grid - Social Links */}
                 <div className="mt-8 mb-6 pt-6 border-t border-neutral-200/50 dark:border-white/10">
-                    <p className="text-center text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mb-4 sm:mb-6">Connect with us</p>
+                    <p className="text-center text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-500 mb-4 sm:mb-6">Connect ecosystem</p>
                     <div className="grid grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-4">
                         <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95">
                             <Linkedin className="w-4.5 h-4.5 text-[#0A66C2] group-hover:scale-110 transition-transform" />
@@ -268,13 +268,13 @@ export const Footer = () => {
                         >
                             © {new Date().getFullYear()} - AI & Machine Learning Club OCT, Bhopal.
                         </Link>
-                        <p className="text-neutral-500 dark:text-neutral-500 text-[11px] sm:text-xs font-mono leading-tight">
+                        <p className="text-neutral-400 dark:text-neutral-500 text-[11px] sm:text-xs font-mono leading-tight">
                             All rights reserved by{" "}
                             <a
                                 href="https://www.linkedin.com/in/umesh-patel-5647b42a4/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-semibold text-[var(--neon-lime-text)] hover:underline whitespace-nowrap"
+                                className="font-semibold text-[var(--neon-lime-text)] hover:underline whitespace-nowrap transition-all"
                             >
                                 Umesh Patel
                             </a>

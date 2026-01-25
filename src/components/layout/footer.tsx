@@ -54,33 +54,57 @@ export const Footer = () => {
                 {/* Main Footer Grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-10 sm:mb-16">
 
-                    {/* Brand Column - Full width on mobile */}
-                    <div className="col-span-2 sm:col-span-2 lg:col-span-1 space-y-4 sm:space-y-6">
-                        <Link href="/" className="flex items-center gap-2 group relative">
-                            <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform group-hover:scale-110 duration-500">
-                                <Image
-                                    src="/logo-club.png"
-                                    alt="AIML Club Logo"
-                                    width={40}
-                                    height={40}
-                                    className="object-contain"
-                                />
-                                <div className="absolute inset-0 bg-[var(--electric-cyan)]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Brand Column */}
+                    <div className="col-span-2 lg:col-span-1 space-y-6 sm:space-y-8">
+                        <div className="space-y-4">
+                            <Link href="/" className="flex items-center gap-2 group relative">
+                                <div className="relative w-10 h-10 transition-transform group-hover:scale-110 duration-500">
+                                    <Image
+                                        src="/logo-club.png"
+                                        alt="AIML Club Logo"
+                                        width={40}
+                                        height={40}
+                                        className="object-contain"
+                                    />
+                                    <div className="absolute inset-0 bg-[var(--electric-cyan)]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                </div>
+                                <span className="font-bold text-xl tracking-tight text-neutral-900 dark:text-white relative overflow-hidden">
+                                    <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">AIML CLUB</span>
+                                    <span className="absolute left-0 top-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[var(--neon-lime-text)]">AIML CLUB</span>
+                                </span>
+                            </Link>
+                            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-[200px]">
+                                Empowering students to innovate, implement, and inspire through AI.
+                            </p>
+                        </div>
+
+                        {/* Distribution Actions Grouped Under Brand on Mobile/Desktop Column */}
+                        <div className="flex flex-col gap-2.5 max-w-[180px]">
+                            <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-500 mb-1">Ecosystem</h4>
+                            <InstallFooterItem />
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => share("apk")}
+                                    className="flex-1 px-3 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl text-[10px] font-black text-neutral-800 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all flex items-center justify-center gap-2 group active:scale-[0.98]"
+                                >
+                                    <Share2 className="w-3.5 h-3.5 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform" />
+                                    <span>APK</span>
+                                </button>
+                                <button
+                                    onClick={() => share("web")}
+                                    className="flex-1 px-3 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl text-[10px] font-black text-neutral-800 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all flex items-center justify-center gap-2 group active:scale-[0.98]"
+                                >
+                                    <Globe className="w-3.5 h-3.5 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform" />
+                                    <span>WEB</span>
+                                </button>
                             </div>
-                            <span className="font-bold text-lg sm:text-xl tracking-tight text-neutral-900 dark:text-white relative overflow-hidden">
-                                <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">AIML CLUB</span>
-                                <span className="absolute left-0 top-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[var(--neon-lime-text)]">AIML CLUB</span>
-                            </span>
-                        </Link>
-                        <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-sm">
-                            Empowering students to innovate, implement, and inspire through AI & Machine Learning.
-                        </p>
+                        </div>
                     </div>
 
                     {/* Quick Links */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6">Quick Links</h3>
-                        <ul className="space-y-2 sm:space-y-3">
+                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[10px]">Quick Links</h3>
+                        <ul className="space-y-3 sm:space-y-4">
                             {[
                                 { name: "Home", href: "/" },
                                 { name: "Team", href: "/team" },
@@ -92,37 +116,20 @@ export const Footer = () => {
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors"
+                                        className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-all hover:translate-x-1 inline-block"
                                         prefetch={true}
                                     >
                                         {link.name}
                                     </Link>
                                 </li>
                             ))}
-                            <InstallFooterItem />
-                            <li className="pt-2 flex flex-col gap-2">
-                                <button
-                                    onClick={() => share("apk")}
-                                    className="w-full sm:w-auto px-4 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl text-sm font-bold text-neutral-800 dark:text-neutral-200 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all flex items-center justify-center sm:justify-start gap-2 group active:scale-[0.98]"
-                                >
-                                    <Share2 className="w-4 h-4 group-hover:scale-110 transition-transform text-[var(--neon-lime-text)]" />
-                                    <span>Share App</span>
-                                </button>
-                                <button
-                                    onClick={() => share("web")}
-                                    className="w-full sm:w-auto px-4 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl text-sm font-bold text-neutral-800 dark:text-neutral-200 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all flex items-center justify-center sm:justify-start gap-2 group active:scale-[0.98]"
-                                >
-                                    <Globe className="w-4 h-4 group-hover:scale-110 transition-transform text-[var(--electric-cyan-text)]" />
-                                    <span>Share Web</span>
-                                </button>
-                            </li>
                         </ul>
                     </div>
 
                     {/* Resources */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6">Resources</h3>
-                        <ul className="space-y-2 sm:space-y-3">
+                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[10px]">Resources</h3>
+                        <ul className="space-y-3 sm:space-y-4">
                             {[
                                 { name: "Latest Updates", href: siteConfig.links.info, external: true },
                                 { name: "Suggestion Box", href: "/suggestions" },
@@ -136,7 +143,7 @@ export const Footer = () => {
                                     <Link
                                         href={link.href}
                                         target={link.external ? "_blank" : undefined}
-                                        className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors"
+                                        className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-all hover:translate-x-1 inline-block"
                                         prefetch={link.external ? false : true}
                                     >
                                         {link.name}
@@ -285,14 +292,12 @@ function InstallFooterItem() {
     if (isInstalled || !isInstallable) return null;
 
     return (
-        <li>
-            <Link
-                href="/download"
-                className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors flex items-center gap-2 group"
-            >
-                Install App
-                <Smartphone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-            </Link>
-        </li>
+        <Link
+            href="/download"
+            className="w-full flex items-center justify-center gap-2.5 px-3 py-2.5 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-xl text-[10px] font-black text-neutral-800 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all group active:scale-[0.98]"
+        >
+            <Smartphone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+            <span>Install App</span>
+        </Link>
     );
 }

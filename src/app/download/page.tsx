@@ -322,7 +322,7 @@ export default function DownloadPage() {
 }
 
 // Simple internal Link proxy to handle external/internal safely
-function Link({ href, children, ...props }: { href: string; children: React.ReactNode;[key: string]: string | number | boolean | undefined | React.ReactNode | ((...args: unknown[]) => void) }) {
+function Link({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
     if (href.startsWith("http")) {
         return <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
     }

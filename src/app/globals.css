@@ -308,10 +308,6 @@ h6 {
   }
 }
 
-/* ============================================
-   FOUC Prevention - Transition Suppression
-   ============================================ */
-
 /* Applied via pre-hydration script, removed after mount */
 html.no-transitions,
 html.no-transitions *,
@@ -320,6 +316,31 @@ html.no-transitions *::after {
   transition: none !important;
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
+}
+
+/* Aggressive Thermal Optimization for Mobile */
+@media (max-width: 768px) {
+
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
 }
 
 /* Stable backgrounds during hydration */

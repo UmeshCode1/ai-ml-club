@@ -247,7 +247,7 @@ export const Navbar = () => {
                             {/* Technical Gradient Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none" />
 
-                            <div className="relative z-10 flex flex-col gap-2">
+                            <div className="relative z-10 flex flex-col gap-1.5">
                                 {navLinks.map((item, idx) => (
                                     <motion.div
                                         key={item.name}
@@ -282,7 +282,7 @@ export const Navbar = () => {
                                             <Link
                                                 href={item.path}
                                                 onClick={() => { setIsOpen(false); trigger(); }}
-                                                className="block px-8 py-5 text-lg font-black text-neutral-900 dark:text-white hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-[2rem] transition-all"
+                                                className="block px-8 py-4 text-lg font-black text-neutral-900 dark:text-white hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-[1.5rem] transition-all"
                                             >
                                                 {item.name}
                                             </Link>
@@ -299,20 +299,20 @@ export const Navbar = () => {
                                             setIsOpen(false);
                                             share("apk");
                                         }}
-                                        className="flex items-center justify-center gap-3 px-4 py-4 text-sm font-bold text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
+                                        className="flex items-center justify-center gap-2.5 px-4 py-3.5 text-xs font-black text-neutral-800 dark:text-white bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
                                     >
-                                        <Share2 className="w-5 h-5 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform" />
-                                        <span>Share App</span>
+                                        <Share2 className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform" />
+                                        <span>SHARE APP</span>
                                     </button>
                                     <button
                                         onClick={() => {
                                             setIsOpen(false);
                                             share("web");
                                         }}
-                                        className="flex items-center justify-center gap-3 px-4 py-4 text-sm font-bold text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
+                                        className="flex items-center justify-center gap-2.5 px-4 py-3.5 text-xs font-black text-neutral-800 dark:text-white bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
                                     >
-                                        <Globe className="w-5 h-5 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform" />
-                                        <span>Share Web</span>
+                                        <Globe className="w-4 h-4 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform" />
+                                        <span>SHARE WEB</span>
                                     </button>
                                 </div>
                                 <div className="grid grid-cols-1 gap-3">
@@ -354,9 +354,9 @@ function InstallMenuItem({ onClose }: { onClose: () => void }) {
                 trigger();
                 onClose();
             }}
-            className="w-full flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
+            className="w-full flex items-center justify-center gap-3 px-6 py-3.5 text-xs font-black text-neutral-800 dark:text-white bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all tracking-widest uppercase shadow-sm"
         >
-            <Smartphone className="w-5 h-5" />
+            <Smartphone className="w-4 h-4 text-[var(--neon-lime-text)]" />
             <span>Install App</span>
         </Link>
     );

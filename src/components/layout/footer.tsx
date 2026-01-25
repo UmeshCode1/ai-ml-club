@@ -105,7 +105,7 @@ export const Footer = () => {
                                     onClick={share}
                                     className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors flex items-center gap-2 group"
                                 >
-                                    Share Platform
+                                    Share APK
                                     <Share2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                                 </button>
                             </li>

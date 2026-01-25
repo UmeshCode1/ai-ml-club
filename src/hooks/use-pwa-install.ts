@@ -73,7 +73,7 @@ export function usePWAInstall() {
      * Triggers the PWA installation or shows instructions for iOS.
      */
     const install = useCallback(async () => {
-        console.log("PWA: [Action] install() triggered", {
+        console.log("PWA: Attempting installation...", {
             hasPrompt: !!installPrompt,
             isIOS: platform.isIOS,
             isInstallable,
@@ -81,32 +81,28 @@ export function usePWAInstall() {
         });
 
         if (platform.isIOS) {
-            // Native prompt is unavailable on iOS; show instructions instead.
-            alert("To install AIML Club: Tap the 'Share' icon in Safari and select 'Add to Home Screen' 📲");
+            alert("To install: tap the Share button and then 'Add to Home Screen' 😊");
             return;
         }
 
         if (!installPrompt) {
-            console.warn("PWA: [Warning] No installation prompt available. Checking constraints...");
-            if (isInstalled) {
-                console.log("PWA: App is already installed.");
-            } else {
-                console.log("PWA: Browser might not support the BeforeInstallPrompt API or the Manifest criteria weren't met (HTTPS, Icons, SW).");
-            }
+            console.warn("PWA: No install prompt available.");
+            // Fallback for when the prompt is missing but user clicked Install
+            alert("To install manually: Tap the browser menu (⋮) and select 'Install app' or 'Add to Home Screen'.");
             return;
         }
 
         try {
-            console.log("PWA: [Action] Opening native installation dialog");
+            console.log("PWA: Triggering native prompt");
             await installPrompt.prompt();
             const { outcome } = await installPrompt.userChoice;
-            console.log(`PWA: [Response] User ${outcome} the installation`);
+            console.log(`PWA: User response: ${outcome}`);
 
-            // Cleanup after use
             setInstallPrompt(null);
             setIsInstallable(false);
         } catch (error) {
-            console.error("PWA: [Error] Installation failed:", error);
+            console.error("PWA: Installation failed:", error);
+            alert("Installation failed. Please try adding to home screen manually from the browser menu.");
         }
     }, [installPrompt, platform.isIOS, isInstallable, isInstalled]);
 

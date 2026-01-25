@@ -4,8 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { usePWAInstall } from "@/hooks/use-pwa-install";
+
 import { Variants } from "framer-motion";
-import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText, Github } from "lucide-react";
+import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, PenTool, NotebookText, Github, Smartphone } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
@@ -268,7 +270,8 @@ export const Navbar = () => {
                             ))}
 
                             {/* Mobile Join Button */}
-                            <div className="mt-4 p-2 border-t border-neutral-200 dark:border-white/10">
+                            <div className="mt-4 p-2 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-2">
+                                <InstallMenuItem />
                                 <button
                                     onClick={() => {
                                         setIsOpen(false);
@@ -288,3 +291,19 @@ export const Navbar = () => {
         </motion.nav>
     );
 };
+
+function InstallMenuItem() {
+    const { install, isInstalled } = usePWAInstall();
+
+    if (isInstalled) return null;
+
+    return (
+        <button
+            onClick={() => install()}
+            className="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-white bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all font-mono"
+        >
+            <Smartphone size={18} />
+            <span>Install App</span>
+        </button>
+    );
+}

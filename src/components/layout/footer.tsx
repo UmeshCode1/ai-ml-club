@@ -298,7 +298,10 @@ function InstallFooterItem() {
     const [isIOS, setIsIOS] = useState(false);
 
     useEffect(() => {
-        setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+        // Safe check for browser environment
+        if (typeof window !== "undefined") {
+            setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+        }
     }, []);
 
     if (isInstalled) return null;

@@ -318,8 +318,8 @@ html.no-transitions *::after {
   animation-iteration-count: 1 !important;
 }
 
-/* Aggressive Thermal Optimization for Mobile */
-@media (max-width: 768px) {
+/* Tablet Improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
 
   .backdrop-blur-md,
   .backdrop-blur-lg,
@@ -331,7 +331,13 @@ html.no-transitions *::after {
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile Thermal Perfection - Aggressive Cap */
+@media (max-width: 640px) {
+  .glass-premium {
+    backdrop-filter: none !important;
+    background: var(--card-bg) !important;
+    opacity: 0.98;
+  }
 
   .backdrop-blur-md,
   .backdrop-blur-lg,
@@ -340,6 +346,8 @@ html.no-transitions *::after {
   .backdrop-blur-3xl {
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
+    /* Blend with solid color to reduce GPU sampling effort */
+    background-color: var(--card-bg) !important;
   }
 }
 

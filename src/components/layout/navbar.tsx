@@ -243,35 +243,35 @@ export const Navbar = () => {
                         }}
                         className="fixed top-[70px] inset-x-6 z-40"
                     >
-                        <div className="relative overflow-hidden bg-white/90 dark:bg-neutral-900/90 border-2 border-neutral-200 dark:border-white/10 rounded-[2.5rem] p-4 shadow-[0_30px_60px_rgba(0,0,0,0.3)] backdrop-blur-2xl max-h-[70vh] overflow-y-auto hide-scrollbar">
-                            {/* Technical Gradient Overlay */}
+                        <div className="relative overflow-hidden bg-white/95 dark:bg-neutral-900/95 border-2 border-neutral-200 dark:border-white/10 rounded-[2rem] p-4 shadow-[0_30px_60px_rgba(0,0,0,0.3)] max-h-[70vh] overflow-y-auto hide-scrollbar">
+                            {/* Technical Gradient Overlay - Optimized for Thermal */}
                             <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none" />
 
-                            <div className="relative z-10 flex flex-col gap-1.5">
+                            <div className="relative z-10 flex flex-col gap-1">
                                 {navLinks.map((item, idx) => (
                                     <motion.div
                                         key={item.name}
-                                        initial={{ opacity: 0, x: -15 }}
+                                        initial={{ opacity: 0, x: -10 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.05 + idx * 0.04 }}
+                                        transition={{ delay: 0.05 + idx * 0.03 }}
                                     >
                                         {item.children ? (
-                                            <div className="px-4 py-4 mb-2">
-                                                <div className="flex items-center gap-2 mb-4">
-                                                    <div className="h-[1px] w-4 bg-[var(--neon-lime)]/50" />
-                                                    <span className="text-[10px] font-black text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.3em]">{item.name}</span>
+                                            <div className="px-3 py-3 mb-1">
+                                                <div className="flex items-center gap-2 mb-3">
+                                                    <div className="h-[1px] w-3 bg-[var(--neon-lime)]/50" />
+                                                    <span className="text-[10px] font-black text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.25em]">{item.name} Hub</span>
                                                 </div>
-                                                <div className="grid grid-cols-1 gap-2">
+                                                <div className="grid grid-cols-1 gap-1.5">
                                                     {item.children.map(child => (
                                                         <Link
                                                             key={child.path}
                                                             href={child.path}
                                                             target={child.external ? "_blank" : undefined}
                                                             onClick={() => { setIsOpen(false); trigger(); }}
-                                                            className="group flex items-center gap-5 px-5 py-4 text-base font-bold text-neutral-800 dark:text-neutral-100 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-3xl transition-all"
+                                                            className="group flex items-center gap-4 px-4 py-3 text-sm font-bold text-neutral-800 dark:text-neutral-100 hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl transition-all"
                                                         >
-                                                            <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-2xl bg-neutral-100 dark:bg-white/5 group-hover:bg-[var(--neon-lime)]/20 transition-all group-hover:scale-110 shadow-sm">
-                                                                <child.icon className="w-5 h-5 text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)] transition-colors" />
+                                                            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl bg-neutral-100 dark:bg-white/5 group-hover:bg-[var(--neon-lime)]/20 transition-all group-hover:scale-105">
+                                                                <child.icon className="w-4 h-4 text-neutral-500 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)] transition-colors" />
                                                             </div>
                                                             {child.name}
                                                         </Link>
@@ -282,7 +282,7 @@ export const Navbar = () => {
                                             <Link
                                                 href={item.path}
                                                 onClick={() => { setIsOpen(false); trigger(); }}
-                                                className="block px-8 py-4 text-lg font-black text-neutral-900 dark:text-white hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-[1.5rem] transition-all"
+                                                className="block px-7 py-3 text-base font-black text-neutral-900 dark:text-white hover:text-[var(--neon-lime-text)] hover:bg-black/5 dark:hover:bg-white/5 rounded-2xl transition-all"
                                             >
                                                 {item.name}
                                             </Link>
@@ -292,30 +292,31 @@ export const Navbar = () => {
                             </div>
 
                             {/* Mobile Actions Section */}
-                            <div className="mt-6 p-4 pt-6 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-4 relative z-10">
-                                <div className="grid grid-cols-2 gap-3">
+                            <div className="mt-4 p-3 pt-5 border-t border-neutral-200 dark:border-white/10 flex flex-col gap-3 relative z-10">
+                                <p className="text-center text-[9px] font-black text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.3em] mb-1">Connect Ecosystem</p>
+                                <div className="grid grid-cols-2 gap-2">
                                     <button
                                         onClick={() => {
                                             setIsOpen(false);
                                             share("apk");
                                         }}
-                                        className="flex items-center justify-center gap-2.5 px-4 py-3.5 text-xs font-black text-neutral-800 dark:text-white bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
+                                        className="flex items-center justify-center gap-2 px-3 py-3 text-[11px] font-black text-neutral-800 dark:text-white bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-95 transition-all group"
                                     >
                                         <Share2 className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform" />
-                                        <span>SHARE APP</span>
+                                        <span>APK</span>
                                     </button>
                                     <button
                                         onClick={() => {
                                             setIsOpen(false);
                                             share("web");
                                         }}
-                                        className="flex items-center justify-center gap-2.5 px-4 py-3.5 text-xs font-black text-neutral-800 dark:text-white bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
+                                        className="flex items-center justify-center gap-2 px-3 py-3 text-[11px] font-black text-neutral-800 dark:text-white bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-95 transition-all group"
                                     >
                                         <Globe className="w-4 h-4 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform" />
-                                        <span>SHARE WEB</span>
+                                        <span>WEB</span>
                                     </button>
                                 </div>
-                                <div className="grid grid-cols-1 gap-3">
+                                <div className="grid grid-cols-1">
                                     <InstallMenuItem onClose={() => setIsOpen(false)} />
                                 </div>
                                 <button
@@ -324,10 +325,10 @@ export const Navbar = () => {
                                         trigger();
                                         scrollToId("newsletter", 2500);
                                     }}
-                                    className="w-full relative overflow-hidden flex items-center justify-center px-8 py-5 text-lg font-black text-black bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)] rounded-[2rem] group active:scale-[0.96] transition-transform shadow-[0_10px_20px_rgba(212,255,0,0.2)]"
+                                    className="w-full relative overflow-hidden flex items-center justify-center px-6 py-4 text-base font-black text-black bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)] rounded-[1.5rem] group active:scale-95 transition-transform shadow-lg shadow-[var(--neon-lime)]/10"
                                 >
-                                    <span className="relative z-10 drop-shadow-sm">Join the Club</span>
-                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/60 to-transparent z-0" />
+                                    <span className="relative z-10">Join Club</span>
+                                    <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/50 to-transparent z-0" />
                                 </button>
                             </div>
                         </div>
@@ -344,7 +345,9 @@ function InstallMenuItem({ onClose }: { onClose: () => void }) {
     const [isIOS, setIsIOS] = React.useState(false);
 
     React.useEffect(() => {
-        setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+        if (typeof window !== "undefined") {
+            setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+        }
     }, []);
 
     // Hides if already installed

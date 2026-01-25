@@ -14,9 +14,8 @@ export function AppwritePing() {
         const pingAppwrite = async () => {
             try {
                 await client.ping();
-            } catch (/* error */) {
-                // Silently fail as per design, no console logs needed.
-                // The error is intentionally ignored here.
+            } catch {
+                // Silently handle connection failure in background
             }
         };
 

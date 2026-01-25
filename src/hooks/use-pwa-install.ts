@@ -47,7 +47,9 @@ export function usePWAInstall() {
         window.addEventListener("appinstalled", handleAppInstalled);
 
         // Check if already in standalone mode
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone;
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+            (navigator as Navigator & { standalone?: boolean }).standalone;
+
         if (isStandalone) {
             setTimeout(() => setIsInstalled(true), 0);
         }

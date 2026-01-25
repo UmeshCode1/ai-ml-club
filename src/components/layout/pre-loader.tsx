@@ -31,7 +31,7 @@ export const PreLoader = () => {
     useEffect(() => {
         if (index === COMMANDS.length) {
             // After the words, provide a longer pause for "Inspire" before exit for a premium feel
-            const exitTimer = setTimeout(() => setIsLoading(false), 2500);
+            const exitTimer = setTimeout(() => setIsLoading(false), 1200);
             return () => clearTimeout(exitTimer);
         }
 
@@ -39,7 +39,7 @@ export const PreLoader = () => {
             () => {
                 setIndex((prev) => prev + 1);
             },
-            2500 // Each word now stays for a cinematic 2.5s
+            index === 0 ? 1200 : 1500 // 2nd and 3rd words now stay longer
         );
         return () => clearTimeout(timeout);
     }, [index]);
@@ -53,7 +53,7 @@ export const PreLoader = () => {
                     exit={{
                         opacity: 0,
                         y: "-100%", // Slide up effect for premium feel
-                        transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] }
+                        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
                     }}
                     className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--background)] overflow-hidden"
                 >
@@ -65,7 +65,7 @@ export const PreLoader = () => {
                         <motion.div
                             initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
                             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                            transition={{ duration: 2.5, delay: 0.2 }}
+                            transition={{ duration: 1, delay: 0.2 }}
                             className="space-y-1"
                         >
                             <span className="block text-[10px] md:text-xs font-bold tracking-[0.5em] uppercase text-neutral-500">
@@ -102,7 +102,7 @@ export const PreLoader = () => {
                                         filter: "blur(15px)"
                                     }}
                                     transition={{
-                                        duration: 0.8,
+                                        duration: 0.6,
                                         ease: [0.25, 0.46, 0.45, 0.94]
                                     }}
                                     className="absolute"
@@ -135,7 +135,7 @@ export const PreLoader = () => {
                                     transition={{
                                         duration: 2.5,
                                         repeat: Infinity,
-                                        delay: i * 0.3,
+                                        delay: i * 0.15,
                                     }}
                                     className="w-1.5 h-1.5 rounded-full bg-[var(--neon-lime)] shadow-[0_0_10px_rgba(212,255,0,0.5)]"
                                 />

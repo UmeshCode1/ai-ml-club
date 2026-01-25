@@ -15,7 +15,7 @@ import { RouteTransition } from "@/components/layout/route-transition";
 import { PreLoader } from "@/components/layout/pre-loader";
 import { GlobalBackground } from "@/components/layout/global-background";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
-import { InstallPWA } from "@/components/layout/install-pwa";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -116,7 +116,7 @@ export default function RootLayout({
             <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('/noise.png')] bg-repeat" />
 
             <AppwritePing />
-            <InstallPWA />
+            {/* <InstallPWA /> Removed per user request */}
             <ScrollToTop />
             <PreLoader />
             <GlobalBackground />

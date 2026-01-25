@@ -34,7 +34,6 @@
         },
         {
             "src": "/pwa-icon.png",
-            "sizes": "/pwa-icon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"

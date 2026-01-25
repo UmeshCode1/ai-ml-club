@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Smartphone, Download, Apple, Share, PlusSquare, ArrowRight, CheckCircle2, QrCode, Globe, Info, ShieldCheck } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -38,7 +38,8 @@ export default function DownloadPage() {
         }
     };
 
-    const itemVariants = {
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
     };
 
@@ -186,7 +187,7 @@ export default function DownloadPage() {
                                         className="space-y-6"
                                     >
                                         <h2 className="text-3xl font-black">Scan to Install</h2>
-                                        <p className="text-neutral-400">Open your phone's camera and scan the code below to install the app on your mobile device instantly.</p>
+                                        <p className="text-neutral-400">Open your phone&apos;s camera and scan the code below to install the app on your mobile device instantly.</p>
 
                                         <div className="flex justify-center py-4">
                                             <div className="p-6 bg-white rounded-3xl shadow-2xl relative group">
@@ -243,7 +244,7 @@ export default function DownloadPage() {
                                 ].map((p) => (
                                     <button
                                         key={p.id}
-                                        onClick={() => setPlatform(p.id as any)}
+                                        onClick={() => setPlatform(p.id as "android" | "ios" | "desktop")}
                                         className={`flex flex-col items-center gap-2 p-4 rounded-3xl border transition-all ${platform === p.id ? "bg-[var(--neon-lime)]/10 border-[var(--neon-lime)]/50 text-[var(--neon-lime-text)]" : "bg-white/5 border-white/5 text-neutral-400 hover:bg-white/10"}`}
                                     >
                                         <p.icon className="w-5 h-5" />
@@ -272,9 +273,9 @@ export default function DownloadPage() {
 }
 
 // Simple internal Link proxy to handle external/internal safely
-function Link({ href, children, ...props }: any) {
+function Link({ href, children, ...props }: { href: string; children: React.ReactNode;[key: string]: any }) {
     if (href.startsWith("http")) {
-        return <a href={href} {...props}>{children}</a>;
+        return <a href={href} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
     }
     return <a href={href} {...props}>{children}</a>;
 }

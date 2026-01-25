@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://aimlclub.in",
+    url: "https://aimlclub.tech",
     title: "AI & Machine Learning Club",
     description: "Official club of Oriental College of Technology, Bhopal",
     siteName: "AI & Machine Learning Club",

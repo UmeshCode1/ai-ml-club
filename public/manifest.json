@@ -11,6 +11,7 @@
     "theme_color": "#D4FF00",
     "orientation": "portrait",
     "scope": "/",
+    "handle_links": "auto",
     "prefer_related_applications": false,
     "icons": [
         {

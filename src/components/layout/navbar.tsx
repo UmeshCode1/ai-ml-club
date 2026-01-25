@@ -243,7 +243,7 @@ export const Navbar = () => {
                         }}
                         className="fixed top-[70px] inset-x-6 z-40"
                     >
-                        <div className="relative overflow-hidden bg-white/95 dark:bg-neutral-900/95 border-2 border-neutral-200 dark:border-white/10 rounded-[2.5rem] p-4 shadow-[0_30px_60px_rgba(0,0,0,0.3)] backdrop-blur-3xl max-h-[70vh] overflow-y-auto hide-scrollbar">
+                        <div className="relative overflow-hidden bg-white/90 dark:bg-neutral-900/90 border-2 border-neutral-200 dark:border-white/10 rounded-[2.5rem] p-4 shadow-[0_30px_60px_rgba(0,0,0,0.3)] backdrop-blur-2xl max-h-[70vh] overflow-y-auto hide-scrollbar">
                             {/* Technical Gradient Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none" />
 

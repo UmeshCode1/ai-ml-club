@@ -1,5 +1,5 @@
 export const siteConfig = {
-    name: "AIML Club - AI & Machine Learning Club OCT",
+    name: "AI & Machine Learning Club - OCT",
     shortName: "AIML Club",
     description: "The premier offline community for AI & Machine Learning at Oriental College of Technology, Bhopal. Join us on campus for workshops, hackathons, and collaborative AI projects.",
     tagline: "Innovate • Implement • Inspire",

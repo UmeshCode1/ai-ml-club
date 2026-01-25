@@ -133,6 +133,7 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
 
                 // Connections - DISABLED on mobile to significantly save battery/GPU
                 // Most mobile browsers struggle with N^2 canvas paths
+                // "Elite" Thermal Throttling: Only show connections on desktop (>1024px)
                 if (!isMobileRef.current && width > 1024) {
                     for (let j = i + 1; j < len; j++) {
                         const p2 = parts[j];
@@ -156,7 +157,15 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 }
             }
 
-            animationFrameId = requestAnimationFrame(drawStats);
+            // More aggressive throttling for mobile FPS
+            const nextFrameDelay = isMobileRef.current ? 45 : 0; // Effectively ~22 FPS for background on mobile
+            if (nextFrameDelay > 0) {
+                setTimeout(() => {
+                    animationFrameId = requestAnimationFrame(drawStats);
+                }, nextFrameDelay);
+            } else {
+                animationFrameId = requestAnimationFrame(drawStats);
+            }
         };
 
         const handleMouseMove = (e: MouseEvent) => {

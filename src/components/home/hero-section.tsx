@@ -32,15 +32,8 @@ export function HeroSection() {
                     <FloatingKeywords />
                 </div>
 
-                {/* Micro-Gradient for Header Blending */}
-                <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-[var(--neon-lime)]/10 dark:from-[var(--neon-lime)]/5 to-transparent z-0" />
-
-                {/* Background glow - stable opacity to prevent flicker */}
-                <div className="absolute top-[-40%] left-[-20%] w-[140%] h-[80%] bg-[var(--neon-lime)]/15 dark:bg-[var(--neon-lime)]/8 rounded-full blur-[120px] will-change-[filter,opacity]" />
-                <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[60%] bg-[var(--electric-cyan)]/15 dark:bg-[var(--electric-cyan)]/8 rounded-full blur-[120px] will-change-[filter,opacity]" />
-
                 {/* Gradient Mask to blend with next section */}
-                <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[var(--background)] to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[var(--background)] to-transparent z-10" />
             </div>
 
             <motion.div

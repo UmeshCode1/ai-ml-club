@@ -139,7 +139,7 @@ export default function ConstitutionPage() {
                                 <div className="absolute -left-[33px] md:-left-[49px] top-10 w-4 h-4 rounded-full bg-white dark:bg-black border-2 border-[var(--neon-lime)] z-20" />
 
                                 <CardSpotlight
-                                    containerClassName="rounded-3xl shadow-xl overflow-hidden border border-[var(--card-border)]"
+                                    containerClassName="rounded-3xl shadow-xl overflow-hidden border border-[var(--card-border)] bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md"
                                     className="p-0"
                                     color="rgba(212, 255, 0, 0.05)"
                                 >

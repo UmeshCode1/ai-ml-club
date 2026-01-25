@@ -134,10 +134,10 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 300
                                                 scale: scale,
                                                 opacity: opacity,
                                                 zIndex: zIndex,
-                                                filter: isActive ? 'blur(0px)' : 'blur(4px)',
+                                                filter: isActive ? 'blur(0px)' : (isMobile ? 'blur(2px)' : 'blur(4px)'),
                                             }}
-                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                            className={`absolute top-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-64 md:w-80 ${isActive ? 'cursor-pointer' : ''} will-change-transform`}
+                                            transition={{ type: "spring", stiffness: 400, damping: 40 }}
+                                            className={`absolute top-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-64 md:w-80 ${isActive ? 'cursor-pointer' : ''} will-change-transform shadow-sm`}
                                             onClick={() => isActive && handleMemberClick(member)}
                                         >
                                             <div className="relative group w-full aspect-[4/5] mb-6">

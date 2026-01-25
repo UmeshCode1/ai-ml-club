@@ -31,7 +31,7 @@ export function ThemeColorUpdater() {
             appleMeta.setAttribute('name', 'apple-mobile-web-app-status-bar-style');
             document.head.appendChild(appleMeta);
         }
-        appleMeta.setAttribute('content', resolvedTheme === "dark" ? "black-translucent" : "default");
+        appleMeta.setAttribute('content', 'black-translucent');
     }, [resolvedTheme]);
 
     return null;

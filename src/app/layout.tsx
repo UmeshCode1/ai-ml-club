@@ -101,16 +101,23 @@ export default function RootLayout({
                   const isDark = theme === 'dark' || (theme === 'system' && supportDarkMode) || (!theme && supportDarkMode);
                   const color = isDark ? '#050505' : '#F8FAFC';
                   
-                  const meta = document.createElement('meta');
-                  meta.name = 'theme-color';
+                  // Inject theme-color
+                  let meta = document.querySelector('meta[name="theme-color"]');
+                  if (!meta) {
+                    meta = document.createElement('meta');
+                    meta.name = 'theme-color';
+                    document.head.appendChild(meta);
+                  }
                   meta.content = color;
-                  document.head.appendChild(meta);
                   
-                  // Also set Apple status bar color
-                  const appleMeta = document.createElement('meta');
-                  appleMeta.name = 'apple-mobile-web-app-status-bar-style';
-                  appleMeta.content = isDark ? 'black-translucent' : 'default';
-                  document.head.appendChild(appleMeta);
+                  // Force black-translucent for edge-to-edge blending
+                  let appleMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+                  if (!appleMeta) {
+                    appleMeta = document.createElement('meta');
+                    appleMeta.name = 'apple-mobile-web-app-status-bar-style';
+                    document.head.appendChild(appleMeta);
+                  }
+                  appleMeta.content = 'black-translucent';
                 } catch (e) {}
               })();
             `,

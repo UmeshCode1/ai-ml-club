@@ -21,8 +21,11 @@ export function GlobalScrollProgress() {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--neon-lime)] via-[var(--electric-cyan)] to-[var(--neon-lime)] z-[99999] origin-left shadow-[0_0_10px_var(--neon-lime)]"
-            style={{ scaleX }}
+            className="fixed left-0 right-0 h-[3px] bg-gradient-to-r from-[var(--neon-lime)] via-[var(--electric-cyan)] to-[var(--neon-lime)] z-[99999] origin-left shadow-[0_0_15px_var(--neon-lime)]"
+            style={{
+                scaleX,
+                top: "env(safe-area-inset-top, 0px)"
+            }}
         >
             {/* Pulsing Glow Effect */}
             <motion.div

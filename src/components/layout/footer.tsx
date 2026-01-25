@@ -174,21 +174,21 @@ export const Footer = () => {
                                         placeholder="Your name"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all font-medium"
+                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-white/8 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:border-[var(--neon-lime)]/50 focus:ring-1 focus:ring-[var(--neon-lime)]/30 focus:shadow-[0_0_15px_rgba(212,255,0,0.1)] transition-all font-medium"
                                     />
                                     <input
                                         type="email"
                                         placeholder="Your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all font-medium"
+                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-white/8 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:border-[var(--neon-lime)]/50 focus:ring-1 focus:ring-[var(--neon-lime)]/30 focus:shadow-[0_0_15px_rgba(212,255,0,0.1)] transition-all font-medium"
                                     />
                                     <input
                                         type="tel"
                                         placeholder="WhatsApp No. (optional)"
                                         value={phone}
                                         onChange={(e) => setPhone(e.target.value)}
-                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-[var(--neon-lime)]/50 transition-all font-medium"
+                                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-neutral-50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-white/8 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none focus:border-[var(--neon-lime)]/50 focus:ring-1 focus:ring-[var(--neon-lime)]/30 focus:shadow-[0_0_15px_rgba(212,255,0,0.1)] transition-all font-medium"
                                     />
                                     <button
                                         type="submit"

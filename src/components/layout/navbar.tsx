@@ -299,20 +299,20 @@ export const Navbar = () => {
                                             setIsOpen(false);
                                             share("apk");
                                         }}
-                                        className="flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
+                                        className="flex items-center justify-center gap-3 px-4 py-4 text-sm font-bold text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
                                     >
-                                        <Share2 className="w-5 h-5" />
-                                        <span>APK</span>
+                                        <Share2 className="w-5 h-5 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform" />
+                                        <span>Share App</span>
                                     </button>
                                     <button
                                         onClick={() => {
                                             setIsOpen(false);
                                             share("web");
                                         }}
-                                        className="flex items-center justify-center gap-3 px-6 py-4 text-base font-black text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border-2 border-neutral-200 dark:border-white/10 rounded-2xl hover:bg-neutral-200 dark:hover:bg-white/10 active:scale-[0.98] transition-all font-mono shadow-sm"
+                                        className="flex items-center justify-center gap-3 px-4 py-4 text-sm font-bold text-neutral-800 dark:text-neutral-100 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl hover:border-[var(--neon-lime)]/50 active:scale-[0.98] transition-all shadow-sm group"
                                     >
-                                        <Globe className="w-5 h-5" />
-                                        <span>Web</span>
+                                        <Globe className="w-5 h-5 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform" />
+                                        <span>Share Web</span>
                                     </button>
                                 </div>
                                 <div className="grid grid-cols-1 gap-3">

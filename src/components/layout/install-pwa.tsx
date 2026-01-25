@@ -34,15 +34,30 @@ export function InstallPWA() {
         }
     }, [showBanner]);
 
-    const handleInstall = async () => {
-        // Haptic feedback on click
-        if (window.navigator && window.navigator.vibrate) {
+    const [isInstalling, setIsInstalling] = useState(false);
+
+    const handleInstall = async (e: React.MouseEvent) => {
+        // Prevent click from bubbling to any background elements
+        e.stopPropagation();
+        e.preventDefault();
+
+        setIsInstalling(true);
+
+        // Haptic feedback
+        if (window.navigator?.vibrate) {
             window.navigator.vibrate(50);
         }
-        await install();
+
+        try {
+            await install();
+        } finally {
+            // Reset loading state after prompt interaction (or failure)
+            setIsInstalling(false);
+        }
     };
 
-    const handleDismiss = () => {
+    const handleDismiss = (e: React.MouseEvent) => {
+        e.stopPropagation();
         setShowBanner(false);
         setDismissed(true);
         sessionStorage.setItem("pwa-dismissed", "true");
@@ -63,7 +78,10 @@ export function InstallPWA() {
                     exit={{ y: -50, opacity: 0, scale: 0.9 }}
                     className="fixed top-[max(1rem,env(safe-area-inset-top))] left-4 z-[99999] md:left-8 md:top-[max(1.5rem,env(safe-area-inset-top))] w-auto max-w-[320px] pointer-events-none"
                 >
-                    <div className="bg-neutral-900/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex items-center gap-3 pointer-events-auto relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+                    <div
+                        className="bg-neutral-900/90 backdrop-blur-xl border border-white/10 rounded-2xl p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex items-center gap-3 pointer-events-auto relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 cursor-default"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         {/* Background Glow */}
                         <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-lime)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -79,9 +97,14 @@ export function InstallPWA() {
                         <div className="flex items-center gap-1.5">
                             <button
                                 onClick={handleInstall}
-                                className="px-3 py-1.5 rounded-lg bg-[var(--neon-lime)] text-black text-[10px] font-bold hover:brightness-110 active:scale-95 transition-all shadow-[0_0_10px_rgba(212,255,0,0.3)] animate-pulse-neon whitespace-nowrap"
+                                disabled={isInstalling}
+                                className="px-3 py-1.5 rounded-lg bg-[var(--neon-lime)] text-black text-[10px] font-bold hover:brightness-110 active:scale-95 transition-all shadow-[0_0_10px_rgba(212,255,0,0.3)] animate-pulse-neon whitespace-nowrap min-w-[60px] flex items-center justify-center disabled:opacity-70 disabled:pointer-events-none"
                             >
-                                Install
+                                {isInstalling ? (
+                                    <div className="w-3 h-3 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                ) : (
+                                    "Install"
+                                )}
                             </button>
                             <button
                                 onClick={handleDismiss}

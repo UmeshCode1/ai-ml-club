@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
@@ -288,8 +288,18 @@ export const Footer = () => {
 
 function InstallFooterItem() {
     const { isInstalled, isInstallable } = usePWAInstall();
+    const [isIOS, setIsIOS] = useState(false);
 
-    if (isInstalled || !isInstallable) return null;
+    useEffect(() => {
+        setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+    }, []);
+
+    if (isInstalled) return null;
+
+    // Show if:
+    // 1. Native isInstallable (Android/Chrome)
+    // 2. OR it's an iOS device (we guide them to /download)
+    if (!isInstallable && !isIOS) return null;
 
     return (
         <Link

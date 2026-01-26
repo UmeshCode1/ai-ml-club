@@ -56,57 +56,72 @@ export const Footer = () => {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-10 sm:mb-16">
 
                     {/* Brand Column */}
-                    <div className="col-span-2 lg:col-span-1 space-y-6 sm:space-y-8">
-                        <div className="space-y-4">
-                            <Link href="/" className="flex items-center gap-2 group relative">
-                                <div className="relative w-10 h-10 transition-transform group-hover:scale-110 duration-500">
+                    <div className="col-span-2 lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8">
+                        <div className="space-y-4 flex flex-col items-center lg:items-start">
+                            <Link href="/" className="flex items-center gap-3 group relative">
+                                <div className="relative w-12 h-12 transition-transform group-hover:scale-110 duration-500">
                                     <Image
                                         src="/logo-club.png"
                                         alt="AIML Club Logo"
-                                        width={40}
-                                        height={40}
+                                        width={48}
+                                        height={48}
                                         className="object-contain"
                                     />
-                                    <div className="absolute inset-0 bg-[var(--electric-cyan)]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <div className="absolute inset-0 bg-[var(--electric-cyan)]/30 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                 </div>
-                                <span className="font-bold text-xl tracking-tight text-neutral-900 dark:text-white relative overflow-hidden">
-                                    <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">AIML CLUB</span>
-                                    <span className="absolute left-0 top-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[var(--neon-lime-text)]">AIML CLUB</span>
+                                <span className="font-black text-2xl tracking-tighter text-neutral-900 dark:text-white relative overflow-hidden">
+                                    <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full">AIML CLUB</span>
+                                    <span className="absolute left-0 top-0 inline-block transition-transform duration-500 translate-y-full group-hover:translate-y-0 text-[var(--neon-lime-text)]">AIML CLUB</span>
                                 </span>
                             </Link>
-                            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-[200px]">
+                            <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-[240px]">
                                 Empowering students to innovate, implement, and inspire through AI.
                             </p>
                         </div>
 
-                        {/* Distribution Actions Grouped Under Brand on Mobile/Desktop Column */}
-                        <div className="flex flex-col gap-4 max-w-[280px]">
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 mb-1 px-1">Ecosystem Hub</h4>
-                            <div className="grid grid-cols-1 gap-3">
+                        {/* Distribution Actions - Premium Ecosystem Hub */}
+                        <div className="flex flex-col gap-5 w-full max-w-[300px]">
+                            <div className="flex items-center gap-3 px-1">
+                                <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-neutral-200 dark:via-white/10 to-transparent lg:hidden" />
+                                <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-500 whitespace-nowrap">Ecosystem Hub</h4>
+                                <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-neutral-200 dark:via-white/10 to-transparent lg:hidden" />
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4">
                                 <InstallFooterItem />
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-2 gap-4">
                                     <motion.button
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
+                                        whileHover={{ y: -2, scale: 1.02 }}
+                                        whileTap={{ scale: 0.97 }}
                                         onClick={() => share("apk")}
-                                        className="relative group overflow-hidden"
+                                        className="relative group h-14 overflow-hidden rounded-[1.25rem]"
                                     >
-                                        <div className="absolute inset-0 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl transition-all group-hover:border-[var(--neon-lime)]/50 group-hover:bg-neutral-200 dark:group-hover:bg-white/10" />
-                                        <div className="relative p-4 flex items-center justify-center gap-2.5">
-                                            <Share2 className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:rotate-12 transition-transform duration-300" />
-                                            <span className="text-[11px] font-black text-neutral-800 dark:text-neutral-300 tracking-wider">APK</span>
+                                        {/* Premium Glass Background */}
+                                        <div className="absolute inset-0 bg-neutral-100 dark:bg-white/[0.03] border border-neutral-200 dark:border-white/10 transition-all duration-500 group-hover:border-[var(--neon-lime)]/50 group-hover:shadow-[0_0_20px_rgba(212,255,0,0.1)]" />
+                                        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent dark:via-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                                        <div className="relative h-full flex items-center justify-center gap-3 px-4">
+                                            <div className="p-2 rounded-xl bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] group-hover:bg-[var(--neon-lime)] group-hover:text-black transition-all duration-300">
+                                                <Share2 className="w-4 h-4" />
+                                            </div>
+                                            <span className="text-xs font-black text-neutral-800 dark:text-neutral-200 tracking-widest">APK</span>
                                         </div>
                                     </motion.button>
+
                                     <motion.button
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
+                                        whileHover={{ y: -2, scale: 1.02 }}
+                                        whileTap={{ scale: 0.97 }}
                                         onClick={() => share("web")}
-                                        className="relative group overflow-hidden"
+                                        className="relative group h-14 overflow-hidden rounded-[1.25rem]"
                                     >
-                                        <div className="absolute inset-0 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl transition-all group-hover:border-[var(--electric-cyan)]/50 group-hover:bg-neutral-200 dark:group-hover:bg-white/10" />
-                                        <div className="relative p-4 flex items-center justify-center gap-2.5">
-                                            <Globe className="w-4 h-4 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform duration-300" />
-                                            <span className="text-[11px] font-black text-neutral-800 dark:text-neutral-300 tracking-wider">WEB</span>
+                                        <div className="absolute inset-0 bg-neutral-100 dark:bg-white/[0.03] border border-neutral-200 dark:border-white/10 transition-all duration-500 group-hover:border-[var(--electric-cyan)]/50 group-hover:shadow-[0_0_20px_rgba(0,255,255,0.1)]" />
+                                        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent dark:via-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                                        <div className="relative h-full flex items-center justify-center gap-3 px-4">
+                                            <div className="p-2 rounded-xl bg-[var(--electric-cyan)]/10 text-[var(--electric-cyan-text)] group-hover:bg-[var(--electric-cyan)] group-hover:text-black transition-all duration-300">
+                                                <Globe className="w-4 h-4" />
+                                            </div>
+                                            <span className="text-xs font-black text-neutral-800 dark:text-neutral-200 tracking-widest">WEB</span>
                                         </div>
                                     </motion.button>
                                 </div>
@@ -324,12 +339,14 @@ function InstallFooterItem() {
         >
             <Link
                 href="/download"
-                className="relative group overflow-hidden block w-full"
+                className="relative group overflow-hidden block w-full rounded-[1.25rem] h-14"
             >
-                <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-lime)]/20 to-[var(--electric-cyan)]/20 dark:from-[var(--neon-lime)]/10 dark:to-[var(--electric-cyan)]/10 border border-neutral-200 dark:border-white/10 rounded-2xl transition-all group-hover:border-[var(--neon-lime)]/50" />
-                <div className="relative p-3.5 flex items-center justify-center gap-3">
-                    <Smartphone className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform duration-300" />
-                    <span className="text-[11px] font-black text-neutral-800 dark:text-neutral-200 tracking-wider">INSTALL APP</span>
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon-lime)]/30 to-[var(--electric-cyan)]/30 dark:from-[var(--neon-lime)]/10 dark:to-[var(--electric-cyan)]/10 border border-neutral-200/50 dark:border-white/10 transition-all duration-500 group-hover:border-[var(--neon-lime)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-none" />
+                <div className="relative h-full flex items-center justify-center gap-3 px-4">
+                    <div className="p-2 rounded-xl bg-white/80 dark:bg-white/5 shadow-sm">
+                        <Smartphone className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    <span className="text-xs font-black text-neutral-900 dark:text-white tracking-[0.15em]">INSTALL APP</span>
                 </div>
             </Link>
         </motion.div>

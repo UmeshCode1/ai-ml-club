@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Mail, Linkedin, Github, Instagram, X, Users, GraduationCap } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, Linkedin, Github, Instagram, X, Users, GraduationCap, Sparkles } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
@@ -28,7 +28,7 @@ const DEFAULT_MEMBERS: TeamMember[] = [
     { name: "Loading...", role: "Team Member", image: "" },
 ];
 
-export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 2000 }: TeamSectionProps) {
+export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 2500 }: TeamSectionProps) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
@@ -80,13 +80,19 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 200
             onMouseLeave={() => setIsPaused(false)}
         >
             <div className="container mx-auto px-4 md:px-6 text-center">
-                <div className="inline-block px-3 py-1 rounded-full bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] text-xs font-bold uppercase tracking-wider mb-4 border border-[var(--neon-lime)]/20">
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--neon-lime)]/10 dark:bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-6 border border-[var(--neon-lime)]/20 dark:border-[var(--neon-lime)]/20 backdrop-blur-md shadow-sm"
+                >
+                    <Sparkles className="w-3.5 h-3.5" />
                     The Visionaries
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white mb-6">
+                </motion.div>
+                <h2 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white mb-6 tracking-tight">
                     Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">Team</span>
                 </h2>
-                <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-16">
+                <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-16 font-medium leading-relaxed">
                     The passionate individuals driving innovation and excellence at OCT.
                 </p>
 
@@ -134,18 +140,18 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 200
                                                 scale: scale,
                                                 opacity: opacity,
                                                 zIndex: zIndex,
-                                                filter: isActive ? 'blur(0px)' : 'blur(4px)',
+                                                filter: isActive ? 'blur(0px)' : 'blur(8px) grayscale(0.5)',
                                             }}
-                                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                             className={`absolute top-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-64 md:w-80 ${isActive ? 'cursor-pointer' : ''} will-change-transform`}
                                             onClick={() => isActive && handleMemberClick(member)}
                                         >
                                             <div className="relative group w-full aspect-[4/5] mb-6">
                                                 <GradientBorder
-                                                    containerClassName={`w-full h-full rounded-3xl transition-all duration-500 ${isActive ? 'shadow-[0_0_50px_rgba(0,0,0,0.15)] dark:shadow-[0_0_50px_rgba(var(--neon-lime-rgb),0.15)] scale-[1.02]' : 'opacity-60 scale-95'}`}
-                                                    className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl rounded-3xl flex items-center justify-center overflow-hidden border border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors duration-500"
-                                                    borderWidth={isActive ? 1.5 : 0}
-                                                    duration={isActive ? 3 : 10}
+                                                    containerClassName={`w-full h-full rounded-3xl transition-all duration-700 ${isActive ? 'shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)] scale-[1.05]' : 'opacity-40 scale-90'}`}
+                                                    className="bg-neutral-50/90 dark:bg-neutral-950/90 backdrop-blur-2xl rounded-3xl flex items-center justify-center overflow-hidden border border-neutral-200 dark:border-white/10 group-hover:border-[var(--neon-lime)]/50 transition-colors duration-500"
+                                                    borderWidth={isActive ? 2 : 0}
+                                                    duration={isActive ? 2.5 : 10}
                                                 >
                                                     {/* Noise Texture Overlay */}
                                                     <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none z-10" />
@@ -170,9 +176,22 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 200
                                                         </div>
                                                     )}
 
+                                                    {/* Progress Bar for Active Card */}
+                                                    {isActive && !isPaused && (
+                                                        <div className="absolute bottom-0 left-0 right-0 h-1 z-40 bg-black/5 dark:bg-white/10">
+                                                            <motion.div
+                                                                key={activeIndex}
+                                                                initial={{ width: "0%" }}
+                                                                animate={{ width: "100%" }}
+                                                                transition={{ duration: autoSlideInterval / 1000, ease: "linear" }}
+                                                                className="h-full bg-gradient-to-r from-[var(--neon-lime)] to-[var(--electric-cyan)]"
+                                                            />
+                                                        </div>
+                                                    )}
+
                                                     {/* Click hint overlay */}
-                                                    <div className="absolute bottom-6 left-0 right-0 z-30 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-                                                        <span className="px-4 py-1.5 rounded-full bg-[var(--neon-lime)] text-black text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_var(--neon-lime)]">
+                                                    <div className="absolute bottom-10 left-0 right-0 z-30 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+                                                        <span className="px-5 py-2 rounded-xl bg-white/90 dark:bg-black/90 backdrop-blur-md text-neutral-900 dark:text-white text-[10px] font-black uppercase tracking-widest border border-neutral-200 dark:border-white/10 shadow-2xl">
                                                             View Profile
                                                         </span>
                                                     </div>

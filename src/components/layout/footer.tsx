@@ -9,6 +9,7 @@ import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { createSubscription } from "@/lib/database";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
 import { useShareApp } from "@/hooks/use-share-app";
+import { motion } from "framer-motion";
 
 export const Footer = () => {
     const [name, setName] = useState("");
@@ -79,34 +80,44 @@ export const Footer = () => {
                         </div>
 
                         {/* Distribution Actions Grouped Under Brand on Mobile/Desktop Column */}
-                        <div className="flex flex-col gap-3 max-w-[220px]">
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 mb-0.5 px-1">Ecosystem Hub</h4>
-                            <div className="grid grid-cols-1 gap-2">
+                        <div className="flex flex-col gap-4 max-w-[280px]">
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 mb-1 px-1">Ecosystem Hub</h4>
+                            <div className="grid grid-cols-1 gap-3">
                                 <InstallFooterItem />
-                                <div className="grid grid-cols-2 gap-2">
-                                    <button
+                                <div className="grid grid-cols-2 gap-3">
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         onClick={() => share("apk")}
-                                        className="px-3 py-3 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl text-[11px] font-black text-neutral-800 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all flex items-center justify-center gap-2 group active:scale-95"
+                                        className="relative group overflow-hidden"
                                     >
-                                        <Share2 className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform" />
-                                        <span>APK</span>
-                                    </button>
-                                    <button
+                                        <div className="absolute inset-0 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl transition-all group-hover:border-[var(--neon-lime)]/50 group-hover:bg-neutral-200 dark:group-hover:bg-white/10" />
+                                        <div className="relative p-4 flex items-center justify-center gap-2.5">
+                                            <Share2 className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:rotate-12 transition-transform duration-300" />
+                                            <span className="text-[11px] font-black text-neutral-800 dark:text-neutral-300 tracking-wider">APK</span>
+                                        </div>
+                                    </motion.button>
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                         onClick={() => share("web")}
-                                        className="px-3 py-3 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl text-[11px] font-black text-neutral-800 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all flex items-center justify-center gap-2 group active:scale-95"
+                                        className="relative group overflow-hidden"
                                     >
-                                        <Globe className="w-4 h-4 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform" />
-                                        <span>WEB</span>
-                                    </button>
+                                        <div className="absolute inset-0 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl transition-all group-hover:border-[var(--electric-cyan)]/50 group-hover:bg-neutral-200 dark:group-hover:bg-white/10" />
+                                        <div className="relative p-4 flex items-center justify-center gap-2.5">
+                                            <Globe className="w-4 h-4 text-[var(--electric-cyan-text)] group-hover:scale-110 transition-transform duration-300" />
+                                            <span className="text-[11px] font-black text-neutral-800 dark:text-neutral-300 tracking-wider">WEB</span>
+                                        </div>
+                                    </motion.button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Quick Links */}
+                    {/* Quick Links & Resources - Better spacing for mobile */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[9px] opacity-70">Quick Links</h3>
-                        <ul className="space-y-3 sm:space-y-4">
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-500 mb-6 px-1">Quick Links</h3>
+                        <ul className="space-y-4">
                             {[
                                 { name: "Home", href: "/" },
                                 { name: "Team", href: "/team" },
@@ -118,9 +129,10 @@ export const Footer = () => {
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-all hover:translate-x-1 inline-block"
+                                        className="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors hover:translate-x-1.5 inline-flex items-center gap-2 duration-300"
                                         prefetch={true}
                                     >
+                                        <div className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-[var(--neon-lime)] transition-colors" />
                                         {link.name}
                                     </Link>
                                 </li>
@@ -128,16 +140,15 @@ export const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Resources */}
                     <div className="col-span-1">
-                        <h3 className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white mb-4 sm:mb-6 uppercase tracking-widest text-[9px] opacity-70">Resources</h3>
-                        <ul className="space-y-3 sm:space-y-4">
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-500 mb-6 px-1">Resources</h3>
+                        <ul className="space-y-4">
                             {[
                                 { name: "Latest Updates", href: siteConfig.links.info, external: true },
                                 { name: "Suggestion Box", href: "/suggestions" },
                                 { name: "Constitution", href: "/constitution" },
                                 { name: "Notion Workspace", href: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061", external: true },
-                                { name: "GitHub Org", href: "https://github.com/aimlcluboct", external: true },
+                                { name: "GitHub Org", href: siteConfig.links.github, external: true },
                                 { name: "Media Drive", href: siteConfig.links.drive, external: true },
                                 { name: "WhatsApp Channel", href: siteConfig.links.whatsappChannel, external: true },
                             ].map((link) => (
@@ -145,9 +156,10 @@ export const Footer = () => {
                                     <Link
                                         href={link.href}
                                         target={link.external ? "_blank" : undefined}
-                                        className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-all hover:translate-x-1 inline-block"
+                                        className="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-[var(--neon-lime-text)] transition-colors hover:translate-x-1.5 inline-flex items-center gap-2 duration-300"
                                         prefetch={link.external ? false : true}
                                     >
+                                        <div className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-700 group-hover:bg-[var(--neon-lime)] transition-colors" />
                                         {link.name}
                                     </Link>
                                 </li>
@@ -228,41 +240,32 @@ export const Footer = () => {
                 </div>
 
                 {/* Connect Grid - Social Links */}
-                <div className="mt-8 mb-6 pt-6 border-t border-neutral-200/50 dark:border-white/10">
-                    <p className="text-center text-[11px] font-black uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-500 mb-5 sm:mb-8">Connect Ecosystem</p>
-                    <div className="grid grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 md:gap-5">
-                        <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <Linkedin className="w-5 h-5 text-[#0A66C2] group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">LinkedIn</span>
-                        </a>
-                        <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <Github className="w-5 h-5 text-neutral-900 dark:text-white group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">GitHub</span>
-                        </a>
-                        <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <Instagram className="w-5 h-5 text-[#E4405F] group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Official</span>
-                        </a>
-                        <a href={siteConfig.links.instagramPhotopia} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <Instagram className="w-5 h-5 text-[#833AB4] group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Photopia</span>
-                        </a>
-                        <a href={siteConfig.links.commudle} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <Users className="w-5 h-5 text-[#6366F1] group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Commudle</span>
-                        </a>
-                        <a href={siteConfig.links.whatsappChannel} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <WhatsAppIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Channel</span>
-                        </a>
-                        <a href={siteConfig.links.whatsappGroup} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <WhatsAppIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Group</span>
-                        </a>
-                        <a href={siteConfig.links.social} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-neutral-100 dark:bg-neutral-800/40 hover:bg-[var(--neon-lime)]/10 border border-neutral-200 dark:border-white/5 hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95 shadow-sm">
-                            <Link2 className="w-5 h-5 text-[var(--neon-lime)] group-hover:scale-110 transition-transform" />
-                            <span className="text-[10px] sm:text-xs font-bold text-neutral-600 dark:text-neutral-400 group-hover:text-[var(--neon-lime-text)]">Links</span>
-                        </a>
+                <div className="mt-8 mb-6 pt-8 border-t border-neutral-200/50 dark:border-white/10">
+                    <p className="text-center text-[10px] font-black uppercase tracking-[0.4em] text-neutral-500 dark:text-neutral-500 mb-8">Connect Ecosystem</p>
+                    <div className="grid grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+                        {[
+                            { name: "LinkedIn", icon: Linkedin, color: "#0A66C2", href: siteConfig.links.linkedin },
+                            { name: "GitHub", icon: Github, color: "var(--neon-lime-text)", href: siteConfig.links.github, isAccent: true },
+                            { name: "Official", icon: Instagram, color: "#E4405F", href: siteConfig.links.instagram },
+                            { name: "Photopia", icon: Instagram, color: "#833AB4", href: siteConfig.links.instagramPhotopia },
+                            { name: "Commudle", icon: Users, color: "#6366F1", href: siteConfig.links.commudle },
+                            { name: "Channel", icon: WhatsAppIcon, color: "#25D366", href: siteConfig.links.whatsappChannel },
+                            { name: "Group", icon: WhatsAppIcon, color: "#25D366", href: siteConfig.links.whatsappGroup },
+                            { name: "Links", icon: Link2, color: "var(--electric-cyan-text)", href: siteConfig.links.social },
+                        ].map((social) => (
+                            <motion.a
+                                key={social.name}
+                                whileHover={{ y: -5, scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                href={social.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl bg-neutral-100/80 dark:bg-white/[0.03] border border-neutral-200/50 dark:border-white/[0.05] hover:border-[var(--neon-lime)]/30 transition-all group backdrop-blur-md shadow-sm"
+                            >
+                                <social.icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" style={{ color: social.color }} />
+                                <span className="text-[10px] font-bold text-neutral-600 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">{social.name}</span>
+                            </motion.a>
+                        ))}
                     </div>
                 </div>
 
@@ -298,10 +301,12 @@ function InstallFooterItem() {
     const [isIOS, setIsIOS] = useState(false);
 
     useEffect(() => {
-        // Safe check for browser environment
-        if (typeof window !== "undefined") {
-            setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
-        }
+        const checkIOS = () => {
+            if (typeof window !== "undefined") {
+                setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+            }
+        };
+        checkIOS();
     }, []);
 
     if (isInstalled) return null;
@@ -312,12 +317,21 @@ function InstallFooterItem() {
     if (!isInstallable && !isIOS) return null;
 
     return (
-        <Link
-            href="/download"
-            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 rounded-2xl text-[11px] font-black text-neutral-800 dark:text-neutral-300 hover:text-[var(--neon-lime-text)] hover:border-[var(--neon-lime)]/50 transition-all group active:scale-95"
+        <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full"
         >
-            <Smartphone className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            <span>Install App</span>
-        </Link>
+            <Link
+                href="/download"
+                className="relative group overflow-hidden block w-full"
+            >
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-lime)]/20 to-[var(--electric-cyan)]/20 dark:from-[var(--neon-lime)]/10 dark:to-[var(--electric-cyan)]/10 border border-neutral-200 dark:border-white/10 rounded-2xl transition-all group-hover:border-[var(--neon-lime)]/50" />
+                <div className="relative p-3.5 flex items-center justify-center gap-3">
+                    <Smartphone className="w-4 h-4 text-[var(--neon-lime-text)] group-hover:scale-110 transition-transform duration-300" />
+                    <span className="text-[11px] font-black text-neutral-800 dark:text-neutral-200 tracking-wider">INSTALL APP</span>
+                </div>
+            </Link>
+        </motion.div>
     );
 }

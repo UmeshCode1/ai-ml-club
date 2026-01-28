@@ -87,13 +87,13 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 250
                     className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--neon-lime)]/10 dark:bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-6 border border-[var(--neon-lime)]/20 dark:border-[var(--neon-lime)]/20 backdrop-blur-md shadow-sm"
                 >
                     <Sparkles className="w-3.5 h-3.5" />
-                    The Visionaries
+                    OUR LEADERSHIP
                 </motion.div>
-                <h2 className="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white mb-6 tracking-tight">
-                    AI & Machine Learning Club <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">Core Team</span>
+                <h2 className="text-4xl md:text-8xl font-black text-neutral-900 dark:text-white mb-6 tracking-tighter">
+                    Driven by <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">Expertise</span>
                 </h2>
-                <p className="text-base sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-16 font-medium leading-relaxed italic">
-                    &quot;From faculty guidance to student brilliance — the minds behind AIML Club.&quot;
+                <p className="text-base sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-16 font-medium leading-relaxed">
+                    The minds shaping the AI & Machine Learning Club at OCT.
                 </p>
 
                 {/* Carousel UI */}

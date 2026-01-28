@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Link as LinkIcon, MessageSquare, BookOpen, Users, Settings, Share2, Home, Calendar, Menu } from "lucide-react";
+import { MessageSquare, BookOpen, Users, Settings, Share2, Home, Calendar, Menu } from "lucide-react";
 import { useHaptic } from "@/hooks/use-haptic";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -152,7 +152,7 @@ export function BottomNav() {
                                 </div>
 
                                 <Link
-                                    href="/download/web-app"
+                                    href="/download"
                                     onClick={() => { setIsMoreOpen(false); trigger(); }}
                                     className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-100 dark:bg-white/5 active:scale-95 transition-transform col-span-2"
                                 >

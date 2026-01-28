@@ -98,16 +98,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.6,
         },
         {
-            url: `${baseUrl}/download/apk`,
+            url: `${baseUrl}/download`,
             lastModified: new Date(),
             changeFrequency: "monthly",
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/download/web-app`,
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.7,
+            priority: 0.9,
         },
     ];
 

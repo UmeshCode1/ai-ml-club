@@ -158,19 +158,19 @@ export default function DownloadPage() {
                                                 ) : null}
 
                                                 <div className="grid grid-cols-2 gap-4 pt-2">
-                                                    <a href={siteConfig.links.apk} download="aiml-club.apk" className="flex-1">
+                                                    <a href={siteConfig.links.apk} target="_blank" rel="noopener noreferrer" className="flex-1">
                                                         <MagneticButton>
                                                             <div className="w-full h-full flex items-center justify-center gap-3 px-4 py-4 bg-white/5 border border-white/10 text-white font-black rounded-[1.5rem] group hover:bg-white/10 hover:scale-[1.03] transition-all cursor-pointer">
                                                                 <Download className="w-5 h-5 text-[var(--neon-lime-text)]" />
-                                                                <span className="text-xs">APK File</span>
+                                                                <span className="text-xs">Get APK</span>
                                                             </div>
                                                         </MagneticButton>
                                                     </a>
-                                                    <a href={siteConfig.links.aab} download="aiml-club.aab" className="flex-1">
+                                                    <a href={siteConfig.links.aab} target="_blank" rel="noopener noreferrer" className="flex-1">
                                                         <MagneticButton>
                                                             <div className="w-full h-full flex items-center justify-center gap-3 px-4 py-4 bg-white/5 border border-white/10 text-white font-black rounded-[1.5rem] group hover:bg-white/10 hover:scale-[1.03] transition-all cursor-pointer">
                                                                 <Download className="w-5 h-5 text-[var(--electric-cyan-text)]" />
-                                                                <span className="text-xs">AAB Build</span>
+                                                                <span className="text-xs">AAB Bundle</span>
                                                             </div>
                                                         </MagneticButton>
                                                     </a>
@@ -239,14 +239,24 @@ export default function DownloadPage() {
                                             {isInstallable && !isInstalled ? (
                                                 <>
                                                     <h2 className="text-3xl font-black">Desktop App</h2>
-                                                    <p className="text-neutral-400">Install AIML Club on your PC/Laptop for quick access from your desktop or taskbar.</p>
-                                                    <button
-                                                        onClick={install}
-                                                        className="w-full flex items-center justify-center gap-3 px-6 py-5 bg-[var(--electric-cyan)] text-black font-black rounded-3xl group shadow-[0_20px_40px_rgba(34,211,238,0.2)] hover:scale-[1.03] transition-all cursor-pointer"
-                                                    >
-                                                        <Download className="w-6 h-6" />
-                                                        <span>Install Web App</span>
-                                                    </button>
+                                                    <p className="text-neutral-400">Install AIML Club on your Windows PC for the best native experience.</p>
+                                                    <div className="flex flex-col gap-3">
+                                                        <a
+                                                            href={siteConfig.links.windows}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="w-full flex items-center justify-center gap-3 px-6 py-5 bg-[var(--neon-lime)] text-black font-black rounded-3xl group shadow-[0_20px_40px_rgba(212,255,0,0.3)] hover:scale-[1.03] transition-all cursor-pointer"
+                                                        >
+                                                            <Download className="w-6 h-6" />
+                                                            <span>Download for Windows</span>
+                                                        </a>
+                                                        <button
+                                                            onClick={install}
+                                                            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-[var(--electric-cyan)]/10 text-[var(--electric-cyan-text)] font-black rounded-3xl group border border-[var(--electric-cyan)]/20 hover:bg-[var(--electric-cyan)]/20 transition-all cursor-pointer"
+                                                        >
+                                                            <span>Install Web App</span>
+                                                        </button>
+                                                    </div>
                                                     <div className="relative h-[1px] bg-white/10 my-8">
                                                         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--card-bg)] px-4 text-[10px] text-neutral-600 font-bold uppercase tracking-[0.3em]">OR SCAN MOBILE</span>
                                                     </div>

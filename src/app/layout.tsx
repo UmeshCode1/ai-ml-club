@@ -18,6 +18,7 @@ import { GlobalBackground } from "@/components/layout/global-background";
 import { ThemeColorUpdater } from "@/components/layout/theme-color-updater";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { InstallPWA } from "@/components/layout/install-pwa";
+import { GlobalNotification } from "@/components/layout/global-notification";
 
 
 const inter = Inter({
@@ -175,9 +176,10 @@ export default function RootLayout({
             <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('/noise.png')] bg-repeat" />
 
             <AppwritePing />
+            <PreLoader />
             <InstallPWA />
             <ScrollToTop />
-            <PreLoader />
+            <GlobalNotification />
             <GlobalBackground />
             <ThemeColorUpdater />
             <Navbar />

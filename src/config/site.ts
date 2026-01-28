@@ -118,8 +118,9 @@ export const siteConfig = {
 
         // Other
         drive: "https://drive.google.com/drive/folders/155hvNMdI83jLOUUZs4U7WaivtRdFsqb4?usp=sharing",
-        apk: "https://fra.cloud.appwrite.io/v1/storage/buckets/apps/files/aiml-club.apk/download?project=696f6e31002241c92438",
-        aab: "https://fra.cloud.appwrite.io/v1/storage/buckets/apps/files/aiml-club.aab/download?project=696f6e31002241c92438",
+        apk: "https://drive.google.com/drive/folders/1xRzPHXexGDH9ggROAhSjkI2hPsdRcE9F?usp=sharing",
+        aab: "https://drive.google.com/drive/folders/1xRzPHXexGDH9ggROAhSjkI2hPsdRcE9F?usp=sharing",
+        windows: "https://drive.google.com/drive/folders/1xRzPHXexGDH9ggROAhSjkI2hPsdRcE9F?usp=sharing",
         notion: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061",
 
         // Contact

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone, Share2, Globe } from "lucide-react";
+import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone, Globe } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { createSubscription } from "@/lib/database";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
@@ -95,7 +95,8 @@ export const Footer = () => {
                                         whileHover={{ y: -2 }}
                                         whileTap={{ scale: 0.98 }}
                                         href={siteConfig.links.apk}
-                                        download="aiml-club.apk"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="relative group h-12 overflow-hidden rounded-2xl transform-gpu flex items-center justify-center"
                                     >
                                         <div className="absolute inset-0 bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 transition-colors group-hover:border-[var(--neon-lime)]/40" />
@@ -103,7 +104,7 @@ export const Footer = () => {
                                             <div className="p-1.5 rounded-lg bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] group-hover:bg-[var(--neon-lime)] group-hover:text-black transition-all font-black text-[10px]">
                                                 APK
                                             </div>
-                                            <span className="text-[10px] font-black text-neutral-800 dark:text-neutral-300 tracking-[0.15em] uppercase">Download</span>
+                                            <span className="text-[10px] font-black text-neutral-800 dark:text-neutral-300 tracking-[0.15em] uppercase">Drive</span>
                                         </div>
                                     </motion.a>
 
@@ -293,7 +294,7 @@ export const Footer = () => {
 };
 
 function InstallFooterItem() {
-    const { isInstalled, isInstallable } = usePWAInstall();
+    const { isInstalled, isInstallable, install } = usePWAInstall();
     const [isIOS, setIsIOS] = useState(false);
 
     useEffect(() => {

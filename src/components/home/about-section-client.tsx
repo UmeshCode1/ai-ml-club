@@ -81,8 +81,8 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                         </div>
 
                         {/* Title */}
-                        <h2 className="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white mb-8 tracking-tighter">
-                            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon-lime-text)] to-[var(--electric-cyan-text)]">AIML Club</span>
+                        <h2 className="text-5xl md:text-7xl font-bold text-neutral-900 dark:text-white mb-8 tracking-tight">
+                            About <span className="text-[var(--neon-lime-text)]">AIML Club</span>
                         </h2>
 
                         {/* Paragraphs */}
@@ -151,13 +151,10 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
 
                                     {/* Dim overlay - reduces brightness and prevents flash */}
                                     <div className="absolute inset-0 bg-neutral-950/40 z-[3]" />
-
-                                    {/* Atmospheric Scanlines */}
-                                    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,0,0.02))] z-[4] pointer-events-none opacity-20" style={{ backgroundSize: '100% 4px, 3px 100%' }} />
                                 </div>
 
                                 {/* Gradient Overlay for text readability */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent z-[5]" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent z-[4]" />
 
                                 {/* Content Overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-[5]">

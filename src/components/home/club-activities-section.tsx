@@ -14,7 +14,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function ClubActivitiesSection({ activities }: { activities: Activity[] }) {
     return (
-        <section className="py-24 md:py-32 relative z-10 overflow-hidden">
+        <section className="py-16 md:py-24 relative z-10 overflow-hidden">
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -23,12 +23,11 @@ export function ClubActivitiesSection({ activities }: { activities: Activity[] }
                     transition={{ duration: 0.8 }}
                     className="text-center mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--electric-cyan)]/10 text-[var(--electric-cyan-text)] text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-[var(--electric-cyan)]/20 shadow-sm backdrop-blur-md">
-                        <Lightbulb className="w-3 h-3" />
+                    <div className="inline-block px-3 py-1 rounded-full bg-[var(--electric-cyan)]/10 text-[var(--electric-cyan-text)] text-xs font-bold uppercase tracking-wider mb-4 border border-[var(--electric-cyan)]/20">
                         What We Do
                     </div>
-                    <h2 className="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white mb-6 tracking-tighter">
-                        Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon-lime-text)] to-[var(--electric-cyan-text)]">Activities</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+                        Our <span className="text-[var(--neon-lime-text)]">Activities</span>
                     </h2>
                     <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                         From workshops to hackathons, we create experiences that shape future AI leaders.

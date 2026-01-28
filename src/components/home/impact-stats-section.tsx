@@ -38,10 +38,9 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export function ImpactStatsSection({ stats }: { stats: Stat[] }) {
     return (
-        <section className="py-24 md:py-32 relative z-10 overflow-hidden">
-            {/* Background Gradient & Grid */}
+        <section className="py-20 md:py-28 relative z-10 overflow-hidden">
+            {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--neon-lime)]/5 to-transparent pointer-events-none" />
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-20" />
 
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div
@@ -51,11 +50,11 @@ export function ImpactStatsSection({ stats }: { stats: Stat[] }) {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white mb-6 tracking-tighter">
-                        Experience <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--neon-lime-text)] to-[var(--electric-cyan-text)]">Our Impact</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+                        Our Impact in Numbers
                     </h2>
-                    <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto font-medium">
-                        Exponential growth driven by localized innovation.
+                    <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+                        Building a legacy of innovation, one project at a time.
                     </p>
                 </motion.div>
 

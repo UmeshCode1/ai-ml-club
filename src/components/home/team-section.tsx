@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Mail, Linkedin, Github, Instagram, X, Users, GraduationCap, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, Linkedin, Github, Instagram, X, Users, GraduationCap } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { GradientBorder } from "@/components/ui/gradient-border";
@@ -84,17 +84,22 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 250
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--neon-lime)]/10 dark:bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-6 border border-[var(--neon-lime)]/20 dark:border-[var(--neon-lime)]/20 backdrop-blur-md shadow-sm"
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--electric-cyan)]/10 dark:bg-[var(--electric-cyan)]/10 text-[var(--electric-cyan-text)] text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-6 border border-[var(--electric-cyan)]/20 dark:border-[var(--electric-cyan)]/20 backdrop-blur-md shadow-sm"
                 >
-                    <Sparkles className="w-3.5 h-3.5" />
+                    <Users className="w-3.5 h-3.5" />
                     OUR LEADERSHIP
                 </motion.div>
-                <h2 className="text-4xl md:text-8xl font-black text-neutral-900 dark:text-white mb-6 tracking-tighter">
+                <h2 className="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white mb-6 tracking-tight">
                     Driven by <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">Expertise</span>
                 </h2>
-                <p className="text-base sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-16 font-medium leading-relaxed">
-                    The minds shaping the AI & Machine Learning Club at OCT.
-                </p>
+                <div className="max-w-3xl mx-auto mb-16 space-y-4">
+                    <p className="text-base sm:text-xl text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed">
+                        The minds shaping the AI & Machine Learning Club at OCT.
+                    </p>
+                    <p className="text-sm md:text-base text-neutral-500 dark:text-neutral-500 font-medium italic">
+                        &quot;From faculty guidance to student brilliance — meeting the architectural minds behind the mission.&quot;
+                    </p>
+                </div>
 
                 {/* Carousel UI */}
                 <div className="relative max-w-6xl mx-auto flex items-center justify-center gap-2 md:gap-8">

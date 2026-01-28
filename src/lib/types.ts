@@ -110,4 +110,6 @@ export interface ClientMember {
     linkedin?: string;
     github?: string;
     imageUrl?: string;
+    year?: string;
+    status?: string;
 }

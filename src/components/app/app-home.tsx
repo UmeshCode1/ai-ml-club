@@ -3,29 +3,52 @@
 import { Bell, Calendar, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { QuickActions } from "@/components/home/quick-actions";
-import { Event, BlogPost } from "@/lib/database";
+import { BlogPost, Event, Notification } from "@/lib/database";
+import { cn } from "@/lib/utils";
 
 interface AppHomeProps {
     nextEvent?: Event;
     latestPost?: BlogPost;
+    notifications?: Notification[];
 }
 
-export function AppHome({ nextEvent, latestPost }: AppHomeProps) {
+export function AppHome({ nextEvent, latestPost, notifications = [] }: AppHomeProps) {
+    const activeNotification = notifications.find(n => n.isActive);
+
     return (
-        <div className="min-h-screen pb-24 pt-12 px-4">
-            {/* Header / Identity */}
-            <header className="flex justify-between items-center mb-8">
+        <div className="pb-24 space-y-6">
+            {/* Header with Notification */}
+            <header className="px-5 pt-8 flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-black text-white uppercase tracking-tight">
-                        AIML <span className="text-[var(--neon-lime)]">Club</span>
+                    <h1 className="text-2xl font-black text-white">
+                        <span className="text-neutral-400 font-medium text-lg block mb-1">Welcome back,</span>
+                        AIML Member
                     </h1>
-                    <p className="text-xs text-neutral-500 font-mono">Oriental College of Technology</p>
                 </div>
-                <button className="p-2 rounded-full bg-white/5 text-neutral-400 hover:text-white relative">
-                    <Bell className="w-6 h-6" />
-                    <span className="absolute top-2 right-2 w-2 h-2 bg-[var(--electric-cyan)] rounded-full animate-pulse" />
+                <button className="w-10 h-10 rounded-full bg-neutral-800 border border-white/10 flex items-center justify-center relative active:scale-95 transition-transform">
+                    <Bell className="w-5 h-5 text-neutral-400" />
+                    {activeNotification && (
+                        <span className="absolute top-2 right-2.5 w-2 h-2 bg-[var(--neon-lime)] rounded-full animate-pulse" />
+                    )}
                 </button>
             </header>
+
+            {/* Notification Banner */}
+            {activeNotification && (
+                <div className="px-4">
+                    <div className={cn(
+                        "p-4 rounded-2xl border flex items-start gap-3 transition-colors",
+                        activeNotification.type === "alert" ? "bg-red-500/10 border-red-500/20 text-red-200" :
+                            activeNotification.type === "success" ? "bg-[var(--neon-lime)]/10 border-[var(--neon-lime)]/20 text-[var(--neon-lime)]" :
+                                "bg-blue-500/10 border-blue-500/20 text-blue-200"
+                    )}>
+                        <div className="flex-1">
+                            <h4 className="font-bold text-sm mb-1">{activeNotification.title}</h4>
+                            <p className="text-xs opacity-90 leading-relaxed">{activeNotification.message}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Next Event Card */}
             {nextEvent && (

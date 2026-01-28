@@ -1,36 +1,8 @@
 "use client";
 
+import { Stat } from "@/lib/database";
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState, useMemo } from "react";
-import { MOCK_EVENTS } from "@/lib/data";
-
-// Calculate dynamic stats
-function useStats() {
-    return useMemo(() => {
-        // Active Members: Start at 1390, add 10 per week since Jan 1, 2025
-        const startDate = new Date("2025-01-01");
-        const now = new Date();
-        const weeksPassed = Math.floor((now.getTime() - startDate.getTime()) / (7 * 24 * 60 * 60 * 1000));
-        const activeMembers = 1390 + (weeksPassed * 10);
-
-        // Events count from actual data
-        const eventsCount = MOCK_EVENTS.length;
-
-        // Years running: Founded August 9, 2025
-        const foundingDate = new Date("2025-08-09");
-        const yearsRunning = Math.max(1, Math.floor((now.getTime() - foundingDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000)) + 1);
-
-        // Projects shipped (can be updated from data later)
-        const projectsShipped = 5;
-
-        return [
-            { value: activeMembers, suffix: "+", label: "Active Members" },
-            { value: projectsShipped, suffix: "+", label: "Projects Shipped" },
-            { value: eventsCount, suffix: "+", label: "Events Hosted" },
-            { value: yearsRunning, suffix: "", label: "Years Running" },
-        ];
-    }, []);
-}
+import { useRef, useEffect, useState } from "react";
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
     const [count, setCount] = useState(0);
@@ -64,9 +36,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
     );
 }
 
-export function ImpactStatsSection() {
-    const stats = useStats();
-
+export function ImpactStatsSection({ stats }: { stats: Stat[] }) {
     return (
         <section className="py-20 md:py-28 relative z-10 overflow-hidden">
             {/* Background Gradient */}
@@ -88,25 +58,27 @@ export function ImpactStatsSection() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
-                    {stats.map((stat, index) => (
-                        <motion.div
-                            key={stat.label}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="text-center p-4 sm:p-6 rounded-2xl bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-neutral-200/50 dark:border-white/10 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:border-[var(--neon-lime)]/30 transition-all duration-300"
-                        >
-                            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--neon-lime-text)] mb-2">
-                                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                            </div>
-                            <div className="text-[10px] sm:text-xs lg:text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
-                                {stat.label}
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
+                {stats.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
+                        {stats.map((stat, index) => (
+                            <motion.div
+                                key={stat.label}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                className="text-center p-4 sm:p-6 rounded-2xl bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-neutral-200/50 dark:border-white/10 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:border-[var(--neon-lime)]/30 transition-all duration-300"
+                            >
+                                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--neon-lime-text)] mb-2">
+                                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                                </div>
+                                <div className="text-[10px] sm:text-xs lg:text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
+                                    {stat.label}
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );

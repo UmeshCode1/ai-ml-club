@@ -73,5 +73,28 @@
             "form_factor": "narrow",
             "label": "AIML Club Mobile"
         }
+    ],
+    "share_target": {
+        "action": "/suggestions",
+        "method": "GET",
+        "params": {
+            "title": "title",
+            "text": "text",
+            "url": "url"
+        }
+    },
+    "display_override": [
+        "window-controls-overlay",
+        "standalone",
+        "minimal-ui"
+    ],
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    },
+    "protocol_handlers": [
+        {
+            "protocol": "web+aiml",
+            "url": "/events?q=%s"
+        }
     ]
 }

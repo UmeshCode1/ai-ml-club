@@ -33,7 +33,111 @@ const COLLECTIONS = {
     GALLERY: "gallery",
     SUBSCRIPTIONS: "subscriptions",
     CONTACTS: "contacts",
+    ACTIVITIES: "activities",
+    FEATURES: "features",
+    STATS: "stats",
+    NOTIFICATIONS: "notifications",
 };
+
+// ==================== DYNAMIC CONTENT ====================
+
+export interface Activity {
+    $id?: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    icon: string; // Lucide icon name
+    stats: string;
+    order: number;
+}
+
+export interface Feature {
+    $id?: string;
+    title: string;
+    description: string;
+    icon: string;
+    color: string;
+    bg: string;
+    order: number;
+}
+
+export interface Stat {
+    $id?: string;
+    label: string;
+    value: number;
+    suffix: string;
+    order: number;
+}
+
+export interface Notification {
+    $id?: string;
+    title: string;
+    message?: string;
+    type: "info" | "success" | "warning" | "alert";
+    target: "all" | "web" | "app";
+    link?: string;
+    isActive: boolean;
+    priority: "high" | "normal" | "low";
+}
+
+export async function getActivities() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.ACTIVITIES,
+            [Query.orderAsc("order"), Query.limit(10)]
+        );
+        return response.documents as unknown as Activity[];
+    } catch {
+        return [];
+    }
+}
+
+export async function getFeatures() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.FEATURES,
+            [Query.orderAsc("order"), Query.limit(10)]
+        );
+        return response.documents as unknown as Feature[];
+    } catch {
+        return [];
+    }
+}
+
+export async function getStats() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.STATS,
+            [Query.orderAsc("order"), Query.limit(10)]
+        );
+        return response.documents as unknown as Stat[];
+    } catch {
+        return [];
+    }
+}
+
+export async function getNotifications() {
+    const databases = getDatabases();
+    try {
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            COLLECTIONS.NOTIFICATIONS,
+            [
+                Query.equal("isActive", true),
+                Query.limit(5)
+            ]
+        );
+        return response.documents as unknown as Notification[];
+    } catch {
+        return [];
+    }
+}
 
 // ==================== STORAGE ====================
 export interface StorageFile {

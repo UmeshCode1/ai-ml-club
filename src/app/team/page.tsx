@@ -43,6 +43,8 @@ export default async function TeamPage() {
             linkedin: m.linkedin,
             github: m.github,
             imageUrl: m.imageUrl,
+            year: m.year,
+            status: m.status,
         }));
     } catch (error) {
         console.error("Failed to fetch members from Appwrite:", error);

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aiml-club-v7';
+const CACHE_NAME = 'aiml-club-v8-perfection';
 const OFFLINE_URL = '/offline';
 
 const STATIC_ASSETS = [

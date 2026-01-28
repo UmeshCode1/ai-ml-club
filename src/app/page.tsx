@@ -7,7 +7,7 @@ import { FeaturesSection } from "@/components/home/features-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { ImpactStatsSection } from "@/components/home/impact-stats-section";
 import { TeamSection } from "@/components/home/team-section";
-import { getMembers, getUpcomingEvents, getBlogPosts } from "@/lib/database";
+import { getMembers, getUpcomingEvents, getBlogPosts, getActivities, getFeatures, getStats, getNotifications } from "@/lib/database";
 import { unstable_noStore as noStore } from "next/cache";
 import { AppHome } from "@/components/app/app-home";
 import { SeoOnly, AppOnly } from "@/components/layout/dual-view";
@@ -29,10 +29,24 @@ export default async function Home() {
   // Disable caching
   noStore();
 
-  // Fetch all members from Appwrite
-  const allMembers = await getMembers();
-  const upcomingEvents = await getUpcomingEvents();
-  const blogPosts = await getBlogPosts();
+  // Parallelize data fetching for performance
+  const [
+    allMembers,
+    upcomingEvents,
+    blogPosts,
+    activities,
+    features,
+    stats,
+    notifications
+  ] = await Promise.all([
+    getMembers(),
+    getUpcomingEvents(),
+    getBlogPosts(),
+    getActivities(),
+    getFeatures(),
+    getStats(),
+    getNotifications()
+  ]);
 
   const nextEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : undefined;
   const latestPost = blogPosts.length > 0 ? blogPosts[0] : undefined;
@@ -74,7 +88,11 @@ export default async function Home() {
     <main className="flex flex-col min-h-screen bg-transparent">
       <AppOnly>
         <AppOnly>
-          <AppHome nextEvent={nextEvent} latestPost={latestPost} />
+          <AppHome
+            nextEvent={nextEvent}
+            latestPost={latestPost}
+            notifications={notifications}
+          />
         </AppOnly>
       </AppOnly>
 
@@ -83,9 +101,9 @@ export default async function Home() {
         <QuickActions />
         <SeoContentSection />
         <AboutSection />
-        <ImpactStatsSection />
-        <FeaturesSection />
-        <ClubActivitiesSection />
+        <ImpactStatsSection stats={stats} />
+        <FeaturesSection features={features} />
+        <ClubActivitiesSection activities={activities} />
         <TeamSection members={teamMembers} autoSlideInterval={1000} />
         <CTASection />
       </SeoOnly>

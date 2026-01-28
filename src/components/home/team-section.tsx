@@ -89,11 +89,11 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 250
                     <Sparkles className="w-3.5 h-3.5" />
                     The Visionaries
                 </motion.div>
-                <h2 className="text-4xl md:text-6xl font-black text-neutral-900 dark:text-white mb-6 tracking-tight">
-                    Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">Team</span>
+                <h2 className="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white mb-6 tracking-tight">
+                    AI & Machine Learning Club <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] to-[var(--neon-lime-text)]">Core Team</span>
                 </h2>
-                <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-16 font-medium leading-relaxed">
-                    The passionate individuals driving innovation and excellence at OCT.
+                <p className="text-base sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-16 font-medium leading-relaxed italic">
+                    &quot;From faculty guidance to student brilliance — the minds behind AIML Club.&quot;
                 </p>
 
                 {/* Carousel UI */}
@@ -130,6 +130,14 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 250
                                     if (isMobile && !isActive) return null;
 
                                     const initials = member.name.split(" ").map(n => n[0]).join("").slice(0, 2);
+                                    const isFaculty = member.role?.toLowerCase().includes("faculty") ||
+                                        member.role?.toLowerCase().includes("coordinator") ||
+                                        member.role?.toLowerCase().includes("mentor") ||
+                                        member.role?.toLowerCase().includes("hod") ||
+                                        member.role?.toLowerCase().includes("professor");
+
+                                    const accentColor = isFaculty ? "var(--neon-lime)" : "var(--electric-cyan)";
+                                    const accentColorText = isFaculty ? "var(--neon-lime-text)" : "var(--electric-cyan-text)";
 
                                     return (
                                         <motion.div
@@ -153,11 +161,17 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 250
                                                     borderWidth={isActive ? 2 : 0}
                                                     duration={isActive ? 2.5 : 10}
                                                 >
+                                                    {/* Cyber-Core Scanline Effect */}
+                                                    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,0,0.02))] z-40 pointer-events-none opacity-20" style={{ backgroundSize: '100% 4px, 3px 100%' }} />
+
                                                     {/* Noise Texture Overlay */}
-                                                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none z-10" />
+                                                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.05] pointer-events-none z-30 mix-blend-overlay" />
+
+                                                    {/* Holographic Shift */}
+                                                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent z-20 group-hover:via-white/10 transition-all duration-700 -translate-x-full group-hover:translate-x-full" />
 
                                                     {/* Gradient Glow */}
-                                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 dark:to-black/80 z-20 opacity-40 dark:opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-20 opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
 
                                                     {member.image ? (
                                                         <Image
@@ -202,9 +216,9 @@ export function TeamSection({ members = DEFAULT_MEMBERS, autoSlideInterval = 250
                                                 <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight group-hover:text-[var(--neon-lime)] transition-colors">
                                                     {member.name}
                                                 </h3>
-                                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-sm">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--electric-cyan)] animate-pulse" />
-                                                    <span className="text-xs tracking-widest uppercase font-bold text-neutral-600 dark:text-neutral-300">
+                                                <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-sm ${isFaculty ? 'border-[var(--neon-lime)]/30 bg-[var(--neon-lime)]/5' : ''}`}>
+                                                    <div className={`w-1.5 h-1.5 rounded-full animate-pulse`} style={{ backgroundColor: accentColor }} />
+                                                    <span className={`text-[10px] md:text-xs tracking-[0.2em] uppercase font-black`} style={{ color: isFaculty ? accentColorText : undefined }}>
                                                         {member.role}
                                                     </span>
                                                 </div>

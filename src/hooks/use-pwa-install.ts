@@ -70,7 +70,11 @@ export function usePWAInstall() {
     /**
      * Triggers the PWA installation or shows instructions for iOS.
      */
-    const install = useCallback(async () => {
+    const install = useCallback(async (e?: React.MouseEvent) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         console.log("PWA: Attempting installation...", {
             hasPrompt: !!installPrompt,
             isIOS: platform.isIOS,

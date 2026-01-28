@@ -21,7 +21,7 @@ export function SeoContentSection() {
                 >
                     <header>
                         <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight text-white">
-                            Pioneering <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--electric-cyan)] to-[var(--neon-lime)]">AI Education</span>
+                            Pioneering <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--electric-cyan)] to-[var(--neon-lime)]">AI Excellence</span>
                             <br /> at Oriental College
                         </h2>
                         <div className="h-1.5 w-32 bg-gradient-to-r from-[var(--neon-lime)] to-transparent rounded-full" />

@@ -91,20 +91,21 @@ export const Footer = () => {
                             <div className="grid grid-cols-1 gap-3">
                                 <InstallFooterItem />
                                 <div className="grid grid-cols-2 gap-3">
-                                    <motion.button
+                                    <motion.a
                                         whileHover={{ y: -2 }}
                                         whileTap={{ scale: 0.98 }}
-                                        onClick={() => share("apk")}
-                                        className="relative group h-12 overflow-hidden rounded-2xl transform-gpu"
+                                        href={siteConfig.links.apk}
+                                        download="aiml-club.apk"
+                                        className="relative group h-12 overflow-hidden rounded-2xl transform-gpu flex items-center justify-center"
                                     >
                                         <div className="absolute inset-0 bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-white/5 transition-colors group-hover:border-[var(--neon-lime)]/40" />
                                         <div className="relative h-full flex items-center justify-center gap-2.5 px-4">
-                                            <div className="p-1.5 rounded-lg bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] group-hover:bg-[var(--neon-lime)] group-hover:text-black transition-all">
-                                                <Share2 className="w-3.5 h-3.5" />
+                                            <div className="p-1.5 rounded-lg bg-[var(--neon-lime)]/10 text-[var(--neon-lime-text)] group-hover:bg-[var(--neon-lime)] group-hover:text-black transition-all font-black text-[10px]">
+                                                APK
                                             </div>
-                                            <span className="text-[10px] font-black text-neutral-800 dark:text-neutral-300 tracking-[0.15em] uppercase">APK</span>
+                                            <span className="text-[10px] font-black text-neutral-800 dark:text-neutral-300 tracking-[0.15em] uppercase">Download</span>
                                         </div>
-                                    </motion.button>
+                                    </motion.a>
 
                                     <motion.button
                                         whileHover={{ y: -2 }}
@@ -313,9 +314,9 @@ function InstallFooterItem() {
             whileTap={{ scale: 0.98 }}
             className="w-full transform-gpu"
         >
-            <Link
-                href="/download"
-                className="relative group overflow-hidden block w-full rounded-2xl h-12"
+            <button
+                onClick={install}
+                className="relative group overflow-hidden block w-full rounded-2xl h-12 text-left"
             >
                 <div className="absolute inset-0 bg-neutral-900 group-hover:bg-neutral-800 transition-colors" />
                 <div className="relative h-full flex items-center justify-center gap-3 px-4">
@@ -325,7 +326,7 @@ function InstallFooterItem() {
                     <span className="text-[10px] font-black text-white tracking-[0.2em] uppercase">Install Mobile App</span>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-            </Link>
+            </button>
         </motion.div>
     );
 }

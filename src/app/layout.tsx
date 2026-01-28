@@ -4,6 +4,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { BottomNav } from "@/components/layout/BottomNav";
 import { Providers } from "@/components/layout/providers";
 import { cn } from "@/lib/utils";
 import { CommandPalette } from "@/components/layout/command-palette";
@@ -187,6 +188,7 @@ export default function RootLayout({
             </main>
 
             <Footer />
+            <BottomNav />
             <CommandPalette />
             <MagneticCursor />
           </SmoothScroll>

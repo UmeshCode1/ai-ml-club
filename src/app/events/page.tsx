@@ -2,6 +2,8 @@ import { getEvents, Event as DbEvent } from "@/lib/database";
 import { MOCK_EVENTS } from "@/lib/data";
 import { Metadata } from "next";
 import EventsPageClient from "./EventsPageClient";
+import { AppEvents } from "@/components/app/app-events";
+import { SeoOnly, AppOnly } from "@/components/layout/dual-view";
 
 export const metadata: Metadata = {
     title: "Events - AIML Club OCT",
@@ -21,20 +23,7 @@ export const metadata: Metadata = {
     },
 };
 
-// Type expected by EventsPageClient
-interface ClientEvent {
-    $id: string;
-    title: string;
-    description: string;
-    date: string;
-    location: string;
-    imageUrl?: string;
-    category?: string;
-    duration?: string;
-    status?: string;
-    registrationLink?: string;
-    isUpcoming?: boolean;
-}
+import { ClientEvent } from "@/lib/types";
 
 // Convert database/mock event to client event format
 function toClientEvent(event: DbEvent | typeof MOCK_EVENTS[0], id: string): ClientEvent {
@@ -108,7 +97,14 @@ export default async function EventsPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(eventsJsonLd) }}
             />
-            <EventsPageClient events={events} />
+
+            <AppOnly>
+                <AppEvents events={events} />
+            </AppOnly>
+
+            <SeoOnly>
+                <EventsPageClient events={events} />
+            </SeoOnly>
         </>
     );
 }

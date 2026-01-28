@@ -9,5 +9,9 @@ export async function AboutSection() {
     // Fetch images from Appwrite about bucket (server-side)
     const aboutImages = await getAboutImages();
 
-    return <AboutSectionClient images={aboutImages} />;
+    return (
+        <div className="standalone:hidden">
+            <AboutSectionClient images={aboutImages} />
+        </div>
+    );
 }

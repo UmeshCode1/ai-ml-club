@@ -25,7 +25,7 @@ export function HeroSection() {
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 {/* Neural Network Particle Animation */}
-                <NeuralNetwork className="opacity-70 dark:opacity-40 will-change-transform" />
+                <NeuralNetwork className="opacity-70 dark:opacity-40 will-change-transform standalone:hidden" />
 
                 {/* Floating AI/ML Keywords - Hidden on mobile to save CPU */}
                 <div className="hidden md:block">
@@ -104,11 +104,13 @@ export function HeroSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <h1 className="max-w-6xl mx-auto text-[clamp(2.25rem,6vw,5.5rem)] md:text-[clamp(3.5rem,7vw,8rem)] font-bold tracking-tighter text-neutral-900 dark:text-white mb-0 leading-[1.05]">
-                        AI <span className="text-neutral-400 dark:text-neutral-500 mx-1">&</span> MACHINE
-                    </h1>
-                    <h1 className="max-w-6xl mx-auto text-[clamp(2.25rem,6vw,5.5rem)] md:text-[clamp(3.5rem,7vw,8rem)] font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] via-[var(--neon-lime-text)] to-[var(--electric-cyan-text)] mb-8 pb-1 leading-[1.05]">
-                        LEARNING CLUB
+                    <h1 className="max-w-6xl mx-auto font-bold tracking-tighter mb-8 pb-1 leading-[1.05]">
+                        <span className="block text-[clamp(2.25rem,6vw,5.5rem)] md:text-[clamp(3.5rem,7vw,8rem)] text-neutral-900 dark:text-white mb-0">
+                            AI <span className="text-neutral-400 dark:text-neutral-500 mx-1">&</span> MACHINE
+                        </span>
+                        <span className="block text-[clamp(2.25rem,6vw,5.5rem)] md:text-[clamp(3.5rem,7vw,8rem)] text-transparent bg-clip-text bg-gradient-to-r from-[var(--electric-cyan-text)] via-[var(--neon-lime-text)] to-[var(--electric-cyan-text)]">
+                            LEARNING CLUB
+                        </span>
                     </h1>
                 </motion.div>
 

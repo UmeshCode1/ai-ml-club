@@ -1,6 +1,9 @@
 import { getMembers } from "@/lib/database";
 import { Metadata } from "next";
 import TeamPageClient from "./TeamPageClient";
+import { AppCommunity } from "@/components/app/app-community";
+import { SeoOnly, AppOnly } from "@/components/layout/dual-view";
+import { ClientMember } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -26,15 +29,27 @@ export const metadata: Metadata = {
 // Server Component - fetches data on the server
 export default async function TeamPage() {
     // Fetch members from Appwrite on the server
-    let members = [];
+    let members: ClientMember[] = [];
     try {
-        members = await getMembers();
+        const dbMembers = await getMembers();
+        members = dbMembers.map(m => ({
+            $id: m.$id || `temp-${Math.random()}`,
+            name: m.name,
+            role: m.role,
+            team: m.team || "",
+            email: m.email || "",
+            enrollmentNo: m.enrollmentNo,
+            contactNo: m.contactNo,
+            linkedin: m.linkedin,
+            github: m.github,
+            imageUrl: m.imageUrl,
+        }));
     } catch (error) {
         console.error("Failed to fetch members from Appwrite:", error);
         // Fallback to static data if Appwrite fails
         const { TEAM_DATA } = await import("@/lib/data");
         members = TEAM_DATA.map(m => ({
-            $id: m.id,
+            $id: m.id || `mock-${Math.random()}`,
             name: m.name,
             role: m.role,
             team: m.team || "",
@@ -73,7 +88,14 @@ export default async function TeamPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(teamJsonLd) }}
             />
-            <TeamPageClient members={members} />
+
+            <AppOnly>
+                <AppCommunity members={members} />
+            </AppOnly>
+
+            <SeoOnly>
+                <TeamPageClient members={members} />
+            </SeoOnly>
         </>
     );
 }

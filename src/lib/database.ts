@@ -237,6 +237,7 @@ export interface BlogPost {
     authorRole?: string;
     authorAvatar?: string;
     coverImageUrl?: string;
+    imageUrl?: string; // Compatibility with SEO metadata
     category?: string;
     tags?: string;
     readTime?: number;

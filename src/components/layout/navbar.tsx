@@ -11,7 +11,7 @@ import { Menu, X, ChevronDown, MessageSquare, Book, HardDrive, MessageCircle, Pe
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 
-import { siteConfig } from "@/config/site";
+// import { siteConfig } from "@/config/site"; // Removed unused
 import { useHaptic } from "@/hooks/use-haptic";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import { useShareApp } from "@/hooks/use-share-app";
@@ -32,15 +32,15 @@ export const Navbar = () => {
         { name: "Gallery", path: "/gallery" },
         {
             name: "Resources",
-            path: "#",
+            path: "",
             children: [
-                { name: "Latest Updates", path: siteConfig.links.info, external: true, icon: MessageSquare },
+                { name: "Latest Updates", path: "/updates", external: false, icon: MessageSquare },
                 { name: "Suggestion Box", path: "/suggestions", icon: MessageSquare },
                 { name: "Constitution", path: "/constitution", icon: Book },
-                { name: "Notion Workspace", path: "https://aimlcluboct.notion.site/Home-d08e0983dce94b2f81ca1b5082771061", external: true, icon: NotebookText },
-                { name: "GitHub Org", path: "https://github.com/aimlcluboct", external: true, icon: Github },
-                { name: "Media Drive", path: "https://drive.google.com/drive/folders/155hvNMdI83jLOUUZs4U7WaivtRdFsqb4?usp=sharing", external: true, icon: HardDrive },
-                { name: "WhatsApp Channel", path: "https://whatsapp.com/channel/0029VbAthv38V0tfulumuV1D", external: true, icon: MessageCircle },
+                { name: "Notion Workspace", path: "/resources/notion", external: false, icon: NotebookText },
+                { name: "GitHub Org", path: "/resources/github", external: false, icon: Github },
+                { name: "Media Drive", path: "/resources/media-drive", external: false, icon: HardDrive },
+                { name: "WhatsApp Channel", path: "/resources/whatsapp-channel", external: false, icon: MessageCircle },
                 { name: "Blog", path: "/blog", icon: PenTool }
             ]
         },
@@ -81,7 +81,7 @@ export const Navbar = () => {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, type: "spring", bounce: 0.2 }}
-            className="fixed top-[calc(1.25rem+env(safe-area-inset-top,0px))] inset-x-0 mx-auto w-max max-w-[calc(100vw-2rem)] md:max-w-max z-50 px-2 sm:px-0"
+            className="fixed top-[calc(1.25rem+env(safe-area-inset-top,0px))] inset-x-0 mx-auto w-max max-w-[calc(100vw-2rem)] md:max-w-max z-50 px-2 sm:px-0 standalone:hidden"
         >
             <div className="flex items-center gap-3 md:gap-4 px-3 sm:px-4 h-12 sm:h-14 rounded-full border border-black/5 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300">
 

@@ -4,7 +4,6 @@ import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
 import { Send, Instagram, Linkedin, Github, Check, Loader2, Users, Link2, Smartphone, Share2, Globe } from "lucide-react";
-import { GradientBorder } from "@/components/ui/gradient-border";
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon";
 import { createSubscription } from "@/lib/database";
 import { usePWAInstall } from "@/hooks/use-pwa-install";
@@ -50,7 +49,7 @@ export const Footer = () => {
     };
 
     return (
-        <footer className="w-full bg-white dark:bg-[#030303] border-t border-neutral-200/50 dark:border-white/5 relative pt-12 sm:pt-16 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:pb-8 transition-colors duration-700 overflow-hidden transform-gpu">
+        <footer className="w-full bg-white dark:bg-[#030303] border-t border-neutral-200/50 dark:border-white/5 relative pt-12 sm:pt-16 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:pb-8 transition-colors duration-700 overflow-hidden transform-gpu standalone:hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 {/* Main Footer Grid - Adaptive per device */}
@@ -156,13 +155,13 @@ export const Footer = () => {
                         <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-600 mb-6 px-1">Resources</h3>
                         <ul className="space-y-4">
                             {[
-                                { name: "Updates", href: siteConfig.links.info, external: true },
+                                { name: "Updates", href: "/updates", external: false },
                                 { name: "Suggestions", href: "/suggestions" },
                                 { name: "Constitution", href: "/constitution" },
-                                { name: "Notion", href: siteConfig.links.notion, external: true },
-                                { name: "GitHub", href: siteConfig.links.github, external: true },
-                                { name: "Drive", href: siteConfig.links.drive, external: true },
-                                { name: "Channel", href: siteConfig.links.whatsappChannel, external: true },
+                                { name: "Notion", href: "/resources/notion", external: false },
+                                { name: "GitHub", href: "/resources/github", external: false },
+                                { name: "Drive", href: "/resources/media-drive", external: false },
+                                { name: "Channel", href: "/resources/whatsapp-channel", external: false },
                             ].map((link) => (
                                 <li key={link.name}>
                                     <Link
@@ -226,6 +225,9 @@ export const Footer = () => {
                                             {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>SUBSCRIBE <Send className="w-3.5 h-3.5" /></>}
                                         </button>
                                     </form>
+                                )}
+                                {error && (
+                                    <p className="text-xs font-bold text-red-500 pl-4">{error}</p>
                                 )}
                             </div>
                         </div>

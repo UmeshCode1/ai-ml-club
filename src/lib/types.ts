@@ -86,3 +86,30 @@ export interface GalleryImage {
     category?: string;
     createdAt: string;
 }
+
+export interface ClientEvent {
+    $id: string;
+    title: string;
+    description: string;
+    date: string;
+    location: string;
+    imageUrl?: string;
+    category?: string;
+    duration?: string;
+    status?: string;
+    registrationLink?: string;
+    isUpcoming?: boolean;
+}
+
+export interface ClientMember {
+    $id: string;
+    name: string;
+    role: string;
+    team?: string;
+    email?: string;
+    enrollmentNo?: string;
+    contactNo?: string;
+    linkedin?: string;
+    github?: string;
+    imageUrl?: string;
+}

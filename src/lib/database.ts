@@ -198,7 +198,7 @@ export interface Event {
     venue?: string;
     location?: string; // alias for venue
     imageUrl?: string;
-    registrationLink?: string;
+    registrationLink?: string; // unified name
     isUpcoming: boolean;
     category?: string;
     duration?: string;

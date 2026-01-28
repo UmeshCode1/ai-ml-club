@@ -9,11 +9,10 @@ export interface Member {
     email?: string;
     bio?: string;
     techStack?: string[];
-    socials?: {
-        linkedin?: string;
-        github?: string;
-        twitter?: string;
-    };
+    linkedin?: string;
+    github?: string;
+    twitter?: string;
+    instagram?: string;
 }
 
 export interface Project {
@@ -41,7 +40,6 @@ export interface Event {
     status?: "upcoming" | "ongoing" | "past" | "completed";
     category?: string;
     duration?: string;
-    registrationUrl?: string;
     registrationLink?: string;
 }
 

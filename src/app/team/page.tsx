@@ -56,8 +56,8 @@ export default async function TeamPage() {
             email: m.email || "",
             enrollmentNo: m.enrollmentNo,
             contactNo: m.contactNo,
-            linkedin: m.socials?.linkedin,
-            github: m.socials?.github,
+            linkedin: m.linkedin,
+            github: m.github,
             imageUrl: m.image,
         }));
     }

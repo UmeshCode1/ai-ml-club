@@ -33,7 +33,8 @@ export const TEAM_DATA: Member[] = [
         contactNo: "7974389476",
         email: "umesh.code1@gmail.com",
         techStack: ["Next.js", "Python", "AI/ML"],
-        socials: { linkedin: "https://www.linkedin.com/in/umesh-patel-5647b42a4/", github: "https://github.com/UmeshCode1" }
+        linkedin: "https://www.linkedin.com/in/umesh-patel-5647b42a4/",
+        github: "https://github.com/UmeshCode1"
     },
 
     // EVENT & OPERATIONS TEAM

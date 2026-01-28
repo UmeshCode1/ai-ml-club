@@ -7,7 +7,7 @@ import { FeaturesSection } from "@/components/home/features-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { ImpactStatsSection } from "@/components/home/impact-stats-section";
 import { TeamSection } from "@/components/home/team-section";
-import { getMembers, getUpcomingEvents } from "@/lib/database";
+import { getMembers, getUpcomingEvents, getBlogPosts } from "@/lib/database";
 import { unstable_noStore as noStore } from "next/cache";
 import { AppHome } from "@/components/app/app-home";
 import { SeoOnly, AppOnly } from "@/components/layout/dual-view";
@@ -32,11 +32,15 @@ export default async function Home() {
   // Fetch all members from Appwrite
   const allMembers = await getMembers();
   const upcomingEvents = await getUpcomingEvents();
+  const blogPosts = await getBlogPosts();
+
   const nextEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : undefined;
+  const latestPost = blogPosts.length > 0 ? blogPosts[0] : undefined;
 
   // Get latest year (sorted descending)
   const years = [...new Set(allMembers.map(m => m.year).filter(Boolean))].sort().reverse();
   const latestYear = years[0] || "2025-26";
+
 
   // Get unique members for latest year (ALL members, not just leaders)
   const seen = new Set<string>();
@@ -69,7 +73,9 @@ export default async function Home() {
   return (
     <main className="flex flex-col min-h-screen bg-transparent">
       <AppOnly>
-        <AppHome nextEvent={nextEvent} />
+        <AppOnly>
+          <AppHome nextEvent={nextEvent} latestPost={latestPost} />
+        </AppOnly>
       </AppOnly>
 
       <SeoOnly>

@@ -3,13 +3,14 @@
 import { Bell, Calendar, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { QuickActions } from "@/components/home/quick-actions";
-import { Event } from "@/lib/database";
+import { Event, BlogPost } from "@/lib/database";
 
 interface AppHomeProps {
     nextEvent?: Event;
+    latestPost?: BlogPost;
 }
 
-export function AppHome({ nextEvent }: AppHomeProps) {
+export function AppHome({ nextEvent, latestPost }: AppHomeProps) {
     return (
         <div className="min-h-screen pb-24 pt-12 px-4">
             {/* Header / Identity */}
@@ -68,21 +69,29 @@ export function AppHome({ nextEvent }: AppHomeProps) {
             {/* Quick Actions */}
             <QuickActions />
 
-            {/* Latest Update (Placeholder for now) */}
-            <section className="mt-4">
-                <div className="flex items-center justify-between mb-4 px-2">
-                    <h2 className="text-sm font-bold text-neutral-400 uppercase tracking-wider">Latest Update</h2>
-                    <Link href="/updates" className="text-xs text-[var(--electric-cyan)] font-bold">View Feed</Link>
-                </div>
-                <div className="p-6 rounded-[2rem] bg-neutral-900 border border-neutral-800">
-                    <p className="text-neutral-300 text-sm leading-relaxed line-clamp-2">
-                        Welcome to the new AIML Club App experience! We&apos;ve optimized everything for your device. Access resources, events, and community updates faster than ever.
-                    </p>
-                    <div className="mt-4 text-xs text-neutral-500 font-mono">
-                        Posted by Core Team
+            {/* Latest Update */}
+            {latestPost && (
+                <section className="mt-4">
+                    <div className="flex items-center justify-between mb-4 px-2">
+                        <h2 className="text-sm font-bold text-neutral-400 uppercase tracking-wider">Latest Update</h2>
+                        <Link href="/blog" className="text-xs text-[var(--electric-cyan)] font-bold">View Feed</Link>
                     </div>
-                </div>
-            </section>
+                    <Link href={`/blog/${latestPost.slug}`} className="block">
+                        <div className="p-6 rounded-[2rem] bg-neutral-900 border border-neutral-800 active:scale-98 transition-transform">
+                            <p className="text-neutral-300 text-sm leading-relaxed line-clamp-2 mb-2">
+                                {latestPost.title}
+                            </p>
+                            <p className="text-neutral-500 text-xs line-clamp-2 mb-4">
+                                {latestPost.excerpt}
+                            </p>
+                            <div className="flex items-center justify-between text-xs text-neutral-600 font-mono">
+                                <span>{latestPost.$createdAt ? new Date(latestPost.$createdAt).toLocaleDateString() : "Recent Update"}</span>
+                                <span className="text-[var(--electric-cyan)]">Read More &rarr;</span>
+                            </div>
+                        </div>
+                    </Link>
+                </section>
+            )}
         </div>
     );
 }

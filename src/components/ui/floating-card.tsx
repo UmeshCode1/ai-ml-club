@@ -7,10 +7,12 @@ export const FloatingCard = ({
     children,
     delay = 0,
     duration = 4,
+    className = "",
 }: {
     children: React.ReactNode;
     delay?: number;
     duration?: number;
+    className?: string;
 }) => {
     return (
         <motion.div
@@ -24,6 +26,7 @@ export const FloatingCard = ({
                 ease: "easeInOut",
                 delay: delay,
             }}
+            className={className}
         >
             {children}
         </motion.div>

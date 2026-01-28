@@ -12,7 +12,15 @@ export function InstallPWA() {
         const handler = (e: any) => {
             e.preventDefault();
             setDeferredPrompt(e);
-            // Show prompt after a small delay (e.g. 5 seconds) so it doesn't overlap with initial load
+
+            // Check if user has dismissed the prompt recently (e.g., within 7 days)
+            const dismissedAt = localStorage.getItem("pwa-prompt-dismissed");
+            if (dismissedAt) {
+                const daysSince = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
+                if (daysSince < 7) return;
+            }
+
+            // Show prompt after a small delay
             setTimeout(() => setShowPrompt(true), 5000);
         };
 
@@ -31,6 +39,11 @@ export function InstallPWA() {
             setDeferredPrompt(null);
             setShowPrompt(false);
         }
+    };
+
+    const handleDismiss = () => {
+        setShowPrompt(false);
+        localStorage.setItem("pwa-prompt-dismissed", Date.now().toString());
     };
 
     return (
@@ -65,7 +78,7 @@ export function InstallPWA() {
                                         Install Now
                                     </button>
                                     <button
-                                        onClick={() => setShowPrompt(false)}
+                                        onClick={handleDismiss}
                                         className="px-4 py-2 bg-white/5 text-white text-sm font-medium rounded-lg hover:bg-white/10 transition-colors"
                                     >
                                         Later
@@ -74,7 +87,7 @@ export function InstallPWA() {
                             </div>
 
                             <button
-                                onClick={() => setShowPrompt(false)}
+                                onClick={handleDismiss}
                                 className="text-neutral-500 hover:text-white transition-colors"
                             >
                                 <X className="w-5 h-5" />

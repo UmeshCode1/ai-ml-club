@@ -6,10 +6,10 @@ import { GradientBorder } from "@/components/ui/gradient-border";
 import { useState, useEffect, useMemo } from "react";
 
 const tags = [
-    "Workshops",
-    "Hackathons",
-    "Research",
-    "Networking"
+    "Applied Research",
+    "Competitive Engineering",
+    "Technical Workshops",
+    "Strategic Networking"
 ];
 
 interface AboutSectionClientProps {
@@ -81,16 +81,17 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                         </div>
 
                         {/* Title */}
-                        <h2 className="text-5xl md:text-7xl font-bold text-neutral-900 dark:text-white mb-8 tracking-tight">
-                            About <span className="text-[var(--neon-lime-text)]">AIML Club</span>
+                        <h2 className="text-5xl md:text-7xl font-bold text-neutral-900 dark:text-white mb-8 tracking-tighter">
+                            Technical Leadership <br />
+                            <span className="text-[var(--neon-lime-text)]">&amp; Research</span>
                         </h2>
 
                         {/* Paragraphs */}
-                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
-                            The AI &amp; Machine Learning Club at Oriental College of Technology is a student-driven ecosystem dedicated to exploring the frontiers of Artificial Intelligence.
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed font-medium">
+                            The AI &amp; Machine Learning Club is the flagship technical body of Oriental College of Technology (OCT), Bhopal. Founded on the principles of academic rigor and industrial application, we serve as a structured environment for the next generation of engineers and researchers.
                         </p>
-                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 leading-relaxed">
-                            We don&apos;t just learn; we build. From workshops and hackathons to real-world projects, we provide the platform for students to turn theoretical knowledge into practical innovation.
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 leading-relaxed font-medium">
+                            Our methodology emphasizes learning through building and collaborative research. By fostering an environment of technical discipline and intent, we bridge the gap between classroom theory and real-world machine learning deployment.
                         </p>
 
                         {/* Tags */}
@@ -159,8 +160,8 @@ export function AboutSectionClient({ images }: AboutSectionClientProps) {
                                 {/* Content Overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-[5]">
                                     <div className="w-8 h-1 bg-[var(--neon-lime)] mb-4 shadow-[0_0_10px_var(--neon-lime)]" />
-                                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">Club Moments</h3>
-                                    <p className="text-xs sm:text-sm text-neutral-400">Capturing our journey of innovation</p>
+                                    <h3 className="text-xl sm:text-2xl font-black text-white mb-1 tracking-tight">Practical Implementation</h3>
+                                    <p className="text-xs sm:text-sm text-neutral-400 font-medium lowercase tracking-wider">Mentorship and collaboration in a focused academic setting.</p>
 
                                     {/* Image indicator dots */}
                                     {imageList.length > 1 && (

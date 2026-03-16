@@ -268,6 +268,52 @@ h6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
+
+  /* Optimize blur effects for tablets */
+  .blur-xl {
+    filter: blur(10px);
+  }
+
+  .blur-2xl {
+    filter: blur(16px);
+  }
+}
+
+/* Landscape Orientation Support */
+@media (orientation: landscape) and (max-height: 600px) {
+  /* Reduce vertical spacing in landscape mode */
+  .py-16 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .py-24 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Optimize hero section for landscape */
+  .min-h-screen {
+    min-height: auto;
+  }
+
+  /* Reduce text size slightly for better fit */
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+}
+
+/* Tablet Landscape Specific */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* Optimize grid layouts for landscape tablets */
+  .grid-cols-2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Better spacing for landscape */
+  .gap-8 {
+    gap: 1.5rem;
+  }
 }
 
 /* Touch Device Specific */

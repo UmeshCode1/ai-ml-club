@@ -65,8 +65,8 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
             const isTinyMobile = width < 380;
             isMobileRef.current = isMobile;
 
-            // Ultra-low power mode for tiny devices
-            const baseCount = isTinyMobile ? 3 : (isSmallMobile ? 6 : (isMobile ? 12 : Math.min(Math.floor((width * height) / 25000), 80)));
+            // Ultra-low power mode for tiny devices with more aggressive reduction
+            const baseCount = isTinyMobile ? 2 : (isSmallMobile ? 4 : (isMobile ? 8 : Math.min(Math.floor((width * height) / 25000), 80)));
             const particleCount = baseCount;
 
             particles.current = [];
@@ -74,9 +74,9 @@ export const NeuralNetwork = ({ className }: { className?: string }) => {
                 particles.current.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2),
-                    vy: (Math.random() - 0.5) * (isMobile ? 0.05 : 0.2),
-                    size: Math.random() * (isMobile ? 0.8 : 1.5) + 0.5,
+                    vx: (Math.random() - 0.5) * (isMobile ? 0.03 : 0.2),
+                    vy: (Math.random() - 0.5) * (isMobile ? 0.03 : 0.2),
+                    size: Math.random() * (isMobile ? 0.6 : 1.5) + 0.5,
                 });
             }
         };

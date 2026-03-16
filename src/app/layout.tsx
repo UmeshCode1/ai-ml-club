@@ -19,6 +19,7 @@ import { ThemeColorUpdater } from "@/components/layout/theme-color-updater";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { InstallPWA } from "@/components/layout/install-pwa";
 import { GlobalNotification } from "@/components/layout/global-notification";
+import { ErrorBoundary } from "@/components/layout/error-boundary";
 
 
 const inter = Inter({
@@ -178,10 +179,11 @@ export default function RootLayout({
         inter.variable,
         jetbrainsMono.variable
       )}>
-        <Providers>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+        <ErrorBoundary>
+          <Providers>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
                 if ('serviceWorker' in navigator) {
                   window.addEventListener('load', function() {
                     navigator.serviceWorker.register('/sw.js').then(function(reg) {
@@ -192,7 +194,7 @@ export default function RootLayout({
                         }
                       });
 
-                      // Periodic check every 15 minutes for "perfection"
+                      // Periodic check every 15 minutes
                       setInterval(() => {
                         reg.update();
                       }, 900000);
@@ -209,34 +211,35 @@ export default function RootLayout({
                   });
                 }
               `,
-            }}
-          />
-          <GlobalScrollProgress />
-          <SmoothScroll>
-            {/* Global Holographic Noise Texture */}
-            <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('/noise.png')] bg-repeat" />
+              }}
+            />
+            <GlobalScrollProgress />
+            <SmoothScroll>
+              {/* Global Holographic Noise Texture */}
+              <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('/noise.png')] bg-repeat" />
 
-            <AppwritePing />
-            <PreLoader />
-            <InstallPWA />
-            <ScrollToTop />
-            <GlobalNotification />
-            <GlobalBackground />
-            <ThemeColorUpdater />
-            <Navbar />
+              <AppwritePing />
+              <PreLoader />
+              <InstallPWA />
+              <ScrollToTop />
+              <GlobalNotification />
+              <GlobalBackground />
+              <ThemeColorUpdater />
+              <Navbar />
 
-            <main className="relative min-h-screen">
-              <RouteTransition>
-                {children}
-              </RouteTransition>
-            </main>
+              <main className="relative min-h-screen">
+                <RouteTransition>
+                  {children}
+                </RouteTransition>
+              </main>
 
-            <Footer />
-            <BottomNav />
-            <CommandPalette />
-            <MagneticCursor />
-          </SmoothScroll>
-        </Providers>
+              <Footer />
+              <BottomNav />
+              <CommandPalette />
+              <MagneticCursor />
+            </SmoothScroll>
+          </Providers>
+        </ErrorBoundary>
       </body>
     </html>
   );

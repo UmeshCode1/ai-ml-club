@@ -2,21 +2,51 @@
 
 import { Client, Databases, Storage, ID, Query } from "node-appwrite";
 
-// Get Appwrite config
-const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || "696f6e31002241c92438";
-const ENDPOINT = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || "https://fra.cloud.appwrite.io/v1";
-const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || "aiml-club-db";
+/**
+ * Validates server-side Appwrite configuration
+ * Throws error if API key is missing in production
+ */
+function validateServerConfig() {
+    const apiKey = process.env.APPWRITE_API_KEY;
+    const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+    const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
+    const databaseId = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
+
+    // In production, API key is required for server operations
+    if (process.env.NODE_ENV === 'production') {
+        if (!apiKey) {
+            throw new Error('APPWRITE_API_KEY is required for server-side operations in production');
+        }
+        if (!projectId) {
+            throw new Error('NEXT_PUBLIC_APPWRITE_PROJECT_ID is required in production');
+        }
+        if (!endpoint) {
+            throw new Error('NEXT_PUBLIC_APPWRITE_ENDPOINT is required in production');
+        }
+    }
+
+    return {
+        apiKey: apiKey || "",
+        projectId: projectId || "696f6e31002241c92438",
+        endpoint: endpoint || "https://fra.cloud.appwrite.io/v1",
+        databaseId: databaseId || "aiml-club-db",
+    };
+}
+
+const config = validateServerConfig();
 
 // Server-side Appwrite client with API key
 const getClient = () => {
     return new Client()
-        .setEndpoint(ENDPOINT)
-        .setProject(PROJECT_ID)
-        .setKey(process.env.APPWRITE_API_KEY || "");
+        .setEndpoint(config.endpoint)
+        .setProject(config.projectId)
+        .setKey(config.apiKey);
 };
 
 const getDatabases = () => new Databases(getClient());
 const getStorage = () => new Storage(getClient());
+
+const DATABASE_ID = config.databaseId;
 
 // Storage Bucket IDs
 const BUCKETS = {

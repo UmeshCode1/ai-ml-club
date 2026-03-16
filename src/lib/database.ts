@@ -1,6 +1,7 @@
 "use server";
 
 import { Client, Databases, Storage, ID, Query } from "node-appwrite";
+import { logger } from './logger';
 
 /**
  * Validates server-side Appwrite configuration
@@ -317,7 +318,7 @@ export async function getLeadershipMembers() {
         );
         return response.documents as unknown as Member[];
     } catch (error) {
-        console.error("Failed to fetch leadership members:", error);
+        logger.error("Failed to fetch leadership members", error as Error, { collection: COLLECTIONS.MEMBERS });
         return [];
     }
 }
@@ -502,7 +503,7 @@ export async function createContact(data: Omit<Contact, "$id" | "$createdAt">) {
             data
         );
     } catch (error) {
-        console.error("Failed to create contact:", error);
+        logger.error("Failed to create contact", error as Error, { collection: COLLECTIONS.CONTACTS });
         throw error;
     }
 }

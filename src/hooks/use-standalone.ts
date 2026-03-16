@@ -10,7 +10,7 @@ export function useStandalone() {
         const checkStandalone = () => {
             const isStandaloneMode =
                 window.matchMedia("(display-mode: standalone)").matches ||
-                (window.navigator as any).standalone === true ||
+                (window.navigator as Navigator & { standalone?: boolean }).standalone === true ||
                 document.referrer.includes("android-app://"); // For TWA if needed
 
             setIsStandalone(isStandaloneMode);
@@ -24,7 +24,7 @@ export function useStandalone() {
 
         try {
             mediaQuery.addEventListener("change", handleChange);
-        } catch (e) {
+        } catch {
             // Safari < 14 support
             mediaQuery.addListener(handleChange);
         }
@@ -32,7 +32,7 @@ export function useStandalone() {
         return () => {
             try {
                 mediaQuery.removeEventListener("change", handleChange);
-            } catch (e) {
+            } catch {
                 mediaQuery.removeListener(handleChange);
             }
         };

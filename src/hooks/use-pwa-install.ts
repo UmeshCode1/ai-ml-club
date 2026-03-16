@@ -23,7 +23,7 @@ export function usePWAInstall() {
     useEffect(() => {
         // Platform detection logic
         const ua = navigator.userAgent;
-        const isIOS = /iPad|iPhone|iPod/.test(ua) && !((window as any).MSStream);
+        const isIOS = /iPad|iPhone|iPod/.test(ua) && !(window as Window & { MSStream?: unknown }).MSStream;
         const isChrome = /Chrome/.test(ua) && /Google Inc/.test(navigator.vendor);
 
         // Subtle delay to avoid React render cycle warnings
@@ -96,11 +96,11 @@ export function usePWAInstall() {
 
         try {
             await installPrompt.prompt();
-            const { outcome } = await installPrompt.userChoice;
+            await installPrompt.userChoice;
 
             setInstallPrompt(null);
             setIsInstallable(false);
-        } catch (error) {
+        } catch {
             alert("Installation failed. Please try adding to home screen manually from the browser menu.");
         }
     }, [installPrompt, platform.isIOS, isInstallable, isInstalled]);

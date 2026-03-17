@@ -22,15 +22,27 @@ jobs:
             const month = String(now.getUTCMonth() + 1).padStart(2, '0');
             const period = `${year}-${month}`;
             const title = `Wiki refresh - ${period}`;
+            const wikiBase = `https://github.com/${context.repo.owner}/${context.repo.repo}/wiki`;
 
-            const query = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open in:title "${title}"`;
+            const query = `repo:${context.repo.owner}/${context.repo.repo} is:issue in:title "${title}"`;
             const result = await github.rest.search.issuesAndPullRequests({
               q: query,
               per_page: 1,
             });
 
             if (result.data.total_count > 0) {
-              core.info(`Open issue already exists for ${period}. Skipping.`);
+              const existing = result.data.items[0];
+              if (existing.state === 'closed') {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: existing.number,
+                  state: 'open',
+                });
+                core.info(`Reopened existing issue #${existing.number} for ${period}.`);
+                return;
+              }
+              core.info(`Issue #${existing.number} already exists for ${period}. Skipping.`);
               return;
             }
 
@@ -48,9 +60,9 @@ jobs:
               '- Ensure no personal phone numbers are exposed in public wiki pages.',
               '',
               'Reference pages:',
-              '- https://github.com/UmeshCode1/ai-ml-club/wiki/Wiki-Update-Protocol',
-              '- https://github.com/UmeshCode1/ai-ml-club/wiki/Social-Handles-and-Official-Channels',
-              '- https://github.com/UmeshCode1/ai-ml-club/wiki/Event-Timeline-and-Archive',
+              `- ${wikiBase}/Wiki-Update-Protocol`,
+              `- ${wikiBase}/Social-Handles-and-Official-Channels`,
+              `- ${wikiBase}/Event-Timeline-and-Archive`,
             ].join('\n');
 
             await github.rest.issues.create({

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Circle, CheckCircle2, PlayCircle, Loader2, AlertCircle, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 

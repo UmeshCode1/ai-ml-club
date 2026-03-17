@@ -5,6 +5,12 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    files: ["scripts/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -13,7 +19,6 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     // Project-specific ignores:
-    "scripts/**",
     "*.json",
     "*.md",
     "public/**",

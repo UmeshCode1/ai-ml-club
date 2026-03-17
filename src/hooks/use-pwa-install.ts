@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, type MouseEvent } from "react";
 
 /**
  * Interface for the non-standard beforeinstallprompt event.
@@ -23,7 +23,7 @@ export function usePWAInstall() {
     useEffect(() => {
         // Platform detection logic
         const ua = navigator.userAgent;
-        const isIOS = /iPad|iPhone|iPod/.test(ua) && !((window as any).MSStream);
+        const isIOS = /iPad|iPhone|iPod/.test(ua) && !("MSStream" in window);
         const isChrome = /Chrome/.test(ua) && /Google Inc/.test(navigator.vendor);
 
         // Subtle delay to avoid React render cycle warnings
@@ -70,7 +70,7 @@ export function usePWAInstall() {
     /**
      * Triggers the PWA installation or shows instructions for iOS.
      */
-    const install = useCallback(async (e?: React.MouseEvent) => {
+    const install = useCallback(async (e?: MouseEvent) => {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -96,11 +96,11 @@ export function usePWAInstall() {
 
         try {
             await installPrompt.prompt();
-            const { outcome } = await installPrompt.userChoice;
+            await installPrompt.userChoice;
 
             setInstallPrompt(null);
             setIsInstallable(false);
-        } catch (error) {
+        } catch {
             alert("Installation failed. Please try adding to home screen manually from the browser menu.");
         }
     }, [installPrompt, platform.isIOS, isInstallable, isInstalled]);

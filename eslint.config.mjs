@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Project-specific ignores:
+    "scripts/**",
+    "*.json",
+    "*.md",
+    "public/**",
   ]),
 ]);
 

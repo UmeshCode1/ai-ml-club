@@ -4,14 +4,19 @@ import { useEffect, useState } from "react";
 import { Download, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
 export function InstallPWA() {
-    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [showPrompt, setShowPrompt] = useState(false);
 
     useEffect(() => {
-        const handler = (e: any) => {
+        const handler = (e: Event) => {
             e.preventDefault();
-            setDeferredPrompt(e);
+            setDeferredPrompt(e as BeforeInstallPromptEvent);
 
             // Check if user has dismissed the prompt recently (e.g., within 7 days)
             const dismissedAt = localStorage.getItem("pwa-prompt-dismissed");

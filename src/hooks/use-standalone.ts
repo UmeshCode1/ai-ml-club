@@ -8,9 +8,10 @@ export function useStandalone() {
     useEffect(() => {
         // Check if running in standalone mode (PWA/TWA)
         const checkStandalone = () => {
+            const nav = window.navigator as Navigator & { standalone?: boolean };
             const isStandaloneMode =
                 window.matchMedia("(display-mode: standalone)").matches ||
-                (window.navigator as any).standalone === true ||
+                nav.standalone === true ||
                 document.referrer.includes("android-app://"); // For TWA if needed
 
             setIsStandalone(isStandaloneMode);
@@ -24,7 +25,7 @@ export function useStandalone() {
 
         try {
             mediaQuery.addEventListener("change", handleChange);
-        } catch (e) {
+        } catch {
             // Safari < 14 support
             mediaQuery.addListener(handleChange);
         }
@@ -32,7 +33,7 @@ export function useStandalone() {
         return () => {
             try {
                 mediaQuery.removeEventListener("change", handleChange);
-            } catch (e) {
+            } catch {
                 mediaQuery.removeListener(handleChange);
             }
         };

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Info, CheckCircle, AlertTriangle, Bell } from "lucide-react";
 import { getNotifications, Notification } from "@/lib/database";
@@ -11,7 +10,6 @@ import Link from "next/link";
 export function GlobalNotification() {
     const [notification, setNotification] = useState<Notification | null>(null);
     const [isVisible, setIsVisible] = useState(false);
-    const pathname = usePathname();
 
     useEffect(() => {
         // Fetch notifications
@@ -39,10 +37,6 @@ export function GlobalNotification() {
         fetchNotification();
     }, []);
 
-    // Don't show on AppHome (it has its own) or Admin pages if any
-    const isAppPage = pathname === "/" && typeof window !== 'undefined' && window.innerWidth < 768; // Rough check, but AppHome usually handles its own. Actually let's just show it everywhere for consistency unless specific route.
-
-    // Better logic: AppHome routes are controlled by logic, but for "Web", we usually mean the landing page.
     if (!notification || !isVisible) return null;
 
     const dismiss = () => {

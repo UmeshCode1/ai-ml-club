@@ -32,6 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aimlclub.tech"),
   title: {
     default: "AI & Machine Learning Club | Oriental College of Technology",
     template: "%s | AI & Machine Learning Club",

@@ -1,0 +1,10 @@
+{
+  "redHatDependencyAnalytics.vulnerabilityAlertSeverity": "Warning",
+  "redHatDependencyAnalytics.exclude": [
+    "**/*"
+  ],
+  "redHatDependencyAnalytics.recommendations.enabled": false,
+  "markdownlint.run": "onSave",
+  "markdownlint.configFile": ".markdownlint.json",
+  "json.schemaDownload.enable": false
+}
